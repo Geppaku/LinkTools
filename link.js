@@ -317,11 +317,15 @@ function extractIndicator() {
 	let dupUrls = memoUnescapedValue.match(/(http(s)?:\/{0,2}[^\s,]+)/g);
 	urls = new Set(dupUrls);
 	/*　■　Domain抽出（domainsに格納）　■　*/
+	let dupDomains = [];
 	for ( let tld of tlds ) {
-		let reg = new RegExp('[A-Za-z0-9\\.\\-]+\\.' + tld + '[^A-Za-z0-9\\.\\-]*', 'g');
-		let dupDomains = memoUnescapedValue.match(reg);
-		domains = new Set(dupDomains);
+		let reg = new RegExp('[A-Za-z0-9\\.\\-]+\\.' + tld + '($|[^A-Za-z0-9\\.\\-]+)', 'g');
+		let arr = memoUnescapedValue.match(reg);
+		if ( arr !== null ) {
+			dupDomains = [...dupDomains, ...arr];
+		}
 	}
+	domains = new Set(dupDomains);
 }
 
 /*　■■■　Analysis　■■　*/
