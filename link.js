@@ -335,6 +335,7 @@ function analysis() {
 	];
 	const domainOsints = [
 		//{ name: '', url1: '', url2: '', encode: '' },
+		{ name: 'Whois', url1: 'https://www.whois.com/whois/', url2: '', encode: ''  },
 		{ name: 'Nslookup', url1: 'https://www.nslookup.io/domains/', url2: '/dns-records/', encode: ''  },
 	];
 	const urlOsints = [
