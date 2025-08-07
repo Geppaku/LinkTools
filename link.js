@@ -319,7 +319,7 @@ function extractIndicator() {
 	/*　■　Domain抽出（domainsに格納）　■　*/
 	let dupDomains = [];
 	for ( let tld of tlds ) {
-		let reg = new RegExp('[A-Za-z0-9\\.\\-]+\\.' + tld + '($|[^A-Za-z0-9\\.\\-]+)', 'g');
+		let reg = new RegExp('[A-Za-z0-9\\.\\-]+\\.' + tld + '($|[^A-Za-z0-9\\.\\-])', 'g');
 		let arr = memoUnescapedValue.match(reg);
 		if ( arr !== null ) {
 			dupDomains = [...dupDomains, ...arr];
@@ -409,4 +409,5 @@ function appendHtmlTable(parentElm, headers, datass) {
 			tdElm.textContent = data;
 		}
 	}
+
 }
