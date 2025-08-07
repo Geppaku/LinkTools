@@ -318,7 +318,7 @@ function extractIndicator() {
 	urls = new Set(dupUrls);
 	/*　■　Domain抽出（domainsに格納）　■　*/
 	for ( let tld of tlds ) {
-		let reg = new RegExp('[A-Za-z0-9\\.\\-]+\\.' + tld + '[^A-Za-z0-9\\.\\-]*');
+		let reg = new RegExp('[A-Za-z0-9\\.\\-]+\\.' + tld + '[^A-Za-z0-9\\.\\-]*', 'g');
 		let dupDomains = memoUnescapedValue.match(reg);
 		domains = new Set(dupDomains);
 	}
