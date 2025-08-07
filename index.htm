@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="author" content="Geppaku">
+	<link rel="icon" href="favicon.ico">
+	<link rel="stylesheet" href="link.css">
+	<script src="link.js"></script>
+	<script src="work.js"></script>
+	<title>LINK Tools</title>
+</head>
+
+<body>
+	<div class="l--grid-container--body">
+		<!--　■■■■■　HEADER　■■■■■　-->
+		<header class="header">
+			<nav class="">
+				<ul class="l--flex-container">
+					<li><a class="d--no-decoration d--color-white" href="#"><img src="favicon.ico" alt="TOP"></a></li>
+					<li><a class="d--no-decoration d--color-white" href="#analysis">Analysis</a></li>
+					<li><a class="d--no-decoration d--color-white" href="#work">Work</a></li>
+					<li><a class="d--no-decoration d--color-white">Tools<span class="caret"></span></a>
+						<ul class="l--pull-down d--bgcolor-black">
+							<li><a class="d--no-decoration d--color-white" href="htmlTools/" target="_blank">Unicode一覧</a></li>
+							<li><a class="d--no-decoration d--color-white" href="">テレワーク開始</a></li>
+							<li><a class="d--no-decoration d--color-white" href="">テレワーク終了</a></li>
+							<li><a class="d--no-decoration d--color-white" href="">有給休暇取得</a></li>
+						</ul>
+					</li>
+					<li><a class="d--no-decoration d--color-white" href="#config">⚙</a></li>
+				</ul>
+			</nav>
+		</header>
+		<!--　■■■■■　LINK　■■■■■　-->
+		<div class="link">
+			<ul>
+				<li><img ></li>
+				<li><img ></li>
+			</ul>
+		</div>
+		<!--　■■■■■　MAIN　■■■■■　-->
+		<main class="main">
+			<!--　■■■■　MAIN--TOP　■■■■　-->
+			<article id="top" class="l--fullwidth">
+				<h1><a href="Documents/html.mhtml">Boss</a></h1>
+				<div class="l--h1-contetnt">
+					<!--　■■■　MAIN--TOP--ABOUT-LINK-TOOLS　■■■　-->
+					<details>
+						<summary class="h2">LINK Tools について</summary>
+					</details>
+					<!--　■■■　MAIN--TOP--UPDATE-HISTORY　■■■　-->
+					<details>
+						<summary class="h2">更新履歴</summary>
+					</details>
+					<!--　■■■　MAIN--TOP--HOW-TO-USE　■■■　-->
+					<details>
+						<summary class="h2">使い方</summary>
+						<p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p>
+					</details>
+				</div>
+			</article>
+			<!--　■■■■　MAIN--ANALYSIS　■■■■　-->
+			<article id="analysis" class="l--tab-content l--fullwidth">
+				<h1 class="d--h1">Analysis</h1>
+				<div class="l--h1-contetnt">
+					<details open>
+						<summary class="d--h2">IP Address</summary>
+						<div id="main--analysis--ip-address" class="reset-child--elm l--flex-container"></div>
+					</details>
+					<details open>
+						<summary class="d--h2">Domain</summary>
+						<div id="main--analysis--domain" class="reset-child--elm l--flex-container"></div>
+					</details>
+					<details open>
+						<summary class="d--h2">URL</summary>
+						<div class="l--flex-container l--legend">
+							<p>🤡：検出回避</p>
+							<p>𝕯：装飾文字</p>
+							<p>➗：除算スラッシュ</p>
+							<p>🔑：Basic認証</p>
+							<p>📖：翻訳サイト</p>
+							<p>➡️：リダイレクト</p>
+							<p>🌐：IPFS</p>
+							<p>🎲：DGA</p>
+						</div>
+						<div id="main--analysis--url" class="reset-child--elm l--flex-container"></div>
+					</details>
+					<details open>
+						<summary class="d--h2">Mail</summary>
+						<div id="main--analysis--mail" class="reset-child--elm l--flex-container"></div>
+					</details>
+					<details open>
+						<summary class="d--h2">●</summary>
+						<div id="main--analysis--●" class="reset-child--elm l--flex-container"></div>
+					</details>
+				</div>
+			</article>
+			<!--　■■■■　MAIN--WORK　■■■■　-->
+			<article id="work" class="l--tab-content l--fullwidth">
+				<h1 class="d--h1">Work</h1>
+				<div id="work--contents" class="l--h1-contetnt"></div>
+			</article>
+			<!--　■■■■　MAIN--CONFIG　■■■■　-->
+			<article id="config" class="l--tab-content l--fullwidth">
+				<h1 class="d--h1">Config</h1>
+				<hr>
+				<!--　■■■　MAIN--CONFIG--USER-INFO　■■■　-->
+				<details open>
+					<summary class="d--h2">ユーザー情報</summary>
+					<!--　■■　MAIN--CONFIG--ユーザー名　■■　-->
+					<div class="config--key-value">
+						<div class="config--key">
+							<label for="config--user-name">ユーザー名</label>
+						</div>
+						<div class="config--value">
+							<input type="text" id="config--user-name" class="save-ls--key-value config--value-input" placeholder="苗字">
+							<button class="config--copy-btn">Copy</button>
+						</div>
+					</div>
+					<!--　■■　MAIN--CONFIG--USER-ID　■■　-->
+					<div class="config--key-value">
+						<div class="config--key">
+							<label for="config--user-id">ユーザーID</label>
+						</div>
+						<div class="config--value">
+							<input type="text" id="config--user-id" class="save-ls--key-value config--value-input" placeholder="0123456789">
+						</div>
+					</div>
+					<!--　■■　MAIN--CONFIG--MAIL　■■　-->
+					<div class="config--key-value">
+						<div class="config--key">
+							<label for="config--e-mail-address">メールアドレス</label>
+						</div>
+						<div class="config--value">
+							<input type="text" id="config--e-mail-address" class="save-ls--key-value config--value-input" placeholder="account@example.com">
+						</div>
+					</div>
+					<!--　■■　MAIN--CONFIG--PHONE-NIMBER-1　■■　-->
+					<div class="config--key-value">
+						<div class="config--key">
+							<label for="config--phone-number-1">電話番号１</label>
+						</div>
+						<div class="config--value">
+							<input type="text" id="config--phone-number-1" class="save-ls--key-value config--value-input" placeholder="090-1234-5678">
+						</div>
+					</div>
+					<!--　■■　MAIN--CONFIG--PHONE-NIMBER-2　■■　-->
+					<div class="config--key-value">
+						<div class="config--key">
+							<label for="config--phone-number-2">電話番号２</label>
+						</div>
+						<div class="config--value">
+							<input type="text" id="config--phone-number-2" class="save-ls--key-value config--value-input" placeholder="03-1234-5678">
+						</div>
+					</div>
+					<!--　■■　MAIN--CONFIG--POSTAL-CODE　■■　-->
+					<div class="config--key-value">
+						<div class="config--key">
+							<label for="config--postal-code">郵便番号</label>
+						</div>
+						<div class="config--value">
+							<input type="text" id="config--postal-code" class="save-ls--key-value config--value-input" placeholder="100-0002">
+						</div>
+					</div>
+					<!--　■■　MAIN--CONFIG--ADDRESS-1　■■　-->
+					<div class="config--key-value">
+						<div class="config--key">
+							<label for="config--address-1">住所１</label>
+						</div>
+						<div class="config--value">
+							<input type="text" id="config--address-1" class="save-ls--key-value config--value-input" placeholder="東京都千代田区千代田1-1">
+						</div>
+					</div>
+					<!--　■■　MAIN--CONFIG--ADDRESS-2　■■　-->
+					<div class="config--key-value">
+						<div class="config--key">
+							<label for="config--address-2">住所２</label>
+						</div>
+						<div class="config--value">
+							<input type="text" id="config--address-2" class="save-ls--key-value config--value-input" placeholder="皇居">
+						</div>
+					</div>
+				</details>
+				<hr>
+				<!--　■■■　MAIN--CONFIG--DEPARTMENT-INFO　■■■　-->
+				<details>
+					<summary class="d--h2">勤怠連絡</summary>
+					<!--　■■　MAIN--CONFIG--NOTIFICATION-TO　■■　-->
+					<div class="config--key-value">
+						<div class="config--key">
+							<label for="config--notification-to">勤怠連絡メールTO</label>
+						</div>
+						<div class="config--value">
+							<input type="text" id="config--notification-to" class="save-ls--key-value config--value-input l--width-long" placeholder="line1@example.com,line2@example.com">
+						</div>
+					</div>
+					<!--　■■　MAIN--CONFIG--NOTIFICATION-CC　■■　-->
+					<div class="config--key-value">
+						<div class="config--key">
+							<label for="config--notification-cc">勤怠連絡メールCC</label>
+						</div>
+						<div class="config--value">
+							<input type="text" id="config--notification-cc" class="save-ls--key-value config--value-input l--width-long" placeholder="ml1@example.com,ml2@example.com">
+						</div>
+					</div>
+					<!--　■■　MAIN--CONFIG--NOTIFICATION-RECIPIENT　■■　-->
+					<div class="config--key-value">
+						<div class="config--key">
+							<label for="config--notification-recipient">勤怠連絡メール宛名</label>
+						</div>
+						<div class="config--value">
+							<input type="text" id="config--notification-recipient" class="save-ls--key-value config--value-input" placeholder="上長さん、各位">
+						</div>
+					</div>
+				</details>
+				<hr>
+				<!--　■■■　MAIN--CONFIG--WEB-SERVICE　■■■　-->
+				<details>
+					<summary class="d--h2">Web Service</summary>
+					<!--　■■　MAIN--CONFIG--SHODAN　■■　-->
+					<div class="config--key-value">
+						<div class="config--key">
+							<label for="config--shodan">Shodan > API Key</label>
+						</div>
+						<div class="config--value">
+							<input type="text" id="config--shodan" class="save-ls--key-value config--value-input l--width-long" placeholder="0123456789abcdefghijkABCDEFGHIJK">
+						</div>
+					</div>
+					<!--　■■　MAIN--CONFIG--WEBHOOK　■■　-->
+					<div class="config--key-value">
+						<div class="config--key">
+							<label for="config--webhook">Webhook</label>
+						</div>
+						<div class="config--value">
+							<input type="text" id="config--webhook" class="save-ls--key-value config--value-input l--width-long" placeholder="https://webhook.site/550e8400-e29b-41d4-a716-446655440000?q=">
+						</div>
+					</div>
+				</details>
+				<hr>
+				<!--　■■■　MAIN--CONFIG--●　■■■　-->
+				<details>
+					<summary class="d--h2">●</summary>
+					<!--　■■　MAIN--CONFIG--●　■■　-->
+					<div class="config--key-value">
+						<div class="config--key">
+							<label for="config--●">●</label>
+						</div>
+						<div class="config--value">
+							<input type="text" id="config--●" class="save-ls--key-value config--value-input" placeholder="●">
+						</div>
+					</div>
+				</details>
+				<hr>
+				<!--　■■　MAIN--CONFIG--SAVE-BTN　■■　-->
+				<div class="config--save-btn">
+					<div class="config--btn">
+						<label class="tgl-btn">
+							<input type="checkbox" class="tgl-btn--chkbox">
+						</labe>
+					</div>
+					<div class="config--btn">
+						<button id="config--save-btn" class="config-btn">Save</button>
+					</div>
+				</div>
+			</article>
+		</main>
+		<!--　■■■■■　SIDEBAR　■■■■■　-->
+		<div class="sidebar">
+			<div class="sidebar-1 l--flex-container">
+				<div class="sidebar--title">
+					<p class="l--sideways">TOTP</p>
+				</div>
+				<div class="sidebar--contents">
+					hoge
+				</div>
+			</div>
+		</div>
+		<!--　■■■■■　FOOTER　■■■■■　-->
+		<footer class="footer d--bgcolor-white">
+			<input type="checkbox" class="l--display-none" id="footer--chkbox--textarea-expand">
+			<!--　■■■■　FOOTER--BTNS　■■■■　-->
+			<div class="footer-btns l--flex-container">
+				<!--　■■■　FOOTER--TEXTAREA-EXPAND　■■■　-->
+				<button class="textarea-expand-btn">
+					<label for="footer--chkbox--textarea-expand" id="footer--label--textarea-expand">
+						<span id="footer--angle-icon"></span>
+					</label>
+				</button>
+				<!--　■■■　FOOTER--CMD-BTNS　■■■　-->
+				<button class="cmd-btn l--flex-container" data-action="copy-memo">
+					<svg class="cmd-btn-icon" xmlns="http://www.w3.org/2000/svg">
+						<path d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
+					</svg>
+					Copy
+				</button>
+				<button class="cmd-btn l--flex-container" data-action="translate-memo">
+					<svg class="cmd-btn-icon" xmlns="http://www.w3.org/2000/svg">
+						<path d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286zm1.634-.736L5.5 3.956h-.049l-.679 2.022z"/>
+						<path d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zm7.138 9.995q.289.451.63.846c-.748.575-1.673 1.001-2.768 1.292.178.217.451.635.555.867 1.125-.359 2.08-.844 2.886-1.494.777.665 1.739 1.165 2.93 1.472.133-.254.414-.673.629-.89-1.125-.253-2.057-.694-2.82-1.284.681-.747 1.222-1.651 1.621-2.757H14V8h-3v1.047h.765c-.318.844-.74 1.546-1.272 2.13a6 6 0 0 1-.415-.492 2 2 0 0 1-.94.31"/>
+					</svg>
+					Translate
+				</button>
+				<button class="cmd-btn l--flex-container" data-action="webhook-memo">
+					<svg class="cmd-btn-icon" xmlns="http://www.w3.org/2000/svg">
+						<path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
+						<path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z"/>
+					</svg>
+					Webhook
+				</button>
+				<button class="cmd-btn l--flex-container" data-action="restore-memo">
+					<svg class="cmd-btn-icon" xmlns="http://www.w3.org/2000/svg">
+						<path d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2z"/>
+						<path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466"/>
+					</svg>
+					Restore
+				</button>
+				<button class="cmd-btn l--flex-container" data-action="clear-memo">
+					<svg class="cmd-btn-icon" xmlns="http://www.w3.org/2000/svg">
+						<path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708"/>
+					</svg>
+					Clear
+				</button>
+			</div>
+			<!--　■■■■　FOOTER--TEXTAREA　■■■■　-->
+			<textarea id="footer--textarea" class="l--fullwidth"></textarea>
+		</footer>
+		</div>
+	</body>
+</html>
