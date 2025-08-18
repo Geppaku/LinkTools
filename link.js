@@ -16,7 +16,7 @@ const tlds = ['AAA','AARP','ABB','ABBOTT','ABBVIE','ABC','ABLE','ABOGADO','ABUDH
 /*　■■■■　変数　■■■■　*/
 /*　■■■　グローバル変数　■■■　*/
 let webhookUrl;
-let memoValue, memoUnescapedValue;
+let memoValue, memoFangValue;
 let now, YYYY, M, MM, D, DD, h, hh, m, mm, s, ss;
 let ipv4s = [];
 let ipv6s = [];
@@ -34,7 +34,7 @@ let dateTimes = [];
 window.addEventListener('DOMContentLoaded', function() {
 	loadItem('memo','footer--textarea');
 	memoValue = document.getElementById('footer--textarea').value;
-	memoUnescapedValue = memoValue.replace(/hxxps:/gi,'https:').replace(/\[\.\]|\[dot\]/g,'.');
+	memoFangValue = memoValue.replace(/hxxps:/gi,'https:').replace(/\[\.\]|\[dot\]/g,'.');
 	let elms = document.getElementsByClassName('save-ls--key-value');
 	for (let elm of elms) {
 		loadItem(elm.getAttribute('id'),elm.getAttribute('id'));
@@ -50,7 +50,7 @@ window.addEventListener('load',function() {
 		/*　■　MEMO関連　■　*/
 		saveItem('memo','footer--textarea');
 		memoValue = document.getElementById('footer--textarea').value;
-		memoUnescapedValue = memoValue.replace(/hxxps:/gi,'https:').replace(/\[\.\]|\[dot\]/g,'.');
+		memoFangValue = memoValue.replace(/hxxps:/gi,'https:').replace(/\[\.\]|\[dot\]/g,'.');
 		/*　■　抽出、Analysis、Work　■　*/
 		extractIndicator();
 		for (resetParentElm of resetParentElms) {
@@ -305,27 +305,33 @@ function appendHtmlLi(parentElm, prefix, item, linkUrl='default') {
 /*　■■　Indicator抽出　■■　*/
 function extractIndicator() {
 	/*　■　IPv4アドレス抽出（ipv4sに格納）　■　*/
-	let dupIpv4s = memoUnescapedValue.match(/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/g);
+	let dupIpv4s = memoFangValue.match(/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/g);
 	ipv4s = new Set(dupIpv4s);
 	/*　■　CIDR抽出（cidrsに格納）　■　*/
-	let dupCidrs = memoUnescapedValue.match(/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\/\d{1,2})/g);
+	let dupCidrs = memoFangValue.match(/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\/\d{1,2})/g);
 	cidrs = new Set(dupCidrs);
 	/*　■　IPv6アドレス抽出（ipv6sに格納）　■　*/
-	let dupIpv6s = memoUnescapedValue.match(/([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])/g);
+	let dupIpv6s = memoFangValue.match(/([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])/g);
 	ipv6s = new Set(dupIpv6s);
 	/*　■　URL抽出（urlsに格納）　■　*/
-	let dupUrls = memoUnescapedValue.match(/(http(s)?:\/{0,2}[^\s,]+)/g);
+	let dupUrls = memoFangValue.match(/(http(s)?:\/{0,2}[^\s,]+)/g);
 	urls = new Set(dupUrls);
 	/*　■　Domain抽出（domainsに格納）　■　*/
 	let dupDomains = [];
 	for ( let tld of tlds ) {
 		let reg = new RegExp('[A-Za-z0-9\\.\\-]+\\.' + tld + '($|[^A-Za-z0-9\\.\\-])', 'gi');
-		let arr = memoUnescapedValue.match(reg);
-		if ( arr !== null ) {
-			dupDomains = [...dupDomains, ...arr];
+		let tldDomains = memoFangValue.match(reg);
+		if ( tldDomains !== null ) {
+			dupDomains = [...dupDomains, ...tldDomains];
 		}
 	}
-	domains = new Set(dupDomains);
+	let unsortDomains = new Set(dupDomains);
+	let undefinedDomains = [...Array(memoFangValue.length)];
+	for ( let unsortDomain of unsortDomains ) {
+		let idx = memoFangValue.indexOf(unsortDomain);
+		undefinedDomains.splice(idx, 1, unsortDomain);
+	}
+	domains = undefinedDomains.filter(value => value !== undefined);
 }
 
 /*　■■■　Analysis　■■　*/
@@ -348,15 +354,16 @@ function analysis() {
 		{ name: 'Virus Total', url1: 'https://www.virustotal.com/gui/search/', url2: '', encode: 'wPercent'  },
 		{ name: 'Google Translate Proxy', url1: 'https://translate.google.com/translate?u=', url2: '', encode: ''  },
 	];
+	/*　■■　ANALYSIS--IP-ADDRESS　■■　*/
 	let elmMAI = document.getElementById('main--analysis--ip-address');
-	/*　■■　IPアドレス無害化　■■　*/
-	appendHtmlUl(elmMAI, 'main--analysis--ip-address--sanitized', 'Sanitized');
-	let elmMAIS = document.getElementById('main--analysis--ip-address--sanitized');
+	/*　■　DEFANG-IP-ADDRESS　■　*/
+	appendHtmlUl(elmMAI, 'main--analysis--ip-address--defang', 'Defang');
+	let elmMAID = document.getElementById('main--analysis--ip-address--defang');
 	for ( let ip of ipv4s ){
-		let sanitizedIp = ip.replace(/(\d+\.\d+\.\d+)\.(\d+)/,'$1[.]$2');
-		appendHtmlLi(elmMAIS, '', sanitizedIp);
+		let defangIp = ip.replace(/\./g,'[.]');
+		appendHtmlLi(elmMAID, '', defangIp);
 	}
-	/*　■■　CIDR計算　■■　*/
+	/*　■　CIDR　■　*/
 	appendHtmlUl(elmMAI, 'main--analysis--ip-address--cidr', 'Cidr');
 	let elmMAIC = document.getElementById('main--analysis--ip-address--cidr');
 	for ( let cidr of cidrs ) {
@@ -365,26 +372,48 @@ function analysis() {
 		let str = ( ipRange.min !== '' && ipRange.max !== '' ) ? cidr + ' = ' + convertToIp(ipRange.min) + ' - ' + convertToIp(ipRange.max) : '' ;
 		appendHtmlLi(elmMAIC, '', str, linkUrl);
 	}
-	/*　■■　OSINT-IPアドレス　■■　*/
+	/*　■　OSINT-IP-ADDRESS　■　*/
 	for ( let ipOsint of  ipOsints ) {
 		let parentElm = document.getElementById('main--analysis--ip-address');
 		appendHtmlList(parentElm, ipOsint.name, ipv4s, ipOsint.url1, ipOsint.url2, ipOsint.encode);
 	}
 	/*　■■　DOMAIN-ANALYSIS　■■　*/
 	let elmMAD = document.getElementById('main--analysis--domain');
+	/*　■　DOMAIN　■　*/
+	appendHtmlUl(elmMAD, 'main--analysis--domain--fang', 'Domain');
+	let elmMADF = document.getElementById('main--analysis--domain--fang');
+	for ( let domain of domains ){
+		appendHtmlLi(elmMADF, '', domain);
+	}
+	/*　■　DEFANG-DOMAIN　■　*/
+	appendHtmlUl(elmMAD, 'main--analysis--domain--defang', 'Defang');
+	let elmMADD = document.getElementById('main--analysis--domain--defang');
+	for ( let domain of domains ){
+		let defangDomain = domain.replace(/\./g,'[.]');
+		appendHtmlLi(elmMADD, '', defangDomain);
+	}
+	/*　■　OSINT-DOMAIN　■　*/
 	for ( let domainOsint of  domainOsints ) {
 		appendHtmlList(elmMAD, domainOsint.name, domains, domainOsint.url1, domainOsint.url2, domainOsint.encode);
 	}
 
 	/*　■■　URL-ANALYSIS　■■　*/
 	let elmMAU = document.getElementById('main--analysis--url');
+	/*　■　FLAG-URL　■　*/
 	let urlDatass = [];
 	for ( let url of urls ) {
 		let urlObj = urlAnalysis(url);
 		urlDatass.push(Object.values(urlObj));
 	}
 	appendHtmlTable(elmMAU, ['Flag', 'URL'], urlDatass );
-	/*　■■　OSINT-URL　■■　*/
+	/*　■　DEFANG-URL　■　*/
+	appendHtmlUl(elmMAU, 'main--analysis--url--defang', 'Defang');
+	let elmMAUD = document.getElementById('main--analysis--url--defang');
+	for ( let url of urls ){
+		let defangUrl = url.replace(/http/,'hxxp').replace(/\./g,'[.]');
+		appendHtmlLi(elmMAUD, '', defangUrl);
+	}
+	/*　■　OSINT-URL　■　*/
 	for ( let urlOsint of  urlOsints ) {
 		appendHtmlList(elmMAU, urlOsint.name, urls, urlOsint.url1, urlOsint.url2, urlOsint.encode);
 	}
