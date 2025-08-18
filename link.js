@@ -34,7 +34,7 @@ let dateTimes = [];
 window.addEventListener('DOMContentLoaded', function() {
 	loadItem('memo','footer--textarea');
 	memoValue = document.getElementById('footer--textarea').value;
-	memoFangValue = memoValue.replace(/hxxps:/gi,'https:').replace(/\[\.\]|\[dot\]/g,'.');
+	memoFangValue = memoValue.replace(/hxxps?:/gi,'https:').replace(/\[\.\]|\[dot\]/g,'.');
 	let elms = document.getElementsByClassName('save-ls--key-value');
 	for (let elm of elms) {
 		loadItem(elm.getAttribute('id'),elm.getAttribute('id'));
@@ -314,7 +314,7 @@ function extractIndicator() {
 	let dupIpv6s = memoFangValue.match(/([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])/g);
 	ipv6s = new Set(dupIpv6s);
 	/*　■　URL抽出（urlsに格納）　■　*/
-	let dupUrls = memoFangValue.match(/(http(s)?:\/{0,2}[^\s,]+)/g);
+	let dupUrls = memoFangValue.match(/(https?:\/{0,2}[^\s,]+)/g);
 	urls = new Set(dupUrls);
 	/*　■　Domain抽出（domainsに格納）　■　*/
 	let dupDomains = [];
