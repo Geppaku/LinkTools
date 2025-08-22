@@ -26,6 +26,7 @@
 							<li><a class="d--no-decoration d--color-white" href="">テレワーク開始</a></li>
 							<li><a class="d--no-decoration d--color-white" href="">テレワーク終了</a></li>
 							<li><a class="d--no-decoration d--color-white" href="">有給休暇取得</a></li>
+							<li><a class="d--no-decoration d--color-white" href="#totp">TOTP</a></li>
 						</ul>
 					</li>
 					<li><a class="d--no-decoration d--color-white" href="#config">⚙</a></li>
@@ -78,6 +79,7 @@
 							<p>🤡：検出回避</p>
 							<p>𝕯：装飾文字</p>
 							<p>➗：除算スラッシュ</p>
+							<p>👽：想定外文字</p>
 							<p>🔑：Basic認証</p>
 							<p>📖：翻訳サイト</p>
 							<p>➡️：リダイレクト</p>
@@ -101,6 +103,50 @@
 				<h1 class="d--h1">Work</h1>
 				<div id="work--contents" class="l--h1-contetnt"></div>
 			</article>
+			<!--　■■■■　MAIN--TOTP　■■■■　-->
+			<article id="totp" class="l--tab-content l--fullwidth">
+				<h1 class="d--h1">TOTP</h1>
+				<div class="l--h1-contetnt">
+					<table>
+						<tr>
+							<th>Service</th>
+							<th>Key</th>
+							<th></th>
+							<th>OTP</th>
+						</tr>
+						<tr>
+							<td><input type="text" id="totp--11" class="save-ls--totp"></td>
+							<td><input type="password" id="totp--12" class="save-ls--totp"></td>
+							<td><button class="cmd-btn calc--totp" data-target="totp--1">Calc & Copy</button></td>
+							<td><input type="text" id="totp--13"></td>
+						</tr>
+						<tr>
+							<td><input type="text" id="totp--21" class="save-ls--totp"></td>
+							<td><input type="password" id="totp--22" class="save-ls--totp"></td>
+							<td><button class="cmd-btn calc--totp" data-target="totp--2">Calc & Copy</button></td>
+							<td><input type="text" id="totp--23"></td>
+						</tr>
+						<tr>
+							<td><input type="text" id="totp--31" class="save-ls--totp"></td>
+							<td><input type="password" id="totp--32" class="save-ls--totp"></td>
+							<td><button class="cmd-btn calc--totp" data-target="totp--3">Calc & Copy</button></td>
+							<td><input type="text" id="totp--33"></td>
+						</tr>
+						<tr>
+							<td><input type="text" id="totp--41" class="save-ls--totp"></td>
+							<td><input type="password" id="totp--42" class="save-ls--totp"></td>
+							<td><button class="cmd-btn calc--totp" data-target="totp--4">Calc & Copy</button></td>
+							<td><input type="text" id="totp--43"></td>
+						</tr>
+						<tr>
+							<td><input type="text" id="totp--51" class="save-ls--totp"></td>
+							<td><input type="password" id="totp--52" class="save-ls--totp"></td>
+							<td><button class="cmd-btn calc--totp" data-target="totp--5">Calc & Copy</button></td>
+							<td><input type="text" id="totp--53"></td>
+						</tr>
+					</table>
+				</div>
+			</article>
 			<!--　■■■■　MAIN--CONFIG　■■■■　-->
 			<article id="config" class="l--tab-content l--fullwidth">
 				<h1 class="d--h1">Config</h1>
@@ -114,7 +160,7 @@
 							<label for="config--user-name">ユーザー名</label>
 						</div>
 						<div class="config--value">
-							<input type="text" id="config--user-name" class="save-ls--key-value config--value-input" placeholder="苗字">
+							<input type="text" id="config--user-name" class="save-ls--config config--value-input" placeholder="苗字">
 							<button class="config--copy-btn">Copy</button>
 						</div>
 					</div>
@@ -124,7 +170,7 @@
 							<label for="config--user-id">ユーザーID</label>
 						</div>
 						<div class="config--value">
-							<input type="text" id="config--user-id" class="save-ls--key-value config--value-input" placeholder="0123456789">
+							<input type="text" id="config--user-id" class="save-ls--config config--value-input" placeholder="0123456789">
 						</div>
 					</div>
 					<!--　■■　MAIN--CONFIG--MAIL　■■　-->
@@ -133,7 +179,7 @@
 							<label for="config--e-mail-address">メールアドレス</label>
 						</div>
 						<div class="config--value">
-							<input type="text" id="config--e-mail-address" class="save-ls--key-value config--value-input" placeholder="account@example.com">
+							<input type="text" id="config--e-mail-address" class="save-ls--config config--value-input" placeholder="account@example.com">
 						</div>
 					</div>
 					<!--　■■　MAIN--CONFIG--PHONE-NIMBER-1　■■　-->
@@ -142,7 +188,7 @@
 							<label for="config--phone-number-1">電話番号１</label>
 						</div>
 						<div class="config--value">
-							<input type="text" id="config--phone-number-1" class="save-ls--key-value config--value-input" placeholder="090-1234-5678">
+							<input type="text" id="config--phone-number-1" class="save-ls--config config--value-input" placeholder="090-1234-5678">
 						</div>
 					</div>
 					<!--　■■　MAIN--CONFIG--PHONE-NIMBER-2　■■　-->
@@ -151,7 +197,7 @@
 							<label for="config--phone-number-2">電話番号２</label>
 						</div>
 						<div class="config--value">
-							<input type="text" id="config--phone-number-2" class="save-ls--key-value config--value-input" placeholder="03-1234-5678">
+							<input type="text" id="config--phone-number-2" class="save-ls--config config--value-input" placeholder="03-1234-5678">
 						</div>
 					</div>
 					<!--　■■　MAIN--CONFIG--POSTAL-CODE　■■　-->
@@ -160,7 +206,7 @@
 							<label for="config--postal-code">郵便番号</label>
 						</div>
 						<div class="config--value">
-							<input type="text" id="config--postal-code" class="save-ls--key-value config--value-input" placeholder="100-0002">
+							<input type="text" id="config--postal-code" class="save-ls--config config--value-input" placeholder="100-0002">
 						</div>
 					</div>
 					<!--　■■　MAIN--CONFIG--ADDRESS-1　■■　-->
@@ -169,7 +215,7 @@
 							<label for="config--address-1">住所１</label>
 						</div>
 						<div class="config--value">
-							<input type="text" id="config--address-1" class="save-ls--key-value config--value-input" placeholder="東京都千代田区千代田1-1">
+							<input type="text" id="config--address-1" class="save-ls--config config--value-input" placeholder="東京都千代田区千代田1-1">
 						</div>
 					</div>
 					<!--　■■　MAIN--CONFIG--ADDRESS-2　■■　-->
@@ -178,7 +224,7 @@
 							<label for="config--address-2">住所２</label>
 						</div>
 						<div class="config--value">
-							<input type="text" id="config--address-2" class="save-ls--key-value config--value-input" placeholder="皇居">
+							<input type="text" id="config--address-2" class="save-ls--config config--value-input" placeholder="皇居">
 						</div>
 					</div>
 				</details>
@@ -192,7 +238,7 @@
 							<label for="config--notification-to">勤怠連絡メールTO</label>
 						</div>
 						<div class="config--value">
-							<input type="text" id="config--notification-to" class="save-ls--key-value config--value-input l--width-long" placeholder="line1@example.com,line2@example.com">
+							<input type="text" id="config--notification-to" class="save-ls--config config--value-input l--width-long" placeholder="line1@example.com,line2@example.com">
 						</div>
 					</div>
 					<!--　■■　MAIN--CONFIG--NOTIFICATION-CC　■■　-->
@@ -201,7 +247,7 @@
 							<label for="config--notification-cc">勤怠連絡メールCC</label>
 						</div>
 						<div class="config--value">
-							<input type="text" id="config--notification-cc" class="save-ls--key-value config--value-input l--width-long" placeholder="ml1@example.com,ml2@example.com">
+							<input type="text" id="config--notification-cc" class="save-ls--config config--value-input l--width-long" placeholder="ml1@example.com,ml2@example.com">
 						</div>
 					</div>
 					<!--　■■　MAIN--CONFIG--NOTIFICATION-RECIPIENT　■■　-->
@@ -210,7 +256,7 @@
 							<label for="config--notification-recipient">勤怠連絡メール宛名</label>
 						</div>
 						<div class="config--value">
-							<input type="text" id="config--notification-recipient" class="save-ls--key-value config--value-input" placeholder="上長さん、各位">
+							<input type="text" id="config--notification-recipient" class="save-ls--config config--value-input" placeholder="上長さん、各位">
 						</div>
 					</div>
 				</details>
@@ -224,7 +270,7 @@
 							<label for="config--shodan">Shodan > API Key</label>
 						</div>
 						<div class="config--value">
-							<input type="text" id="config--shodan" class="save-ls--key-value config--value-input l--width-long" placeholder="0123456789abcdefghijkABCDEFGHIJK">
+							<input type="text" id="config--shodan" class="save-ls--config config--value-input l--width-long" placeholder="0123456789abcdefghijkABCDEFGHIJK">
 						</div>
 					</div>
 					<!--　■■　MAIN--CONFIG--WEBHOOK　■■　-->
@@ -233,7 +279,7 @@
 							<label for="config--webhook">Webhook</label>
 						</div>
 						<div class="config--value">
-							<input type="text" id="config--webhook" class="save-ls--key-value config--value-input l--width-long" placeholder="https://webhook.site/550e8400-e29b-41d4-a716-446655440000?q=">
+							<input type="text" id="config--webhook" class="save-ls--config config--value-input l--width-long" placeholder="https://webhook.site/550e8400-e29b-41d4-a716-446655440000?q=">
 						</div>
 					</div>
 				</details>
@@ -247,7 +293,7 @@
 							<label for="config--●">●</label>
 						</div>
 						<div class="config--value">
-							<input type="text" id="config--●" class="save-ls--key-value config--value-input" placeholder="●">
+							<input type="text" id="config--●" class="save-ls--config config--value-input" placeholder="●">
 						</div>
 					</div>
 				</details>

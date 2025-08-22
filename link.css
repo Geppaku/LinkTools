@@ -140,6 +140,7 @@ li {
 
 .d--h3 {
 	border-bottom: 1px solid gainsboro;
+	font-weight: bold;
 }
 
 
@@ -206,6 +207,7 @@ nav > ul > li {
 		border: grey 1px solid;
 		h3 {
 			border-bottom: 1px solid gainsboro;
+			font-weight: bold;
 		}
 	}
 	table {
@@ -214,6 +216,7 @@ nav > ul > li {
 		tr > th {
 			text-align: left;
 			border-bottom: 1px solid gainsboro;
+			font-weight: bold;
 		}
 	}
 }
