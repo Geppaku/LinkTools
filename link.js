@@ -7,6 +7,26 @@
 /*　■■■■■　変数・定数　■■■■■　*/
 /*　■■■■　定数　■■■■　*/
 /*　■■■　グローバル定数　■■■　*/
+/*　■■　OSINT　■■　*/
+const ipOsints = [
+	{ name: 'Whois', url1: 'https://www.whois.com/whois/', url2: '', encode: ''  },
+	{ name: 'JPNIC WHOIS', url1: 'https://whois.nic.ad.jp/cgi-bin/whois_gw?key=', url2: '', encode: ''  },
+	{ name: 'Virus Total', url1: 'https://www.virustotal.com/gui/ip-address/', url2: '', encode: ''  },
+	{ name: 'SHODAN', url1: 'https://www.shodan.io/host/', url2: '', encode: ''  },
+	{ name: 'urlscan Pro', url1: 'https://pro.urlscan.io/search?query=page.ip:"', url2: '"', encode: ''  },
+	{ name: 'Search', url1: 'https://www.google.com/search?q="', url2: '"', encode: ''  },
+];
+const domainOsints = [
+	{ name: 'Whois', url1: 'https://www.whois.com/whois/', url2: '', encode: ''  },
+	{ name: 'Nslookup', url1: 'https://www.nslookup.io/domains/', url2: '/dns-records/', encode: ''  },
+	{ name: 'Search', url1: 'https://www.google.com/search?q="', url2: '"', encode: ''  },
+	{ name: 'urlscan Pro', url1: 'https://pro.urlscan.io/search?query="', url2: '"', encode: ''  },
+];
+const urlOsints = [
+	{ name: 'Whois', url1: 'https://www.whois.com/whois/', url2: '', encode: ''  },
+	{ name: 'Virus Total', url1: 'https://www.virustotal.com/gui/search/', url2: '', encode: 'wPercent'  },
+];
+
 /*　■　子要素が動的に追加される親要素　■　*/
 const resetParentElms = document.getElementsByClassName('reset-child--elm');
 
@@ -35,10 +55,12 @@ window.addEventListener('DOMContentLoaded', function() {
 	loadItem('memo','footer--textarea');
 	memoValue = document.getElementById('footer--textarea').value;
 	memoFangValue = memoValue.replace(/hxxps?:/gi,'https:').replace(/\[\.\]|\[dot\]/g,'.');
-	let elms = document.getElementsByClassName('save-ls--key-value');
+	/*　■　LocalStorageに保存したデータの読込　■　*/
+	let elms = document.getElementsByClassName('save-ls');
 	for (let elm of elms) {
 		loadItem(elm.getAttribute('id'),elm.getAttribute('id'));
 	}
+	userName = localStorage.getItem('config--user-name');
 	extractIndicator();
 	analysis();
 });
@@ -51,7 +73,7 @@ window.addEventListener('load',function() {
 		saveItem('memo','footer--textarea');
 		memoValue = document.getElementById('footer--textarea').value;
 		memoFangValue = memoValue.replace(/\[\.\]|\[dot\]/g,'.').replace(/http\[:\]/gi,'http:').replace(/hxxp:/gi,'http:').replace(/hxxp\[:\]/gi,'http:').replace(/https\[:\]/gi,'https:').replace(/hxxps:/gi,'https:').replace(/hxxps\[:\]/gi,'https:');
-		/*　■　抽出、Analysis、Work　■　*/
+		/*　■　抽出、Analysis　■　*/
 		extractIndicator();
 		for (resetParentElm of resetParentElms) {
 			while(resetParentElm.firstChild) {
@@ -62,7 +84,7 @@ window.addEventListener('load',function() {
 	});
 	/*　■■　Config設定時　■■　*/
 	document.getElementById('config--save-btn').addEventListener('click',(event) => {
-		let elms = document.getElementsByClassName('save-ls--config');
+		let elms = document.getElementsByClassName('save-ls');
 		for (let elm of elms) {
 			saveItem(elm.getAttribute('id'),elm.getAttribute('id'));
 		}
@@ -74,12 +96,12 @@ window.addEventListener('load',function() {
 			switch (target.dataset.action) {
 				case 'copy-memo':
 					navigator.clipboard.writeText(memoValue);
-					break;
+				break;
 				case 'translate-memo':
 					if ( window.confirm('機密情報は含まれていませんか？') ) {
 						window.open('https://translate.google.co.jp/?tl=ja&text=' + memoValue.replace(/[\r\n]/g,'%0A'));
 					}
-					break;
+				break;
 				case 'webhook-memo':
 					if ( window.confirm('機密情報は含まれていませんか？') ) {
 						const xhr = new XMLHttpRequest();
@@ -87,17 +109,33 @@ window.addEventListener('load',function() {
 						xhr.open("GET",webhookUrl + encodeURIComponent(memoValue));
 						xhr.send();
 					}
-					break;
+				break;
 				case 'restore-memo':
 					loadItem('backupMemo','footer--textarea');
 					saveItem('memo','footer--textarea');
-					break;
+				break;
 				case 'clear-memo':
 					saveItem('backupMemo','footer--textarea');
 					document.getElementById('footer--textarea').value = '';
 					saveItem('memo','footer--textarea');
-					break;
+				break;
 			}
+		})
+	});
+	/*　■■　CALC--TOTP-BTN　■■　*/
+	const calcTotpBtns = document.querySelectorAll('.calc--totp');
+	calcTotpBtns.forEach(function(target) {
+		target.addEventListener('click', function() {
+			let secretElmId = target.dataset.target + '--secret';
+			let outputElmId = target.dataset.target + '--output';
+			calcTotp(secretElmId, outputElmId);
+		})
+	});
+	/*　■■　CREATE-MAIL　■■　*/
+	const createMailElms = document.querySelectorAll('.create-mail');
+	createMailElms.forEach(function(target) {
+		target.addEventListener('click', function() {
+			createMail(target.dataset.type);
 		})
 	});
 });
@@ -209,8 +247,7 @@ function convertToBinaryNum(group){
 
 /*　■　2進数表記のIPアドレスを10進数に変換　■　*/
 function convertToIp(num){
-	let ret = "";
-	ret = parseInt(num.slice(0,8), 2) + ".";
+	let ret = parseInt(num.slice(0,8), 2) + ".";
 	ret += parseInt(num.slice(8,16), 2) + ".";
 	ret += parseInt(num.slice(16,24), 2) + ".";
 	ret += parseInt(num.slice(24,32), 2);
@@ -218,12 +255,39 @@ function convertToIp(num){
 }
 
 
+/*　■■　ipが、cidrの範囲内にあるかどうか判定　■■　*/
+function ipInRange(ip, cidr) {
+	let cidrIp = cidr.split('/')[0];
+	let cidrRange = Number(cidr.split('/')[1]);
+	let ipNumber = parseInt(ip.split('.').map(e=>Number(e).toString(2).padStart(8,'0')).join(''),2,);
+	let cidrIpNumber = parseInt(cidrIp.split('.').map(e=>Number(e).toString(2).padStart(8,'0')).join(''),2,);
+	let ipNetwork = ipNumber >>> (32 - cidrRange);
+	let cidrIpNetwork = cidrIpNumber >>> (32 - cidrRange);
+	return ipNetwork === cidrIpNetwork;
+}
+
+
+/*　■■　IPv4分類　■■　*/
+function ipv4Classify(ipv4) {
+	let ipv4Obj = {'class': '', 'ipv4': ipv4};
+	ipv4Obj.class += ipInRange(ipv4, '10.0.0.0/8') ? 'Private' : '';
+	ipv4Obj.class += ipInRange(ipv4, '172.16.0.0/12') ? 'Private' : '';
+	ipv4Obj.class += ipInRange(ipv4, '192.168.0.0/16') ? 'Private' : '';
+	ipv4Obj.class += ipInRange(ipv4, '192.0.2.0/24') ? 'Example' : '';
+	ipv4Obj.class += ipInRange(ipv4, '198.51.100.0/24') ? 'Example' : '';
+	ipv4Obj.class += ipInRange(ipv4, '203.0.113.0/24') ? 'Example' : '';
+	ipv4Obj.class += ipInRange(ipv4, '169.254.0.0/16') ? 'LinkLocal' : '';
+	ipv4Obj.class += ipInRange(ipv4, '127.0.0.0/8') ? 'Loopback' : '';
+	ipv4Obj.class += (ipv4Obj.class.length == 0) ? 'Global' : '';
+	return ipv4Obj;
+}
+
+
 /*　■■　URL分析　■■　*/
 function urlAnalysis(url) {
-	let urlObj = {flag: '', url: url};
+	let urlObj = {'flag': '', 'url': url};
 	let parser = new URL(url);
 	urlObj.flag += /https?:\/?[^\/]/.test(url) ? '🤡' : '' ;
-	urlObj.flag += /https?:\/{0,2}[^\/]*[𝐀𝐁𝐂𝐃𝐄𝐅𝐆𝐇𝐈𝐉𝐊𝐋𝐌𝐍𝐎𝐏𝐐𝐑𝐒𝐓𝐔𝐕𝐖𝐗𝐘𝐙𝐚𝐛𝐜𝐝𝐞𝐟𝐠𝐡𝐢𝐣𝐤𝐥𝐦𝐧𝐨𝐩𝐪𝐫𝐬𝐭𝐮𝐯𝐰𝐱𝐲𝐳𝐴𝐵𝐶𝐷𝐸𝐹𝐺𝐻𝐼𝐽𝐾𝐿𝑀𝑁𝑂𝑃𝑄𝑅𝑆𝑇𝑈𝑉𝑊𝑋𝑌𝑍𝑎𝑏𝑐𝑑𝑒𝑓𝑔𝑕𝑖𝑗𝑘𝑙𝑚𝑛𝑜𝑝𝑞𝑟𝑠𝑡𝑢𝑣𝑤𝑥𝑦𝑧𝑨𝑩𝑪𝑫𝑬𝑭𝑮𝑯𝑰𝑱𝑲𝑳𝑴𝑵𝑶𝑷𝑸𝑹𝑺𝑻𝑼𝑽𝑾𝑿𝒀𝒁𝒂𝒃𝒄𝒅𝒆𝒇𝒈𝒉𝒊𝒋𝒌𝒍𝒎𝒏𝒐𝒑𝒒𝒓𝒔𝒕𝒖𝒗𝒘𝒙𝒚𝒛𝒜𝒝𝒞𝒟𝒠𝒡𝒢𝒣𝒤𝒥𝒦𝒧𝒨𝒩𝒪𝒫𝒬𝒭𝒮𝒯𝒰𝒱𝒲𝒳𝒴𝒵𝒶𝒷𝒸𝒹𝒺𝒻𝒼𝒽𝒾𝒿𝓀𝓁𝓂𝓃𝓄𝓅𝓆𝓇𝓈𝓉𝓊𝓋𝓌𝓍𝓎𝓏𝓐𝓑𝓒𝓓𝓔𝓕𝓖𝓗𝓘𝓙𝓚𝓛𝓜𝓝𝓞𝓟𝓠𝓡𝓢𝓣𝓤𝓥𝓦𝓧𝓨𝓩𝓪𝓫𝓬𝓭𝓮𝓯𝓰𝓱𝓲𝓳𝓴𝓵𝓶𝓷𝓸𝓹𝓺𝓻𝓼𝓽𝓾𝓿𝔀𝔁𝔂𝔃𝔄𝔅𝔆𝔇𝔈𝔉𝔊𝔋𝔌𝔍𝔎𝔏𝔐𝔑𝔒𝔓𝔔𝔕𝔖𝔗𝔘𝔙𝔚𝔛𝔜𝔝𝔞𝔟𝔠𝔡𝔢𝔣𝔤𝔥𝔦𝔧𝔨𝔩𝔪𝔫𝔬𝔭𝔮𝔯𝔰𝔱𝔲𝔳𝔴𝔵𝔶𝔷𝔸𝔹𝔺𝔻𝔼𝔽𝔾𝔿𝕀𝕁𝕂𝕃𝕄𝕅𝕆𝕇𝕈𝕉𝕊𝕋𝕌𝕍𝕎𝕏𝕐𝕑𝕒𝕓𝕔𝕕𝕖𝕗𝕘𝕙𝕚𝕛𝕜𝕝𝕞𝕟𝕠𝕡𝕢𝕣𝕤𝕥𝕦𝕧𝕨𝕩𝕪𝕫𝕬𝕭𝕮𝕯𝕰𝕱𝕲𝕳𝕴𝕵𝕶𝕷𝕸𝕹𝕺𝕻𝕼𝕽𝕾𝕿𝖀𝖁𝖂𝖃𝖄𝖅𝖆𝖇𝖈𝖉𝖊𝖋𝖌𝖍𝖎𝖏𝖐𝖑𝖒𝖓𝖔𝖕𝖖𝖗𝖘𝖙𝖚𝖛𝖜𝖝𝖞𝖟𝖠𝖡𝖢𝖣𝖤𝖥𝖦𝖧𝖨𝖩𝖪𝖫𝖬𝖭𝖮𝖯𝖰𝖱𝖲𝖳𝖴𝖵𝖶𝖷𝖸𝖹𝖺𝖻𝖼𝖽𝖾𝖿𝗀𝗁𝗂𝗃𝗄𝗅𝗆𝗇𝗈𝗉𝗊𝗋𝗌𝗍𝗎𝗏𝗐𝗑𝗒𝗓𝗔𝗕𝗖𝗗𝗘𝗙𝗚𝗛𝗜𝗝𝗞𝗟𝗠𝗡𝗢𝗣𝗤𝗥𝗦𝗧𝗨𝗩𝗪𝗫𝗬𝗭𝗮𝗯𝗰𝗱𝗲𝗳𝗴𝗵𝗶𝗷𝗸𝗹𝗺𝗻𝗼𝗽𝗾𝗿𝘀𝘁𝘂𝘃𝘄𝘅𝘆𝘇𝘈𝘉𝘊𝘋𝘌𝘍𝘎𝘏𝘐𝘑𝘒𝘓𝘔𝘕𝘖𝘗𝘘𝘙𝘚𝘛𝘜𝘝𝘞𝘟𝘠𝘡𝘢𝘣𝘤𝘥𝘦𝘧𝘨𝘩𝘪𝘫𝘬𝘭𝘮𝘯𝘰𝘱𝘲𝘳𝘴𝘵𝘶𝘷𝘸𝘹𝘺𝘻𝘼𝘽𝘾𝘿𝙀𝙁𝙂𝙃𝙄𝙅𝙆𝙇𝙈𝙉𝙊𝙋𝙌𝙍𝙎𝙏𝙐𝙑𝙒𝙓𝙔𝙕𝙖𝙗𝙘𝙙𝙚𝙛𝙜𝙝𝙞𝙟𝙠𝙡𝙢𝙣𝙤𝙥𝙦𝙧𝙨𝙩𝙪𝙫𝙬𝙭𝙮𝙯𝙰𝙱𝙲𝙳𝙴𝙵𝙶𝙷𝙸𝙹𝙺𝙻𝙼𝙽𝙾𝙿𝚀𝚁𝚂𝚃𝚄𝚅𝚆𝚇𝚈𝚉𝚊𝚋𝚌𝚍𝚎𝚏𝚐𝚑𝚒𝚓𝚔𝚕𝚖𝚗𝚘𝚙𝚚𝚛𝚜𝚝𝚞𝚟𝚠𝚡𝚢𝚣𝚤𝚥𝚦𝚧𝚨𝚩𝚪𝚫𝚬𝚭𝚮𝚯𝚰𝚱𝚲𝚳𝚴𝚵𝚶𝚷𝚸𝚹𝚺𝚻𝚼𝚽𝚾𝚿𝛀𝛁𝛂𝛃𝛄𝛅𝛆𝛇𝛈𝛉𝛊𝛋𝛌𝛍𝛎𝛏𝛐𝛑𝛒𝛓𝛔𝛕𝛖𝛗𝛘𝛙𝛚𝛛𝛜𝛝𝛞𝛟𝛠𝛡𝛢𝛣𝛤𝛥𝛦𝛧𝛨𝛩𝛪𝛫𝛬𝛭𝛮𝛯𝛰𝛱𝛲𝛳𝛴𝛵𝛶𝛷𝛸𝛹𝛺𝛻𝛼𝛽𝛾𝛿𝜀𝜁𝜂𝜃𝜄𝜅𝜆𝜇𝜈𝜉𝜊𝜋𝜌𝜍𝜎𝜏𝜐𝜑𝜒𝜓𝜔𝜕𝜖𝜗𝜘𝜙𝜚𝜛𝜜𝜝𝜞𝜟𝜠𝜡𝜢𝜣𝜤𝜥𝜦𝜧𝜨𝜩𝜪𝜫𝜬𝜭𝜮𝜯𝜰𝜱𝜲𝜳𝜴𝜵𝜶𝜷𝜸𝜹𝜺𝜻𝜼𝜽𝜾𝜿𝝀𝝁𝝂𝝃𝝄𝝅𝝆𝝇𝝈𝝉𝝊𝝋𝝌𝝍𝝎𝝏𝝐𝝑𝝒𝝓𝝔𝝕𝝖𝝗𝝘𝝙𝝚𝝛𝝜𝝝𝝞𝝟𝝠𝝡𝝢𝝣𝝤𝝥𝝦𝝧𝝨𝝩𝝪𝝫𝝬𝝭𝝮𝝯𝝰𝝱𝝲𝝳𝝴𝝵𝝶𝝷𝝸𝝹𝝺𝝻𝝼𝝽𝝾𝝿𝞀𝞁𝞂𝞃𝞄𝞅𝞆𝞇𝞈𝞉𝞊𝞋𝞌𝞍𝞎𝞏𝞐𝞑𝞒𝞓𝞔𝞕𝞖𝞗𝞘𝞙𝞚𝞛𝞜𝞝𝞞𝞟𝞠𝞡𝞢𝞣𝞤𝞥𝞦𝞧𝞨𝞩𝞪𝞫𝞬𝞭𝞮𝞯𝞰𝞱𝞲𝞳𝞴𝞵𝞶𝞷𝞸𝞹𝞺𝞻𝞼𝞽𝞾𝞿𝟀𝟁𝟂𝟃𝟄𝟅𝟆𝟇𝟈𝟉𝟊𝟋𝟌𝟍𝟎𝟏𝟐𝟑𝟒𝟓𝟔𝟕𝟖𝟗𝟘𝟙𝟚𝟛𝟜𝟝𝟞𝟟𝟠𝟡𝟢𝟣𝟤𝟥𝟦𝟧𝟨𝟩𝟪𝟫𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵𝟶𝟷𝟸𝟹𝟺𝟻𝟼𝟽𝟾𝟿]/.test(url) ? '𝕯' : '' ;
 	urlObj.flag += /[∕⁄]/.test(url) ? '➗' : '' ;
 	urlObj.flag += /https?:\/{0,2}[@\w\-\.\/]*[^@\w\-\.\/]/.test(url) ? '👽' : '' ;
 	urlObj.flag += /https?:\/{0,2}[^\/]*@[^\/]+/.test(url) ? '🔑' : '' ;
@@ -337,29 +401,15 @@ function extractIndicator() {
 
 /*　■■■　Analysis　■■　*/
 function analysis() {
-	const ipOsints = [
-		//{ name: '', url1: '', url2: '', encode: '' },
-		{ name: 'Whois', url1: 'https://www.whois.com/whois/', url2: '', encode: ''  },
-		{ name: 'JPNIC WHOIS', url1: 'https://whois.nic.ad.jp/cgi-bin/whois_gw?key=', url2: '', encode: ''  },
-		{ name: 'Virus Total', url1: 'https://www.virustotal.com/gui/ip-address/', url2: '', encode: ''  },
-		{ name: 'SHODAN', url1: 'https://www.shodan.io/host/', url2: '', encode: ''  },
-		{ name: 'urlscan Pro', url1: 'https://pro.urlscan.io/search?query=page.ip:"', url2: '"', encode: ''  },
-	];
-	const domainOsints = [
-		//{ name: '', url1: '', url2: '', encode: '' },
-		{ name: 'Whois', url1: 'https://www.whois.com/whois/', url2: '', encode: ''  },
-		{ name: 'Nslookup', url1: 'https://www.nslookup.io/domains/', url2: '/dns-records/', encode: ''  },
-		{ name: 'Search', url1: 'https://www.google.com/search?q="', url2: '"', encode: ''  },
-		{ name: 'urlscan Pro', url1: 'https://pro.urlscan.io/search?query="', url2: '"', encode: ''  },
-	];
-	const urlOsints = [
-		//{ name: '', url1: '', url2: '', encode: '' },
-		{ name: 'Whois', url1: 'https://www.whois.com/whois/', url2: '', encode: ''  },
-		{ name: 'Virus Total', url1: 'https://www.virustotal.com/gui/search/', url2: '', encode: 'wPercent'  },
-		{ name: 'Google Translate Proxy', url1: 'https://translate.google.com/translate?u=', url2: '', encode: ''  },
-	];
 	/*　■■　ANALYSIS--IP-ADDRESS　■■　*/
 	let elmMAI = document.getElementById('main--analysis--ip-address');
+	/*　■　TYPE-IP-ADDRESS　■　*/
+	let ipv4Datass = [];
+	for ( let ipv4 of ipv4s ) {
+		let ipv4Obj = ipv4Classify(ipv4);
+		ipv4Datass.push(Object.values(ipv4Obj));
+	}
+	appendHtmlTable(elmMAI, ['Class', 'IP Address'], ipv4Datass);
 	/*　■　DEFANG-IP-ADDRESS　■　*/
 	appendHtmlUl(elmMAI, 'main--analysis--ip-address--defang', 'Defang');
 	let elmMAID = document.getElementById('main--analysis--ip-address--defang');
@@ -442,4 +492,47 @@ function appendHtmlTable(parentElm, headers, datass) {
 			tdElm.textContent = data;
 		}
 	}
+}
+
+function createMail(type) {
+	let mailTo = localStorage.getItem('config--mail-to');
+	let mailCc = localStorage.getItem('config--mail-cc');
+	let mailName = '石川さん';
+	let phoneNumber = localStorage.getItem('config--phone-number-1');
+	let mailSubject, mailBody;
+	switch (type) {
+		case 'telework-start':
+			mailSubject = '【勤怠連絡】本日のテレワークを開始します';
+			mailBody = 
+				mailName + '%0D%0A%0D%0A' + 
+				'%0D%0A%0D%0A' + 
+				'本日のテレワークを開始いたします。%0D%0A%0D%0A' + 
+				'よろしくお願いいたします。%0D%0A%0D%0A' + 
+				'%0D%0A%0D%0A' + 
+				userName;
+		break;
+		case 'telework-end':
+			mailSubject = '【勤怠連絡】本日のテレワークを終了します';
+			mailBody = 
+				mailName + '%0D%0A%0D%0A' + 
+				'%0D%0A%0D%0A' + 
+				'本日のテレワークを終了いたします。%0D%0A%0D%0A' + 
+				'よろしくお願いいたします。%0D%0A%0D%0A' + 
+				'%0D%0A%0D%0A' + 
+				userName;
+		break;
+		case 'paid-leave':
+			mailSubject = '【勤怠連絡】●/●に休暇をいただきます';
+			mailBody = 
+				mailName + '%0D%0A%0D%0A' + 
+				'%0D%0A%0D%0A' + 
+				'●/●（●）に休暇をいただきます。%0D%0A%0D%0A' + 
+				'お忙しい中ご迷惑をおかけいたしますが、よろしくお願いいたします。%0D%0A%0D%0A' + 
+				'%0D%0A%0D%0A' + 
+				'緊急の要件は、携帯電話（' + phoneNumber + '）までご連絡ください。%0D%0A%0D%0A' +
+				'%0D%0A%0D%0A' + 
+				userName;
+		break;
+	}
+	window.open('mailto:' + mailTo + '?cc=' + mailCc + '&subject=' + mailSubject + '&body=' + mailBody, '_blank');
 }
