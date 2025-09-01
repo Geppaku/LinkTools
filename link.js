@@ -89,6 +89,7 @@ window.addEventListener('load',function() {
 		}
 		analysis();
 		copyList();
+		openListLink();
 	});
 	/*　■■　Config設定時　■■　*/
 	document.querySelectorAll('.save-ls-btn').forEach(function(target) {
@@ -199,7 +200,7 @@ function copyList() {
 }
 
 /*　■　OPEN--LIST-LINK　■　*/
-function copyList() {
+function openListLink() {
 	document.querySelectorAll('.open--list-link--btn').forEach(function(target){
 		target.addEventListener('click', function() {
 			let lis = target.parentNode.nextElementSibling.children;
