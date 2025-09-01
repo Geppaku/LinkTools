@@ -70,6 +70,7 @@ window.addEventListener('DOMContentLoaded', function() {
 	extractIndicator();
 	analysis();
 	copyList();
+	openListLink();
 });
 
 /*　■■■　イベントリスナー　■■■　*/
