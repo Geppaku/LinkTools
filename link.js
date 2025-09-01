@@ -26,6 +26,9 @@ const urlOsints = [
 	{ name: 'Whois', url1: 'https://www.whois.com/whois/', url2: '', encode: ''  },
 	{ name: 'Virus Total', url1: 'https://www.virustotal.com/gui/search/', url2: '', encode: 'wPercent'  },
 ];
+const hashOsints = [
+	{ name: 'Virus Total', url1: 'https://www.virustotal.com/gui/search/', url2: '', encode: ''  },
+];
 
 /*　■　子要素が動的に追加される親要素　■　*/
 const resetParentElms = document.getElementsByClassName('reset-child--elm');
@@ -44,6 +47,9 @@ let cidrs = [];
 let urls = [];
 let domains = [];
 let mails = [];
+let md5s = [];
+let sha1s = [];
+let sha256s = [];
 let macs = [];
 let dates = [];
 let dateTimes = [];
@@ -63,6 +69,7 @@ window.addEventListener('DOMContentLoaded', function() {
 	userName = localStorage.getItem('config--user-name');
 	extractIndicator();
 	analysis();
+	copyList();
 });
 
 /*　■■■　イベントリスナー　■■■　*/
@@ -81,17 +88,19 @@ window.addEventListener('load',function() {
 			}
 		}
 		analysis();
+		copyList();
 	});
 	/*　■■　Config設定時　■■　*/
-	document.getElementById('config--save-btn').addEventListener('click',(event) => {
-		let elms = document.getElementsByClassName('save-ls');
-		for (let elm of elms) {
-			saveItem(elm.getAttribute('id'),elm.getAttribute('id'));
-		}
+	document.querySelectorAll('.save-ls-btn').forEach(function(target) {
+		target.addEventListener('click', function() {
+			let elms = document.getElementsByClassName('save-ls');
+			for (let elm of elms) {
+				saveItem(elm.getAttribute('id'),elm.getAttribute('id'));
+			}
+		})
 	});
 	/*　■■　CMD-BTN　■■　*/
-	const cmdBtns = document.querySelectorAll('.cmd-btn');
-	cmdBtns.forEach(function(target) {
+	document.querySelectorAll('.cmd-btn').forEach(function(target) {
 		target.addEventListener('click', function() {
 			switch (target.dataset.action) {
 				case 'copy-memo':
@@ -173,6 +182,35 @@ function separateDateTime(dateTime) {
 	hh = ('0' + h).slice(-2);
 	mm = ('0' + m).slice(-2);
 	ss = ('0' + s).slice(-2);
+}
+
+/*　■　COPY--LIST　■　*/
+function copyList() {
+	document.querySelectorAll('.copy--list--btn').forEach(function(target){
+		target.addEventListener('click', function() {
+			let lis = target.parentNode.nextElementSibling.children;
+			let txt = '';
+			for ( let li of lis ) {
+				txt += li.textContent + '\n';
+			}
+			navigator.clipboard.writeText(txt);
+		});
+	});
+}
+
+/*　■　OPEN--LIST-LINK　■　*/
+function copyList() {
+	document.querySelectorAll('.open--list-link--btn').forEach(function(target){
+		target.addEventListener('click', function() {
+			let lis = target.parentNode.nextElementSibling.children;
+			for ( li of lis ) {
+				let links = li.querySelectorAll('a');
+				for ( let link of links ) {
+					window.open(link.getAttribute('href'), '_blank');
+				}
+			}
+		});
+	});
 }
 
 /*　■■　TOTP　■■　*/
@@ -301,12 +339,38 @@ function urlAnalysis(url) {
 }
 
 
-/*　■■　HTMLリスト作成　■■　*/
+/*　■■　HTML要素追加　■■　*/
+/*　■　TABLE要素追加　■　*/
+function appendHtmlTable(parentElm, headers, datass) {
+	let tableElm = document.createElement('table');
+	parentElm.appendChild(tableElm);
+	let trThElm = document.createElement('tr');
+	tableElm.appendChild(trThElm);
+	for ( let header of headers ) {
+		let thElm = document.createElement('th');
+		trThElm.appendChild(thElm);
+		thElm.textContent = header;
+	}
+	for ( let datas of datass ) {
+		let trTdElm = document.createElement('tr');
+		tableElm.appendChild(trTdElm);
+		for ( let data of datas ) {
+			let tdElm = document.createElement('td');
+			trTdElm.appendChild(tdElm);
+			tdElm.textContent = data;
+		}
+	}
+}
+/*　■　UL＆LI要素追加　■　*/
 function appendHtmlList(parentElm, title, items, linkUrl1='default', linkUrl2, encode) {
 	let divElm = document.createElement('div');
 	parentElm.appendChild(divElm);
 	let hElm = document.createElement('h3');
 	hElm.textContent = title;
+	let buttonElm = document.createElement('button');
+	buttonElm.className = 'open--list-link--btn d--btn d--color-grey d--no-border l--margin-left--1';
+	buttonElm.textContent = '⬀';
+	hElm.appendChild(buttonElm);
 	divElm.appendChild(hElm);
 	let ulElm = document.createElement('ul');
 	divElm.appendChild(ulElm);
@@ -332,23 +396,23 @@ function appendHtmlList(parentElm, title, items, linkUrl1='default', linkUrl2, e
 	}
 }
 
+/*　■　UL要素追加　■　*/
 function appendHtmlUl(parentElm, ulId, title) {
 	let divElm = document.createElement('div');
 	parentElm.appendChild(divElm);
 	let hElm = document.createElement('h3');
 	hElm.textContent = title;
-	/*
 	let buttonElm = document.createElement('button');
-	buttonElm.className = 'list--copy-btn';
-	buttonElm.textContent = 'Copy';
+	buttonElm.className = 'copy--list--btn d--btn d--color-grey d--no-border l--margin-left--1';
+	buttonElm.textContent = '❐';
 	hElm.appendChild(buttonElm);
-	*/
 	divElm.appendChild(hElm);
 	let ulElm = document.createElement('ul');
 	ulElm.id = ulId;
 	divElm.appendChild(ulElm);
 }
 
+/*　■　LI要素追加　■　*/
 function appendHtmlLi(parentElm, prefix, item, linkUrl='default') {
 	let liElm = document.createElement('li');
 	parentElm.appendChild(liElm);
@@ -376,15 +440,15 @@ function extractIndicator() {
 	let dupCidrs = memoFangValue.match(/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\/\d{1,2})/g);
 	cidrs = new Set(dupCidrs);
 	/*　■　IPv6アドレス抽出（ipv6sに格納）　■　*/
-	let dupIpv6s = memoFangValue.match(/([0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,7}:|([0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|([0-9a-fA-F]{1,4}:){1,5}(:[0-9a-fA-F]{1,4}){1,2}|([0-9a-fA-F]{1,4}:){1,4}(:[0-9a-fA-F]{1,4}){1,3}|([0-9a-fA-F]{1,4}:){1,3}(:[0-9a-fA-F]{1,4}){1,4}|([0-9a-fA-F]{1,4}:){1,2}(:[0-9a-fA-F]{1,4}){1,5}|[0-9a-fA-F]{1,4}:((:[0-9a-fA-F]{1,4}){1,6})|:((:[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(:[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-fA-F]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])/g);
+	let dupIpv6s = memoFangValue.match(/([0-9a-f]{1,4}:){7,7}[0-9a-f]{1,4}|([0-9a-f]{1,4}:){1,7}:|([0-9a-f]{1,4}:){1,6}:[0-9a-f]{1,4}|([0-9a-f]{1,4}:){1,5}(:[0-9a-f]{1,4}){1,2}|([0-9a-f]{1,4}:){1,4}(:[0-9a-f]{1,4}){1,3}|([0-9a-f]{1,4}:){1,3}(:[0-9a-f]{1,4}){1,4}|([0-9a-f]{1,4}:){1,2}(:[0-9a-f]{1,4}){1,5}|[0-9a-f]{1,4}:((:[0-9a-f]{1,4}){1,6})|:((:[0-9a-f]{1,4}){1,7}|:)|fe80:(:[0-9a-f]{0,4}){0,4}%[0-9a-z]{1,}|::(ffff(:0{1,4}){0,1}:){0,1}((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])|([0-9a-f]{1,4}:){1,4}:((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])/gi);
 	ipv6s = new Set(dupIpv6s);
 	/*　■　URL抽出（urlsに格納）　■　*/
-	let dupUrls = memoFangValue.match(/(https?:\/{0,2}[^\s,]+)/g);
+	let dupUrls = memoFangValue.match(/(https?:\/{0,2}[^\s,]+)/gi);
 	urls = new Set(dupUrls);
 	/*　■　Domain抽出（domainsに格納）　■　*/
 	let dupDomains = [];
 	for ( let tld of tlds ) {
-		let reg = new RegExp('[A-Za-z0-9\\.\\-]+\\.' + tld + '($|[^A-Za-z0-9\\.\\-])', 'gi');
+		let reg = new RegExp('[a-z0-9\\.\\-]+\\.' + tld + '($|[^a-z0-9\\.\\-])', 'gi');
 		let tldDomains = memoFangValue.match(reg);
 		if ( tldDomains !== null ) {
 			dupDomains = [...dupDomains, ...tldDomains];
@@ -396,7 +460,27 @@ function extractIndicator() {
 		let idx = memoFangValue.indexOf(unsortDomain);
 		undefinedDomains.splice(idx, 1, unsortDomain);
 	}
-	domains = undefinedDomains.filter(value => value !== undefined);
+	let regDomain = /[^a-z0-9\.\-]/gi;
+	domains = undefinedDomains.filter(value => value !== undefined).map(value => value.replace(regDomain,''));
+	let regHash = /[^a-f0-9]/gi;
+	/*　■　MD5のHASH値抽出（md5sに格納）　■　*/
+	let dupMd5s = memoValue.match(/(^|[^a-f0-9])[a-f0-9]{32}($|[^a-f0-9])/gi);
+	if ( dupMd5s !== null ) {
+		dupMd5s = dupMd5s.map(value => value.replace(regHash,''));
+	}
+	md5s = new Set(dupMd5s);
+	/*　■　SHA1のHASH値抽出（sha1sに格納）　■　*/
+	let dupSha1s = memoValue.match(/(^|[^a-f0-9])[a-f0-9]{40}($|[^a-f0-9])/gi);
+	if ( dupSha1s !== null ) {
+		dupSha1s = dupSha1s.map(value => value.replace(regHash,''));
+	}
+	sha1s = new Set(dupSha1s);
+	/*　■　SHA256のHASH値抽出（sha256sに格納）　■　*/
+	let dupSha256s = memoValue.match(/(^|[^a-f0-9])[a-f0-9]{64}($|[^a-f0-9])/gi);
+	if ( dupSha256s !== null ) {
+		dupSha256s = dupSha256s.map(value => value.replace(regHash,''));
+	}
+	sha256s = new Set(dupSha256s);
 }
 
 /*　■■■　Analysis　■■　*/
@@ -427,7 +511,7 @@ function analysis() {
 		appendHtmlLi(elmMAIC, '', str, linkUrl);
 	}
 	/*　■　OSINT-IP-ADDRESS　■　*/
-	for ( let ipOsint of  ipOsints ) {
+	for ( let ipOsint of ipOsints ) {
 		let parentElm = document.getElementById('main--analysis--ip-address');
 		appendHtmlList(parentElm, ipOsint.name, ipv4s, ipOsint.url1, ipOsint.url2, ipOsint.encode);
 	}
@@ -447,10 +531,9 @@ function analysis() {
 		appendHtmlLi(elmMADD, '', defangDomain);
 	}
 	/*　■　OSINT-DOMAIN　■　*/
-	for ( let domainOsint of  domainOsints ) {
+	for ( let domainOsint of domainOsints ) {
 		appendHtmlList(elmMAD, domainOsint.name, domains, domainOsint.url1, domainOsint.url2, domainOsint.encode);
 	}
-
 	/*　■■　URL-ANALYSIS　■■　*/
 	let elmMAU = document.getElementById('main--analysis--url');
 	/*　■　FLAG-URL　■　*/
@@ -464,33 +547,20 @@ function analysis() {
 	appendHtmlUl(elmMAU, 'main--analysis--url--defang', 'Defang');
 	let elmMAUD = document.getElementById('main--analysis--url--defang');
 	for ( let url of urls ){
-		let defangUrl = url.replace(/http/,'hxxp').replace(/\./g,'[.]');
+		let defangUrl = url.replace(/http/,'hxxp').replace(/\./gi,'[.]');
 		appendHtmlLi(elmMAUD, '', defangUrl);
 	}
 	/*　■　OSINT-URL　■　*/
-	for ( let urlOsint of  urlOsints ) {
+	for ( let urlOsint of urlOsints ) {
 		appendHtmlList(elmMAU, urlOsint.name, urls, urlOsint.url1, urlOsint.url2, urlOsint.encode);
 	}
-}
-
-function appendHtmlTable(parentElm, headers, datass) {
-	let tableElm = document.createElement('table');
-	parentElm.appendChild(tableElm);
-	let trThElm = document.createElement('tr');
-	tableElm.appendChild(trThElm);
-	for ( let header of headers ) {
-		let thElm = document.createElement('th');
-		trThElm.appendChild(thElm);
-		thElm.textContent = header;
-	}
-	for ( let datas of datass ) {
-		let trTdElm = document.createElement('tr');
-		tableElm.appendChild(trTdElm);
-		for ( let data of datas ) {
-			let tdElm = document.createElement('td');
-			trTdElm.appendChild(tdElm);
-			tdElm.textContent = data;
-		}
+	/*　■■　HASH-ANALYSIS　■■　*/
+	let elmMAH = document.getElementById('main--analysis--hash');
+	/*　■　OSINT-HASH　■　*/
+	for ( let hashOsint of hashOsints ) {
+		appendHtmlList(elmMAH, hashOsint.name, md5s, hashOsint.url1, hashOsint.url2, hashOsint.encode);
+		appendHtmlList(elmMAH, hashOsint.name, sha1s, hashOsint.url1, hashOsint.url2, hashOsint.encode);
+		appendHtmlList(elmMAH, hashOsint.name, sha256s, hashOsint.url1, hashOsint.url2, hashOsint.encode);
 	}
 }
 

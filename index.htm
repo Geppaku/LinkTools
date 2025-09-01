@@ -22,7 +22,7 @@
 					<li><a class="d--no-decoration d--color-white" href="#work">Work</a></li>
 					<li><a class="d--no-decoration d--color-white">Tools<span class="caret"></span></a>
 						<ul class="l--pull-down d--bgcolor-black">
-							<li><a class="d--no-decoration d--color-white" href="htmlTools/" target="_blank">Unicode一覧</a></li>
+							<li><a class="d--no-decoration d--color-white" href="htmlTools/unicode.htm" target="_blank">Unicode一覧</a></li>
 							<li><a class="d--no-decoration d--color-white" href="#totp">TOTP</a></li>
 						</ul>
 					</li>
@@ -61,7 +61,6 @@
 					<!--　■■■　MAIN--TOP--HOW-TO-USE　■■■　-->
 					<details>
 						<summary class="h2">使い方</summary>
-						<p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p><p>hoge</p>
 					</details>
 				</div>
 			</article>
@@ -94,6 +93,10 @@
 					<details open>
 						<summary class="d--h2">Mail</summary>
 						<div id="main--analysis--mail" class="reset-child--elm l--flex-container"></div>
+					</details>
+					<details open>
+						<summary class="d--h2">HASH</summary>
+						<div id="main--analysis--hash" class="reset-child--elm l--flex-container"></div>
 					</details>
 					<details open>
 						<summary class="d--h2">●</summary>
@@ -147,13 +150,32 @@
 							<td><button class="d--btn calc--totp" data-target="totp-5">Calc & Copy</button></td>
 							<td><input type="text" id="totp-5--output"></td>
 						</tr>
+						<tr>
+							<td><input type="text" id="totp-6--name" class="save-ls"></td>
+							<td><input type="password" id="totp-6--secret" class="save-ls"></td>
+							<td><button class="d--btn calc--totp" data-target="totp-6">Calc & Copy</button></td>
+							<td><input type="text" id="totp-6--output"></td>
+						</tr>
+						<tr>
+							<td><input type="text" id="totp-7--name" class="save-ls"></td>
+							<td><input type="password" id="totp-7--secret" class="save-ls"></td>
+							<td><button class="d--btn calc--totp" data-target="totp-7">Calc & Copy</button></td>
+							<td><input type="text" id="totp-7--output"></td>
+						</tr>
+						<tr>
+							<td><input type="text" id="totp-8--name" class="save-ls"></td>
+							<td><input type="password" id="totp-8--secret" class="save-ls"></td>
+							<td><button class="d--btn calc--totp" data-target="totp-8">Calc & Copy</button></td>
+							<td><input type="text" id="totp-8--output"></td>
+						</tr>
 					</table>
+					<hr>
+					<button id="sav-ls-btn" class="config-btn save-ls-btn">Save</button>
 				</div>
 			</article>
 			<!--　■■■■　MAIN--CONFIG　■■■■　-->
 			<article id="config" class="l--tab-content l--fullwidth">
 				<h1 class="d--h1">Config</h1>
-				<hr>
 				<!--　■■■　MAIN--CONFIG--USER-INFO　■■■　-->
 				<details open>
 					<summary class="d--h2">ユーザー情報</summary>
@@ -231,7 +253,6 @@
 						</div>
 					</div>
 				</details>
-				<hr>
 				<!--　■■■　MAIN--CONFIG--MAIL　■■■　-->
 				<details>
 					<summary class="d--h2">Mail</summary>
@@ -276,7 +297,6 @@
 						</div>
 					</div>
 				</details>
-				<hr>
 				<!--　■■■　MAIN--CONFIG--●　■■■　-->
 				<details>
 					<summary class="d--h2">●</summary>
@@ -291,15 +311,15 @@
 					</div>
 				</details>
 				<hr>
-				<!--　■■　MAIN--CONFIG--SAVE-BTN　■■　-->
-				<div class="config--save-btn">
-					<div class="config--btn">
+				<!--　■■　MAIN--sav-ls-btn　■■　-->
+				<div>
+					<div>
 						<label class="tgl-btn">
 							<input type="checkbox" class="tgl-btn--chkbox">
 						</labe>
 					</div>
-					<div class="config--btn">
-						<button id="config--save-btn" class="config-btn save-ls-btn">Save</button>
+					<div>
+						<button id="sav-ls-btn" class="config-btn save-ls-btn">Save</button>
 					</div>
 				</div>
 			</article>

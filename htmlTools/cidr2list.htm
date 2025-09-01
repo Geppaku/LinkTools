@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="author" content="Geppaku">
+	<link rel="icon" href="favicon.ico">
+	<title>LINK Tools</title>
+	<!--　■■■■■　CSS　■■■■■　-->
+	<style type="text/css">
+		html, body, div, p, mark {
+			margin: 0;
+			padding: 0;
+			border: 0;
+			font-size: 100%;
+			font: inherit;
+			vertical-align: baseline;
+		}
+		button, input, select, textarea, pre {
+			font-family: inherit;
+			font-size: 100%;
+		}
+		.main > li {
+			margin: 0;
+			padding: 0;
+			list-style-type: none;
+		}
+		.l--grid-container--body {
+			display: grid;
+			grid:
+				"header header header"  auto
+				"link        main     sidebar" 1fr
+				"footer   footer   footer"    auto
+				/ auto     1fr		   auto;
+		}
+		.header {
+			grid-area: header;
+			position: sticky;
+			top: 0;
+			padding: 1rem;
+			background-color: black;
+			z-index: 2;
+		}
+		.main {
+			grid-area: main;
+			position: relative;
+			padding: 1rem;
+			z-index: 1;
+		}
+	</style>
+</head>
+
+<body>
+	<div class="l--grid-container--body">
+		<header class="header">
+			<input type="text" id="inputTextBox" class="inputTextBox" placeholder="X.X.X.X/X">
+			<button class="" onClick="pageTransition()">Cidr to IP Address List</button>
+		</header>
+		<main class="main" id="output">
+		</main>
+	</div>
+	<!--　■■■■■　JavaScript　■■■■■　-->
+	<script type="text/javascript">
+		window.onload = function() {
+			document.getElementById("output").innerText = '';
+			getUrlQueries();
+			if(typeof queries.cidr !== 'undefined') {
+				document.title = queries.cidr;
+				document.getElementById('inputTextBox').value = queries.cidr;
+				var ipBit = getIpRange(queries);
+				for(var ip = parseInt(ipBit.min,2); ip <= parseInt(ipBit.max,2); ip++) {
+					let outputStr = convertToIp(ip.toString(2));
+					let newLi = document.createElement("li");
+					let outputText = document.createTextNode(outputStr);
+					let outputList = document.getElementById("output");
+					newLi.appendChild(outputText);
+					outputList.appendChild(newLi);
+				}
+			}
+		}
+		function pageTransition() {
+			const url = new URL(window.location.href);
+			var inputValue = document.getElementById('inputTextBox').value;
+			window.location.href = url.origin + url.pathname + '?cidr=' + inputValue;
+		}
+		function getUrlQueries() {
+			var queryStr = window.location.search.slice(1);  // 文頭?を除外
+				queries = {};  // クエリがない場合は空のオブジェクトを返す
+			if (!queryStr) {
+				return queries;
+			}
+			queryStr.split('&').forEach(function(queryStr) {  // クエリ文字列を & で分割して処理
+				var queryArr = queryStr.split('=');  // = で分割してkey,valueをオブジェクトに格納
+				queries[queryArr[0]] = queryArr[1];
+			});
+			return queries;
+		}
+		function convertToBinaryIp(ipAddress) {
+			const dividedIpAddress = ipAddress.split('.').reverse();
+			const byte = 8;
+			return dividedIpAddress.reduce((accumulator, v, idx) => {
+				const binary = (parseInt(v, 10) << (byte * idx)) >>> 0;
+				return accumulator + binary;
+			}, 0);
+		}
+		function convertToIp(num){
+			var ret = "";
+			num = ('00000000000000000000000000000000' + num).slice(-32);
+			ret = parseInt(num.slice(0,8), 2) + ".";
+			ret += parseInt(num.slice(8,16), 2) + ".";
+			ret += parseInt(num.slice(16,24), 2) + ".";
+			ret += parseInt(num.slice(24,32), 2);
+			return ret;
+		}
+		function getIpRange(ipCidr){
+			if (ipCidr.cidr) {
+				var ip = ipCidr.cidr.split('/'),
+					group = ip[0].split('.');
+				if (ip === "" || group.length !== 4 ||
+						(ip.length === 2 && String(ip[1]).match(/^([1-9]|[1-2][0-9]|3[0-2])$/) === null ) ) {
+					return {min:'', max: ''}; // 空を返す
+				}
+				var cidr = ip[1];
+				var netmask = 0xffffffff;
+				netmask = netmask <<= (32 - cidr);
+				netmask = netmask >>> 0;
+				var binaryIp = convertToBinaryIp(ip[0]);
+				var minBinaryIp = ((binaryIp & netmask) >>> 0).toString(2);
+				var maxBinaryIp = ((binaryIp | ~netmask) >>> 0).toString(2);
+				return {min: minBinaryIp, max: maxBinaryIp};
+			}
+		}
+	</script>
+</body>
+
+</html>
