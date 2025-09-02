@@ -1,13 +1,13 @@
-/*　■■■■■　ルール　■■■■■　*/
-/*　■■■■　命名規則　■■■■　*/
-/*　■　関数、変数：camelCase　■　*/
-/*　■　クラス：PascalCase　■　*/
-/*　■　定数：UPPER_SNAKE_CASE　■　*/
+//　■■■■■　ルール　■■■■■
+//　■■■■　命名規則　■■■■
+//　■　関数、変数：camelCase　■
+//　■　クラス：PascalCase　■
+//　■　定数：UPPER_SNAKE_CASE　■
 
-/*　■■■■■　変数・定数　■■■■■　*/
-/*　■■■■　定数　■■■■　*/
-/*　■■■　グローバル定数　■■■　*/
-/*　■■　OSINT　■■　*/
+//　■■■■■　変数・定数　■■■■■
+//　■■■■　定数　■■■■
+//　■■■　グローバル定数　■■■
+//　■■　OSINT　■■
 const ipOsints = [
 	{ name: 'Whois', url1: 'https://www.whois.com/whois/', url2: '', encode: ''  },
 	{ name: 'JPNIC WHOIS', url1: 'https://whois.nic.ad.jp/cgi-bin/whois_gw?key=', url2: '', encode: ''  },
@@ -23,8 +23,8 @@ const domainOsints = [
 	{ name: 'urlscan Pro', url1: 'https://pro.urlscan.io/search?query="', url2: '"', encode: ''  },
 ];
 const urlOsints = [
-	{ name: 'Whois', url1: 'https://www.whois.com/whois/', url2: '', encode: ''  },
 	{ name: 'Virus Total', url1: 'https://www.virustotal.com/gui/search/', url2: '', encode: 'wPercent'  },
+	{ name: 'Archive', url1: 'https://web.archive.org/web/*/', url2: '', encode: ''  },
 ];
 const hashOsints = [
 	{ name: 'Virus Total', url1: 'https://www.virustotal.com/gui/search/', url2: '', encode: ''  },
@@ -54,54 +54,53 @@ let macs = [];
 let dates = [];
 let dateTimes = [];
 
-/*　■■■■■　関数　■■■■■　*/
-/*　■■■■　自動実行　■■■■　*/
-/*　■■■　ページ読込時　■■■　*/
+//　■■■■■　関数　■■■■■
+//　■■■■　自動実行　■■■■
+//　■■■　ページ読込時　■■■
 window.addEventListener('DOMContentLoaded', function() {
 	loadItem('memo','footer--textarea');
 	memoValue = document.getElementById('footer--textarea').value;
 	memoFangValue = memoValue.replace(/hxxps?:/gi,'https:').replace(/\[\.\]|\[dot\]/g,'.');
-	/*　■　LocalStorageに保存したデータの読込　■　*/
+	//　■■　LocalStorageに保存したデータの読込　■■
 	let elms = document.getElementsByClassName('save-ls');
 	for (let elm of elms) {
 		loadItem(elm.getAttribute('id'),elm.getAttribute('id'));
 	}
 	userName = localStorage.getItem('config--user-name');
 	extractIndicator();
-	analysis();
-	copyList();
-	openListLink();
+	for (resetParentElm of resetParentElms) {
+		while(resetParentElm.firstChild) {
+			resetParentElm.removeChild(resetParentElm.firstChild);
+		}
+	}
+	memoChanged();
 });
 
-/*　■■■　イベントリスナー　■■■　*/
+//　■■■　ページ読込後　■■■
 window.addEventListener('load',function() {
-	/*　■■　MEMO更新時　■■　*/
-	document.getElementById('footer--textarea').addEventListener('input',(event) => {
-		/*　■　MEMO関連　■　*/
-		saveItem('memo','footer--textarea');
-		memoValue = document.getElementById('footer--textarea').value;
-		memoFangValue = memoValue.replace(/\[\.\]|\[dot\]/g,'.').replace(/http\[:\]/gi,'http:').replace(/hxxp:/gi,'http:').replace(/hxxp\[:\]/gi,'http:').replace(/https\[:\]/gi,'https:').replace(/hxxps:/gi,'https:').replace(/hxxps\[:\]/gi,'https:');
-		/*　■　抽出、Analysis　■　*/
-		extractIndicator();
-		for (resetParentElm of resetParentElms) {
-			while(resetParentElm.firstChild) {
-				resetParentElm.removeChild(resetParentElm.firstChild);
-			}
-		}
-		analysis();
-		copyList();
-		openListLink();
-	});
-	/*　■■　Config設定時　■■　*/
+	//　■■　MEMO更新時　■■
+	document.getElementById('footer--textarea').addEventListener('input', memoChanged);
+	//　■■　SAVEボタン押下時　■■
 	document.querySelectorAll('.save-ls-btn').forEach(function(target) {
-		target.addEventListener('click', function() {
-			let elms = document.getElementsByClassName('save-ls');
-			for (let elm of elms) {
-				saveItem(elm.getAttribute('id'),elm.getAttribute('id'));
-			}
-		})
+		target.addEventListener('click', saveLs);
 	});
-	/*　■■　CMD-BTN　■■　*/
+	//　■■　ACT-BTN　■■
+	document.querySelectorAll('.act-btn').forEach(function(elm) {
+		elm.addEventListener('click', function() {
+			if ( elm.dataset.act === 'copy' ) {
+				let copyValue = '';
+				let targets;
+				targets = elm.dataset.target == 'ipv4s' ? ipv4s : targets ;
+				targets = elm.dataset.target == 'urls' ? urls : targets ;
+				for ( target of targets ) {
+					copyValue += target + '\n';
+				}
+				navigator.clipboard.writeText(copyValue);
+			} else if ( elm.dataset.act === 'open')  {
+			}
+		});
+	});
+	//　■■　CMD-BTN　■■
 	document.querySelectorAll('.cmd-btn').forEach(function(target) {
 		target.addEventListener('click', function() {
 			switch (target.dataset.action) {
@@ -133,7 +132,7 @@ window.addEventListener('load',function() {
 			}
 		})
 	});
-	/*　■■　CALC--TOTP-BTN　■■　*/
+	/*　■■　CALC--TOTP--BTN　■■　*/
 	const calcTotpBtns = document.querySelectorAll('.calc--totp');
 	calcTotpBtns.forEach(function(target) {
 		target.addEventListener('click', function() {
@@ -294,7 +293,6 @@ function convertToIp(num){
 	return ret;
 }
 
-
 /*　■■　ipが、cidrの範囲内にあるかどうか判定　■■　*/
 function ipInRange(ip, cidr) {
 	let cidrIp = cidr.split('/')[0];
@@ -305,7 +303,6 @@ function ipInRange(ip, cidr) {
 	let cidrIpNetwork = cidrIpNumber >>> (32 - cidrRange);
 	return ipNetwork === cidrIpNetwork;
 }
-
 
 /*　■■　IPv4分類　■■　*/
 function ipv4Classify(ipv4) {
@@ -322,14 +319,13 @@ function ipv4Classify(ipv4) {
 	return ipv4Obj;
 }
 
-
 /*　■■　URL分析　■■　*/
 function urlAnalysis(url) {
 	let urlObj = {'flag': '', 'url': url};
 	let parser = new URL(url);
 	urlObj.flag += /https?:\/?[^\/]/.test(url) ? '🤡' : '' ;
 	urlObj.flag += /[∕⁄]/.test(url) ? '➗' : '' ;
-	urlObj.flag += /https?:\/{0,2}[@\w\-\.\/]*[^@\w\-\.\/]/.test(url) ? '👽' : '' ;
+	urlObj.flag += /https?:\/{0,2}[@\w\-\.]*[^@\w\-\.\/]/.test(url) ? '👽' : '' ;
 	urlObj.flag += /https?:\/{0,2}[^\/]*@[^\/]+/.test(url) ? '🔑' : '' ;
 	urlObj.flag += /https?:\/{0,2}([^\/]*@)?translate\.google\.com\//.test(url) ? '📖' : '' ;
 	urlObj.flag += /https?:\/{0,2}[\w\-]\.translate\.goog/.test(url) ? '📖' : '' ;
@@ -377,12 +373,15 @@ function appendHtmlList(parentElm, title, items, linkUrl1='default', linkUrl2, e
 	let ulElm = document.createElement('ul');
 	divElm.appendChild(ulElm);
 	for ( let item of items ) {
+		if ( item.length > 64) {
+			item = item.substr(0,32) + ' ... ' + item.substr(-16);
+		}
 		let liElm = document.createElement('li');
 		ulElm.appendChild(liElm);
 		switch (encode) {
 			case 'wPercent' :
 				decodeItem = encodeURI(encodeURIComponent(item));
-				break;
+			break;
 			default :
 				decodeItem = item;
 		}
@@ -432,7 +431,32 @@ function appendHtmlLi(parentElm, prefix, item, linkUrl='default') {
 
 
 
-/*　■■■　共通関数　■■■　*/
+//　■■■　共通関数　■■■
+//　■■　MEMO更新時の処理　■■
+function memoChanged() {
+	saveItem('memo','footer--textarea');
+	memoValue = document.getElementById('footer--textarea').value;
+	memoFangValue = memoValue.replace(/\[\.\]|\[dot\]/g,'.').replace(/http\[:\]/gi,'http:').replace(/hxxp:/gi,'http:').replace(/hxxp\[:\]/gi,'http:').replace(/https\[:\]/gi,'https:').replace(/hxxps:/gi,'https:').replace(/hxxps\[:\]/gi,'https:');
+	/*　■　抽出、Analysis　■　*/
+	extractIndicator();
+	for (resetParentElm of resetParentElms) {
+		while(resetParentElm.firstChild) {
+			resetParentElm.removeChild(resetParentElm.firstChild);
+		}
+	}
+	analysis();
+	copyList();
+	openListLink();
+}
+
+//　■■　SAVEボタン押下時の処理　■■
+function saveLs() {
+	let elms = document.getElementsByClassName('save-ls');
+	for (let elm of elms) {
+		saveItem(elm.getAttribute('id'),elm.getAttribute('id'));
+	}
+}
+
 /*　■■　Indicator抽出　■■　*/
 function extractIndicator() {
 	/*　■　IPv4アドレス抽出（ipv4sに格納）　■　*/

@@ -70,6 +70,9 @@
 				<div class="l--h1-contetnt">
 					<details open>
 						<summary class="d--h2">IP Address</summary>
+						<div class="l--flex-container">
+							<button class="d--btn act-btn" data-act="copy" data-target="ipv4s">Copy IP Addresses</button>
+						</div>
 						<div id="main--analysis--ip-address" class="reset-child--elm l--flex-container"></div>
 					</details>
 					<details open>
@@ -78,6 +81,10 @@
 					</details>
 					<details open>
 						<summary class="d--h2">URL</summary>
+						<div class="l--flex-container">
+							<button class="d--btn act-btn" data-act="copy" data-target="urls">Copy URLs</button>
+							<button class="d--btn act-btn" data-act="open" data-target="urls">Open URLs</button>
+						</div>
 						<div class="l--flex-container l--legend">
 							<p>🤡：検出回避</p>
 							<p>➗：除算スラッシュ</p>
@@ -162,12 +169,6 @@
 							<td><button class="d--btn calc--totp" data-target="totp-7">Calc & Copy</button></td>
 							<td><input type="text" id="totp-7--output"></td>
 						</tr>
-						<tr>
-							<td><input type="text" id="totp-8--name" class="save-ls"></td>
-							<td><input type="password" id="totp-8--secret" class="save-ls"></td>
-							<td><button class="d--btn calc--totp" data-target="totp-8">Calc & Copy</button></td>
-							<td><input type="text" id="totp-8--output"></td>
-						</tr>
 					</table>
 					<hr>
 					<button id="sav-ls-btn" class="config-btn save-ls-btn">Save</button>
@@ -186,7 +187,7 @@
 						</div>
 						<div class="config--value">
 							<input type="text" id="config--user-name" class="save-ls config--value-input" placeholder="苗字">
-							<button class="config--copy-btn">Copy</button>
+							<button class="">Copy</button>
 						</div>
 					</div>
 					<!--　■■　MAIN--CONFIG--USER-ID　■■　-->
