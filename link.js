@@ -89,14 +89,21 @@ window.addEventListener('load',function() {
 		elm.addEventListener('click', function() {
 			if ( elm.dataset.act === 'copy' ) {
 				let copyValue = '';
-				let targets;
-				targets = elm.dataset.target == 'ipv4s' ? ipv4s : targets ;
-				targets = elm.dataset.target == 'urls' ? urls : targets ;
-				for ( target of targets ) {
-					copyValue += target + '\n';
+				let cppyTargets;
+				cppyTargets = elm.dataset.target == 'ipv4s' ? ipv4s : cppyTargets ;
+				cppyTargets = elm.dataset.target == 'urls' ? urls : cppyTargets ;
+				for ( cppyTarget of cppyTargets ) {
+					copyValue += cppyTarget + '\n';
 				}
 				navigator.clipboard.writeText(copyValue);
 			} else if ( elm.dataset.act === 'open')  {
+				let openTargets;
+				openTargets = elm.dataset.target == 'urls' ? urls : openTargets ;
+				if ( window.confirm('危険なURIは含まれていませんか？') ) {
+					for ( openTarget of openTargets ) {
+						window.open(openTarget, '_blank');
+					}
+				}
 			}
 		});
 	});
