@@ -217,7 +217,7 @@ code {
 	grid:
 		"header header header"  auto
 		"link   main   sidebar" 1fr
-		"footer footer sidebar"  auto
+		"footer footer clock"  auto
 		/ auto  1fr    auto;
 }
 
@@ -311,6 +311,14 @@ nav > ul > li {
 	bottom: 0;
 	grid-area: footer;
 	z-index: 10;
+}
+
+.clock {
+	grid-area: clock;
+	display: flex;
+	flex-flow: column;
+	justify-content: flex-end;
+	text-align: center;
 }
 
 .config--key-value {
@@ -427,6 +435,21 @@ nav > ul > li {
 	height: 16rem;
 }
 
+#clock--date {
+	display: none;
+}
+
+#clock--time {
+	text-align: center;
+}
+
+.footer:has(#footer--chkbox--textarea-expand:checked) ~ #clock {
+	#clock--date {
+		display: block;
+		margin-bottom: 0.5rem;
+		padding: 0.25rem;
+	}
+}
 
 
 

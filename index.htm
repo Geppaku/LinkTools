@@ -51,15 +51,24 @@
 				<div class="l--padding-left--05">
 					<!--　■■■　MAIN--TOP--ABOUT-LINK-TOOLS　■■■　-->
 					<details>
-						<summary class="h2">LINK Tools について</summary>
-					</details>
-					<!--　■■■　MAIN--TOP--UPDATE-HISTORY　■■■　-->
-					<details>
-						<summary class="h2">更新履歴</summary>
+						<summary class="d--h2">LINK Tools について</summary>
 					</details>
 					<!--　■■■　MAIN--TOP--HOW-TO-USE　■■■　-->
 					<details>
-						<summary class="h2">使い方</summary>
+						<summary class="d--h2">使い方</summary>
+					</details>
+					<!--　■■■　MAIN--TOP--UPDATE-HISTORY　■■■　-->
+					<details>
+						<summary class="d--h2">更新履歴</summary>
+						<details>
+							<summary class="d--h3">2025/09/12：Clock/表示サイトURL抽出機能実装</summary>
+							<p>Clock：右下に時計（入力エリアを展開すると年月日も）を表示。</p>
+							<p>表示サイトURL抽出：Google検索やGoogle翻訳等のURLから、実際に表示されるサイトのURLを抽出。</p>
+						</details>
+						<details>
+							<summary class="d--h3">2025/09/08：β版リリース</summary>
+							<p>デザインは最低限。</p>
+						</details>
 					</details>
 				</div>
 			</article>
@@ -556,9 +565,8 @@
 						<span id="footer--angle-icon"></span>
 					</label>
 				</button>
-				<div id="footer--textarea-cnt" class="l--margin-left--05 l--margin-right--auto">
-					hoge
-				</div>
+				<div id="footer--textarea-flag" class="l--margin-left--05"></div>
+				<div id="footer--textarea-cnt" class="l--margin-left--05 l--margin-right--auto"></div>
 				<!--　■■■　FOOTER--CMD--BTNS　■■■　-->
 				<button class="d--btn cmd--btn l--flex-container" data-action="copy-memo">
 					<svg class="l--btn-icon" xmlns="http://www.w3.org/2000/svg">
@@ -597,6 +605,10 @@
 			<!--　■■■■　FOOTER--TEXTAREA　■■■■　-->
 			<textarea id="footer--textarea" class="l--fullwidth"></textarea>
 		</footer>
+		<div id="clock" class="clock">
+			<div id="clock--date" class="l--sideways"></div>
+			<div id="clock--time"></div>
+		</div>
 		</div>
 	</body>
 </html>

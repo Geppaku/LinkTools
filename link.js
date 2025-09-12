@@ -30,6 +30,9 @@ const hashOsints = [
 	{ name: 'Virus Total', url1: 'https://www.virustotal.com/gui/search/', url2: '', encode: ''  },
 ];
 
+const JpDows = ["日", "月", "火", "水", "木", "金", "土"];
+const engDows = ["Sun.", "Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat."];
+
 //　■■　子要素リセット対象要素（子要素が動的に追加される要素）　■■
 const childResetElms = document.getElementsByClassName('child-reset--elm');
 
@@ -40,7 +43,7 @@ const tlds = ['AAA','AARP','ABB','ABBOTT','ABBVIE','ABC','ABLE','ABOGADO','ABUDH
 //　■■■　グローバル変数　■■■
 let webhookUrl;
 let memoValue, memoFangValue;
-let now, YYYY, M, MM, D, DD, h, hh, m, mm, s, ss;
+let now, YYYY, M, MM, D, DD, A, a, h, hh, m, mm, s, ss;
 let ipv4s = [];
 let ipv6s = [];
 let cidrs = [];
@@ -74,6 +77,10 @@ window.addEventListener('DOMContentLoaded', function() {
 		}
 	}
 	memoChanged();
+	setTimeout(function () {
+		showClock();
+		setInterval("showClock()", 1000);
+	}, 1000 - new Date().getUTCMilliseconds() );
 });
 
 //　■■■　ページ読込後　■■■
@@ -172,6 +179,7 @@ function memoChanged() {
 	analysis();
 	copyList();
 	openListLink();
+	flagMemo(memoValue, 'footer--textarea-flag');
 	cntStr('footer--textarea', 'footer--textarea-cnt');
 }
 
@@ -207,6 +215,8 @@ function separateDateTime(dateTime) {
 	D = dateTime.getDate();
 	MM = ('0' + M).slice(-2);
 	DD = ('0' + D).slice(-2);
+	A = JpDows[dateTime.getDay()];
+	a = engDows[dateTime.getDay()];
 	h = dateTime.getHours();
 	m = dateTime.getMinutes();
 	s = dateTime.getSeconds();
@@ -348,7 +358,7 @@ function ipv4Classify(ipv4) {
 
 //　■■■　URL分析　■■■
 function urlAnalysis(url) {
-	let urlObj = {'flag': '', 'url': url, 'redirectUrl':''};
+	let urlObj = {'flag': '', 'url': url, 'siteDisplayed':''};
 	urlObj.flag += /https?:\/?[^\/]/.test(url) ? '🤡' : '' ;
 	urlObj.flag += /[∕⁄]/.test(url) ? '➗' : '' ;
 	urlObj.flag += /https?:\/{0,2}[@\w\-\.]*[^@\w\-\.\/]/.test(url) ? '👽' : '' ;
@@ -361,14 +371,14 @@ function urlAnalysis(url) {
 	urlObj.flag += /https?:\/{0,2}[^\/]*\w{16,}/.test(url) ? '🎲' : '' ;
 	urlObj.flag += /https?:\/{0,2}[^\/]*[bcdfghjklmnpqrstvwxyz0-9]{8,}/.test(url) ? '🎲' : '' ;
 	let parser = new URL(url);
-	urlObj.redirectUrl += /https?:\/{0,2}[^\/]*safelinks\.protection\.outlook\.com\/(\?.*)?[\?&]url=https?[^&]+/.test(url)
+	urlObj.siteDisplayed += /https?:\/{0,2}[^\/]*safelinks\.protection\.outlook\.com\/(\?.*)?[\?&]url=https?[^&]+/.test(url)
 		? decodeURIComponent(url.match(/[\?&]url=https?[^&]+/gi)[0].match(/https?.+/gi)[0]) : '';
-	urlObj.redirectUrl += /https?:\/{0,2}[^\/]*www\.google\.com\/url(\?.*)?[\?&]url=https?[^&]+/.test(url)
+	urlObj.siteDisplayed += /https?:\/{0,2}[^\/]*www\.google\.com\/url(\?.*)?[\?&]url=https?[^&]+/.test(url)
 		? decodeURIComponent(url.match(/[\?&]url=https?[^&]+/gi)[0].match(/https?.+/gi)[0]) : '';
-	urlObj.redirectUrl += /https?:\/{0,2}[^\/]*www\.bing\.com\/ck\/a(\?.*)?[\?&]u=a1aHR0c[^&]+/.test(url)
+	urlObj.siteDisplayed += /https?:\/{0,2}[^\/]*www\.bing\.com\/ck\/a(\?.*)?[\?&]u=a1aHR0c[^&]+/.test(url)
 		? atob(url.match(/a1aHR0c[^&]+/gi)[0]) : '';
-	urlObj.redirectUrl += /https?:\/{0,2}[^\/]+\.translate\.goog[\/]/.test(url)
-		? url.replace('.translate.goog/','/').replace(/\?.*/,'').replace('-','.').replace('..','.') : '';
+	urlObj.siteDisplayed += /https?:\/{0,2}[^\/]+\.translate\.goog[\/]/.test(url)
+		? url.replace('.translate.goog/','/').replace(/\?.*/,'').replaceAll('-','.').replaceAll('..','.') : '';
 	return urlObj;
 }
 
@@ -577,7 +587,7 @@ function analysis() {
 		let urlObj = urlAnalysis(url);
 		urlDatass.push(Object.values(urlObj));
 	}
-	appendHtmlTable(elmMAU, ['Flag', 'URL'], urlDatass );
+	appendHtmlTable(elmMAU, ['Flag', 'URL', 'Site Displayed'], urlDatass );
 	//　■　DEFANG-URL　■
 	appendHtmlUl(elmMAU, 'main--analysis--url--defang', 'Defang');
 	let elmMAUD = document.getElementById('main--analysis--url--defang');
@@ -599,10 +609,26 @@ function analysis() {
 	}
 }
 
+//　■■■　FLAG　■■■
+function flagMemo(str, outputElmId) {
+	let flag = /[͏؜឴឵᠋᠌᠍᠎     ​‌‍‎‏‪‫‬‭‮  ⁠⁡⁢⁣⁤⁥⁦⁧⁨⁩⁪⁫⁬⁭⁮⁯⠀󠀁󠀠󠀡󠀢󠀣󠀤󠀥󠀦󠀧󠀨󠀩󠀪󠀫󠀬󠀭󠀮󠀯󠀰󠀱󠀲󠀳󠀴󠀵󠀶󠀷󠀸󠀹󠀺󠀻󠀼󠀽󠀾󠀿󠁀󠁁󠁂󠁃󠁄󠁅󠁆󠁇󠁈󠁉󠁊󠁋󠁌󠁍󠁎󠁏󠁐󠁑󠁒󠁓󠁔󠁕󠁖󠁗󠁘󠁙󠁚󠁛󠁜󠁝󠁞󠁟󠁠󠁡󠁢󠁣󠁤󠁥󠁦󠁧󠁨󠁩󠁪󠁫󠁬󠁭󠁮󠁯󠁰󠁱󠁲󠁳󠁴󠁵󠁶󠁷󠁸󠁹󠁺󠁻󠁼󠁽󠁾󠁿󠄀󠄁󠄂󠄃󠄄󠄅󠄆󠄇󠄈󠄉󠄊󠄋󠄌󠄍󠄎󠄏󠄐󠄑󠄒󠄓󠄔󠄕󠄖󠄗󠄘󠄙󠄚󠄛󠄜󠄝󠄞󠄟󠄠󠄡󠄢󠄣󠄤󠄥󠄦󠄧󠄨󠄩󠄪󠄫󠄬󠄭󠄮󠄯󠄰󠄱󠄲󠄳󠄴󠄵󠄶󠄷󠄸󠄹󠄺󠄻󠄼󠄽󠄾󠄿󠅀󠅁󠅂󠅃󠅄󠅅󠅆󠅇󠅈󠅉󠅊󠅋󠅌󠅍󠅎󠅏󠅐󠅑󠅒󠅓󠅔󠅕󠅖󠅗󠅘󠅙󠅚󠅛󠅜󠅝󠅞󠅟󠅠󠅡󠅢󠅣󠅤󠅥󠅦󠅧󠅨󠅩󠅪󠅫󠅬󠅭󠅮󠅯󠅰󠅱󠅲󠅳󠅴󠅵󠅶󠅷󠅸󠅹󠅺󠅻󠅼󠅽󠅾󠅿󠆀󠆁󠆂󠆃󠆄󠆅󠆆󠆇󠆈󠆉󠆊󠆋󠆌󠆍󠆎󠆏󠆐󠆑󠆒󠆓󠆔󠆕󠆖󠆗󠆘󠆙󠆚󠆛󠆜󠆝󠆞󠆟󠆠󠆡󠆢󠆣󠆤󠆥󠆦󠆧󠆨󠆩󠆪󠆫󠆬󠆭󠆮󠆯󠆰󠆱󠆲󠆳󠆴󠆵󠆶󠆷󠆸󠆹󠆺󠆻󠆼󠆽󠆾󠆿󠇀󠇁󠇂󠇃󠇄󠇅󠇆󠇇󠇈󠇉󠇊󠇋󠇌󠇍󠇎󠇏󠇐󠇑󠇒󠇓󠇔󠇕󠇖󠇗󠇘󠇙󠇚󠇛󠇜󠇝󠇞󠇟󠇠󠇡󠇢󠇣󠇤󠇥󠇦󠇧󠇨󠇩󠇪󠇫󠇬󠇭󠇮︀︁︂︃︄︅︆︇︈︉︊︋︌︍︎️﻿￹￺￻￼]/.test(str) 
+		? '👁' : '' ;
+	document.getElementById(outputElmId).textContent = flag;
+}
+
 //　■■■　文字数カウント　■■■
 function cntStr(cntElmId, outputElmId) {
 	let strCnt = document.getElementById(cntElmId).value.length;
 	document.getElementById(outputElmId).textContent = strCnt.toLocaleString() + ' 文字';
+}
+
+//　■■■　CLOCK　■■■
+function showClock() {
+	getDateTime();
+	let dateStr = YYYY + '-' + MM + '-' + DD + ' ' + a;
+	let clockStr = hh + '<br>' + mm + '<br>' + ss;
+	document.getElementById('clock--date').innerHTML = dateStr;
+	document.getElementById('clock--time').innerHTML = clockStr;
 }
 
 //　■■■　メール作成　■■■
