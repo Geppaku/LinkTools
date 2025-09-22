@@ -77,6 +77,10 @@ code {
 	width: 100%;
 }
 
+.l--width-75percent {
+	width: 75%;
+}
+
 .l--width-long {
 	width: 32rem;
 }

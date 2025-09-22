@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="author" content="Geppaku">
+		<link rel="icon" href="favicon.ico">
+		<link rel="stylesheet" href="../link.css">
+		<title>LINK Tools</title>
+	</head>
+	<body>
+		<h1 class="d--h1">Command</h1>
+		<div class="l--padding-left--05 l--padding-right--05">
+			<!--　■■■　SPLUNK　■■■　-->
+			<details>
+				<summary class="d--h2">Splunk</summary>
+				<details>
+					<summary class="d--h3">●●</summary>
+					<div>
+						<code contenteditable="true" class="l--fullwidth">
+							earliest=-d@d latest=now<br>
+							index=●●<br>
+							●●
+							| table _time ●●
+							| sort - _time
+						</code>
+					</div>
+				</details>
+			</details>
+			<details>
+				<summary class="d--h2">Splunk Tips</summary>
+				<details>
+					<summary class="d--h3">フィールド抽出</summary>
+					<div>
+						<code contenteditable="true" class="l--fullwidth">
+							| rex field=抽出元フィールド名 "(プレフィックス)(?<抽出フィールド名>.*?)(サフィックス)"
+						</code>
+					</div>
+				</details>
+				<details>
+					<summary class="d--h3">CIDR検索</summary>
+					<div>
+						<code contenteditable="true" class="l--fullwidth">
+							| where cidrmatch("X.X.X.X/X",ip) OR cidrmatch("X.X.X.X/X",ip)
+						</code>
+					</div>
+				</details>
+				<details>
+					<summary class="d--h3">UTCの _time をJSTに</summary>
+					<div>
+						<code contenteditable="true" class="l--fullwidth">
+							| eval jst_time=strftime(_time-9*60*60,"%Y/%m/%d %H:%M:%S")
+						</code>
+					</div>
+				</details>
+			</details>
+			<!--　■■■　NMAP　■■■　-->
+			<details>
+				<summary class="d--h2">NMAP</summary>
+				<code contenteditable="true" class="l--fullwidth">
+					nmap -Pn -sV --reason X.X.X.X(/X)<br>
+					nmap -Pn -sU -sV --reason X.X.X.X(/X)
+				</code>
+				<table class="d--table-border-bottom--1">
+					<tr>
+						<td>-sU</td>
+						<td>：</td>
+						<td>UDPスキャン（-sV を付けないと結果が不安定）</td>
+					</tr>
+					<tr>
+						<td>-p ポート番号</td>
+						<td>：</td>
+						<td>スキャンするポート番号を指定</td>
+					</tr>
+					<tr>
+						<td>-g ポート番号</td>
+						<td>：</td>
+						<td>送信元ポート番号を指定</td>
+					</tr>
+					<tr>
+						<td>-Pn</td>
+						<td>：</td>
+						<td>事前のホストスキャンを実施しない</td>
+					</tr>
+					<tr>
+						<td>-sV</td>
+						<td>：</td>
+						<td>稼働サービスのバージョン情報取得（時間がかかる）</td>
+					</tr>
+					<tr>
+						<td>-sS</td>
+						<td>：</td>
+						<td>TCPハーフコネクトスキャン（SYN/ACK応答にRSTを送る）</td>
+					</tr>
+					<tr>
+						<td>-sT</td>
+						<td>：</td>
+						<td>TCPフルコネクトスキャン（ACK応答にRST/ACKを送り、コネクションを閉じる）</td>
+					</tr>
+					<tr>
+						<td>-sP</td>
+						<td>：</td>
+						<td>存在するホストリストの取得（CIDR表記でネットワークを指定して実行可能）</td>
+					</tr>
+					<tr>
+						<td>-O</td>
+						<td>：</td>
+						<td>OS情報取得</td>
+					</tr>
+					<tr>
+						<td>-A</td>
+						<td>：</td>
+						<td>OS及びバージョン情報取得（かなり時間がかかる）</td>
+					</tr>
+					<tr>
+						<td>-sA</td>
+						<td>：</td>
+						<td>ファイアーウォールで保護されているか確認（ポートが空いているかは分からない）</td>
+					</tr>
+					<tr>
+						<td>-sC</td>
+						<td>：</td>
+						<td>標準的なスクリプトスキャン</td>
+					</tr>
+					<tr>
+						<td>--script banner.nse</td>
+						<td>：</td>
+						<td>TCPポートに接続して、バナー情報を得る</td>
+					</tr>
+					<tr>
+						<td>--script ftp-anon.nse</td>
+						<td>：</td>
+						<td>FTPサーバーにanonymousアカウントでログイン可能か表示する</td>
+					</tr>
+					<tr>
+						<td>-iL ファイル名</td>
+						<td>：</td>
+						<td>ホスト/ネットワークのリストを読み込む</td>
+					</tr>
+					<tr>
+						<td>-oN ファイル名</td>
+						<td>：</td>
+						<td>結果をファイルに書き出す</td>
+					</tr>
+					<tr>
+						<td>-vv</td>
+						<td>：</td>
+						<td>詳細情報の表示（NMAPバージョンも表示される）</td>
+					</tr>
+				</table>
+				<table>
+					<tr>
+						<td>Open</td>
+						<td>：</td>
+						<td>TCP wrapper（tcpd）で制御されていた場合、Openとなることがある</td>
+					</tr>
+					<tr>
+						<td>Filtered</td>
+						<td>：</td>
+						<td>iptablesで制御されていた場合、Filteredとなる</td>
+					</tr>
+					<tr>
+						<td>Closed</td>
+						<td>：</td>
+						<td>RSTが返ってきた場合</td>
+					</tr>
+				</table>
+			</details>
+			<!--　■■■　BASH　■■■　-->
+			<details>
+				<summary class="d--h2">Bash</summary>
+				<details>
+					<summary class="d--h3">60秒毎にコマンド実行し、日時付で画面＆ファイル出力</summary>
+					<code contenteditable="true" class="l--fullwidth">
+						watch -d -n 60 'echo -e `date`"\n****************"`コマンド`"\n****************\n\n" | tee -a output.txt'
+					</code>
+				</details>
+				<details>
+					<summary class="d--h3">リモートから/リモートへのSCP</summary>
+					<code contenteditable="true" class="l--fullwidth">
+						【リモート→ローカル】scp user@xxx.xxx.xxx.xxx:~/file.txt ./<br>
+						【ローカル→リモート】scp file.txt user@xxx.xxx.xxx.xxx:~/
+					</code>
+				</details>
+			</details>
+			<!--　■■■　●●　■■■　-->
+			<details>
+				<summary class="d--h2">●●</summary>
+				<details>
+					<summary class="d--h3">●●</summary>
+					<code contenteditable="true" class="l--fullwidth">
+						●●
+					</code>
+				</details>
+			</details>
+		</div>
+	</body>
+</html>
