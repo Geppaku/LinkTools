@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="UTF-8">
+	<meta name="author" content="Geppaku">
+	<link rel="icon" href="../favicon.ico">
+	<title>Copy Tool</title>
+	<!--　■■■■■　CSS　■■■■■　-->
+	<style type="text/css">
+		html, body, div, p, mark {
+			margin: 0;
+			padding: 0;
+			border: 0;
+			font-size: 100%;
+			font: inherit;
+			vertical-align: baseline;
+		}
+		button, input, select, textarea, pre {
+			font-family: inherit;
+			font-size: 100%;
+		}
+		.l--full-width {
+			box-sizing: border-box;
+			width: 100%;
+		}
+		.l--display-block {
+			display: block;
+		}
+		.d--h1 {
+			padding-left: 1.25rem;
+			font-size: 1.5rem;;
+			font-weight: bold;
+			border: 1px solid midnightblue;
+			border-radius: 5px;
+			&::after {
+				position: absolute;
+				left: 0.5rem;
+				translate: 0 10%;
+				content: '';
+				width: 0.25rem;
+				height: 1.5rem;
+				background-color: midnightblue;
+			}
+		}
+		.l--grid-container {
+			display: grid;
+			grid-template-columns: auto auto 1fr auto auto;
+		}
+		.l--subgrid-container {
+			display: grid;
+			grid-template-columns: subgrid;
+			grid-column: 1 / -1;
+		}
+	</style>
+</head>
+
+<body>
+	<script type="text/javascript">
+		window.onload = function() {
+			document.querySelectorAll('.a--cmd-btn').forEach(function(elm) {
+				elm.addEventListener('click', function() {
+					navigator.clipboard.writeText();
+				}
+			}
+		}
+	</script>
+
+	<h1 class="d--h1">Copy Tool</h1>
+	<div class="l--grid-container">
+		<div class="l--subgrid-container">
+			<button class="a--cmd-btn">Copy</button>
+			<p>①</p>
+			<input type="text">
+			<p>①</p>
+			<button class="a--cmd-btn">Copy</button>
+		</div>
+	</div>
+</body>
+</html>
