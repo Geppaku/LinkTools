@@ -12,6 +12,11 @@
 </head>
 
 <body>
+	<svg class="l--display-none" xmlns="http://www.w3.org/2000/svg">
+		<symbol viewBox="0 0 16 16" id="svg--copy">
+			<path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
+		</symbol>
+	</svg>
 	<div class="l--grid-container--body">
 		<!--　■■■■■　HEADER　■■■■■　-->
 		<header class="header">
@@ -77,25 +82,25 @@
 			<article id="analysis" class="l--tab-content l--full-width">
 				<h1 class="d--h1">Analysis</h1>
 				<div class="l--padding-left--05">
-				<!--　■■■　MAIN--ANALYSIS--IP-ADDRESS　■■■　-->
+					<!--　■■■　MAIN--ANALYSIS--IP-ADDRESS　■■■　-->
 					<details open>
 						<summary class="d--h2">IP Address</summary>
 						<div class="l--flex-container">
-							<button class="d--btn act--btn" data-act="copy" data-target="ipv4s">Copy IP Addresses</button>
+							<button class="d--btn a--cmd-btn" data-act="copy-list" data-target="ipv4s">Copy IP Addresses</button>
 						</div>
 						<div id="main--analysis--ip-address" class="child-reset--elm l--flex-container"></div>
 					</details>
-				<!--　■■■　MAIN--ANALYSIS--DOMAIN　■■■　-->
+					<!--　■■■　MAIN--ANALYSIS--DOMAIN　■■■　-->
 					<details open>
 						<summary class="d--h2">Domain</summary>
 						<div id="main--analysis--domain" class="child-reset--elm l--flex-container"></div>
 					</details>
-				<!--　■■■　MAIN--ANALYSIS--URL　■■■　-->
+					<!--　■■■　MAIN--ANALYSIS--URL　■■■　-->
 					<details open>
 						<summary class="d--h2">URL</summary>
 						<div class="l--flex-container">
-							<button class="d--btn act--btn" data-act="copy" data-target="urls">Copy URLs</button>
-							<button class="d--btn act--btn" data-act="open" data-target="urls">Open URLs</button>
+							<button class="d--btn a--cmd-btn" data-act="copy-list" data-target="urls">Copy URLs</button>
+							<button class="d--btn a--cmd-btn" data-act="open-list" data-target="urls">Open URLs</button>
 						</div>
 						<div class="l--flex-container l--legend">
 							<p>🤡：検出回避</p>
@@ -109,16 +114,22 @@
 						</div>
 						<div id="main--analysis--url" class="child-reset--elm l--flex-container"></div>
 					</details>
-				<!--　■■■　MAIN--ANALYSIS--MAIL　■■■　-->
+					<!--　■■■　MAIN--ANALYSIS--MAIL　■■■　-->
 					<details open>
 						<summary class="d--h2">Mail</summary>
 						<div id="main--analysis--mail" class="child-reset--elm l--flex-container"></div>
 					</details>
-				<!--　■■■　MAIN--ANALYSIS--HASH　■■■　-->
+					<!--　■■■　MAIN--ANALYSIS--HASH　■■■　-->
 					<details open>
 						<summary class="d--h2">HASH</summary>
 						<div id="main--analysis--hash" class="child-reset--elm l--flex-container"></div>
 					</details>
+					<!--　■■■　MAIN--ANALYSIS--UNICODE　■■■　-->
+					<details open>
+						<summary class="d--h2">Unicode</summary>
+						<div id="main--analysis--unicode--invisible-character" class="child-reset--elm l--flex-container"></div>
+					</details>
+					<!--　■■■　MAIN--ANALYSIS--●　■■■　-->
 					<details open>
 						<summary class="d--h2">●</summary>
 						<div id="main--analysis--●" class="child-reset--elm l--flex-container"></div>
@@ -426,35 +437,35 @@
 				</button>
 				<div id="footer--textarea-flag" class="l--margin-left--05"></div>
 				<div id="footer--textarea-cnt" class="l--margin-left--05 l--margin-right--auto"></div>
-				<!--　■■■　FOOTER--CMD--BTNS　■■■　-->
-				<button class="d--btn cmd--btn l--flex-container" data-action="copy-memo">
+				<!--　■■■　FOOTER--CMD-BTNS　■■■　-->
+				<button class="d--btn a--cmd-btn l--flex-container" data-act="copy-memo">
 					<svg class="l--btn-icon" xmlns="http://www.w3.org/2000/svg">
 						<path d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
 					</svg>
 					Copy
 				</button>
-				<button class="d--btn cmd--btn l--flex-container" data-action="translate-memo">
+				<button class="d--btn a--cmd-btn l--flex-container" data-act="translate-memo">
 					<svg class="l--btn-icon" xmlns="http://www.w3.org/2000/svg">
 						<path d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286zm1.634-.736L5.5 3.956h-.049l-.679 2.022z"/>
 						<path d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zm7.138 9.995q.289.451.63.846c-.748.575-1.673 1.001-2.768 1.292.178.217.451.635.555.867 1.125-.359 2.08-.844 2.886-1.494.777.665 1.739 1.165 2.93 1.472.133-.254.414-.673.629-.89-1.125-.253-2.057-.694-2.82-1.284.681-.747 1.222-1.651 1.621-2.757H14V8h-3v1.047h.765c-.318.844-.74 1.546-1.272 2.13a6 6 0 0 1-.415-.492 2 2 0 0 1-.94.31"/>
 					</svg>
 					Translate
 				</button>
-				<button class="d--btn cmd--btn l--flex-container" data-action="webhook-memo">
+				<button class="d--btn a--cmd-btn l--flex-container" data-act="webhook-memo">
 					<svg class="l--btn-icon" xmlns="http://www.w3.org/2000/svg">
 						<path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
 						<path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z"/>
 					</svg>
 					Webhook
 				</button>
-				<button class="d--btn cmd--btn l--flex-container" data-action="restore-memo">
+				<button class="d--btn a--cmd-btn l--flex-container" data-act="restore-memo">
 					<svg class="l--btn-icon" xmlns="http://www.w3.org/2000/svg">
 						<path d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2z"/>
 						<path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466"/>
 					</svg>
 					Restore
 				</button>
-				<button class="d--btn cmd--btn l--flex-container" data-action="clear-memo">
+				<button class="d--btn a--cmd-btn l--flex-container" data-act="clear-memo">
 					<svg class="l--btn-icon" xmlns="http://www.w3.org/2000/svg">
 						<path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708"/>
 					</svg>

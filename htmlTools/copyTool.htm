@@ -11,13 +11,17 @@
 			margin: 0;
 			padding: 0;
 			border: 0;
-			font-size: 100%;
+			font-size: 1rem;
 			font: inherit;
 			vertical-align: baseline;
 		}
 		button, input, select, textarea, pre {
 			font-family: inherit;
 			font-size: 100%;
+		}
+		p {
+			margin: 0 0.25rem;
+			font-size: 1.25rem;
 		}
 		.l--full-width {
 			box-sizing: border-box;
@@ -27,6 +31,7 @@
 			display: block;
 		}
 		.d--h1 {
+			margin-top: 0;
 			padding-left: 1.25rem;
 			font-size: 1.5rem;;
 			font-weight: bold;
@@ -45,6 +50,10 @@
 		.l--grid-container {
 			display: grid;
 			grid-template-columns: auto auto 1fr auto auto;
+				hr {
+					grid-column: span 5;
+					width: 100%;
+				}
 		}
 		.l--subgrid-container {
 			display: grid;
@@ -57,12 +66,12 @@
 <body>
 	<script type="text/javascript">
 		window.onload = function() {
-			document.querySelectorAll('.a--cmd-btn').forEach(function(elm) {
+			document.querySelectorAll(".a--cmd-btn").forEach(function(elm) {
 				elm.addEventListener('click', function() {
-					navigator.clipboard.writeText();
-				}
-			}
-		}
+					navigator.clipboard.writeText(elm.parentNode.children[2].value);
+				});
+			});
+		};
 	</script>
 
 	<h1 class="d--h1">Copy Tool</h1>
@@ -72,6 +81,107 @@
 			<p>①</p>
 			<input type="text">
 			<p>①</p>
+			<button class="a--cmd-btn">Copy</button>
+		</div>
+		<div class="l--subgrid-container">
+			<button class="a--cmd-btn">Copy</button>
+			<p>②</p>
+			<input type="text">
+			<p>②</p>
+			<button class="a--cmd-btn">Copy</button>
+		</div>
+		<div class="l--subgrid-container">
+			<button class="a--cmd-btn">Copy</button>
+			<p>③</p>
+			<input type="text">
+			<p>③</p>
+			<button class="a--cmd-btn">Copy</button>
+		</div>
+		<div class="l--subgrid-container">
+			<button class="a--cmd-btn">Copy</button>
+			<p>④</p>
+			<input type="text">
+			<p>④</p>
+			<button class="a--cmd-btn">Copy</button>
+		</div>
+		<div class="l--subgrid-container">
+			<button class="a--cmd-btn">Copy</button>
+			<p>⑤</p>
+			<input type="text">
+			<p>⑤</p>
+			<button class="a--cmd-btn">Copy</button>
+		</div>
+		<hr>
+		<div class="l--subgrid-container">
+			<button class="a--cmd-btn">Copy</button>
+			<p>⑥</p>
+			<input type="text">
+			<p>⑥</p>
+			<button class="a--cmd-btn">Copy</button>
+		</div>
+		<div class="l--subgrid-container">
+			<button class="a--cmd-btn">Copy</button>
+			<p>⑦</p>
+			<input type="text">
+			<p>⑦</p>
+			<button class="a--cmd-btn">Copy</button>
+		</div>
+		<div class="l--subgrid-container">
+			<button class="a--cmd-btn">Copy</button>
+			<p>⑧</p>
+			<input type="text">
+			<p>⑧</p>
+			<button class="a--cmd-btn">Copy</button>
+		</div>
+		<div class="l--subgrid-container">
+			<button class="a--cmd-btn">Copy</button>
+			<p>⑨</p>
+			<input type="text">
+			<p>⑨</p>
+			<button class="a--cmd-btn">Copy</button>
+		</div>
+		<div class="l--subgrid-container">
+			<button class="a--cmd-btn">Copy</button>
+			<p>⑩</p>
+			<input type="text">
+			<p>⑩</p>
+			<button class="a--cmd-btn">Copy</button>
+		</div>
+		<hr>
+		<hr>
+		<div class="l--subgrid-container">
+			<button class="a--cmd-btn">Copy</button>
+			<p>①</p>
+			<textarea></textarea>
+			<p>①</p>
+			<button class="a--cmd-btn">Copy</button>
+		</div>
+		<div class="l--subgrid-container">
+			<button class="a--cmd-btn">Copy</button>
+			<p>②</p>
+			<textarea></textarea>
+			<p>②</p>
+			<button class="a--cmd-btn">Copy</button>
+		</div>
+		<div class="l--subgrid-container">
+			<button class="a--cmd-btn">Copy</button>
+			<p>③</p>
+			<textarea></textarea>
+			<p>③</p>
+			<button class="a--cmd-btn">Copy</button>
+		</div>
+		<div class="l--subgrid-container">
+			<button class="a--cmd-btn">Copy</button>
+			<p>④</p>
+			<textarea></textarea>
+			<p>④</p>
+			<button class="a--cmd-btn">Copy</button>
+		</div>
+		<div class="l--subgrid-container">
+			<button class="a--cmd-btn">Copy</button>
+			<p>⑤</p>
+			<textarea></textarea>
+			<p>⑤</p>
 			<button class="a--cmd-btn">Copy</button>
 		</div>
 	</div>

@@ -9,25 +9,25 @@
 //　■■■　グローバル定数　■■■
 //　■■　OSINT　■■
 const ipOsints = [
-	{ name: 'Search', url1: 'https://www.google.com/search?q="', url2: '"', encode: ''  },
-	{ name: 'Whois', url1: 'https://www.whois.com/whois/', url2: '', encode: ''  },
-	{ name: 'JPNIC WHOIS', url1: 'https://whois.nic.ad.jp/cgi-bin/whois_gw?key=', url2: '', encode: ''  },
-	{ name: 'Virus Total', url1: 'https://www.virustotal.com/gui/ip-address/', url2: '', encode: ''  },
-	{ name: 'SHODAN', url1: 'https://www.shodan.io/host/', url2: '', encode: ''  },
-	{ name: 'urlscan Pro', url1: 'https://pro.urlscan.io/search?query=page.ip:"', url2: '"', encode: ''  },
+	{ name: 'Search', url1: 'https://www.google.com/search?q="', url2: '"', encode: '', icon: 'google.ico' },
+	{ name: 'Whois', url1: 'https://www.whois.com/whois/', url2: '', encode: '', icon: 'whois.png' },
+	{ name: 'JPNIC WHOIS', url1: 'https://whois.nic.ad.jp/cgi-bin/whois_gw?key=', url2: '', encode: '', icon: 'jpnic.png' },
+	{ name: 'Virus Total', url1: 'https://www.virustotal.com/gui/ip-address/', url2: '', encode: '', icon: 'virustotal.svg' },
+	{ name: 'SHODAN', url1: 'https://www.shodan.io/host/', url2: '', encode: '', icon: 'shodan.png' },
+	{ name: 'urlscan Pro', url1: 'https://pro.urlscan.io/search?query=page.ip:"', url2: '"', encode: '', icon: 'urlscan.png' },
 ];
 const domainOsints = [
-	{ name: 'Search', url1: 'https://www.google.com/search?q="', url2: '"', encode: ''  },
-	{ name: 'Whois', url1: 'https://www.whois.com/whois/', url2: '', encode: ''  },
-	{ name: 'Nslookup', url1: 'https://www.nslookup.io/domains/', url2: '/dns-records/', encode: ''  },
-	{ name: 'urlscan Pro', url1: 'https://pro.urlscan.io/search?query="', url2: '"', encode: ''  },
+	{ name: 'Search', url1: 'https://www.google.com/search?q="', url2: '"', encode: '', icon: 'google.ico' },
+	{ name: 'Whois', url1: 'https://www.whois.com/whois/', url2: '', encode: '', icon: 'whois.png' },
+	{ name: 'Nslookup', url1: 'https://www.nslookup.io/domains/', url2: '/dns-records/', encode: '', icon: 'nslookup.png' },
+	{ name: 'urlscan Pro', url1: 'https://pro.urlscan.io/search?query="', url2: '"', encode: '', icon: 'urlscan.png' },
 ];
 const urlOsints = [
-	{ name: 'Virus Total', url1: 'https://www.virustotal.com/gui/search/', url2: '', encode: 'wPercent'  },
-	{ name: 'Archive', url1: 'https://web.archive.org/web///', url2: '', encode: ''  },
+	{ name: 'Virus Total', url1: 'https://www.virustotal.com/gui/search/', url2: '', encode: 'wPercent', icon: 'virustotal.png' },
+	{ name: 'Archive', url1: 'https://web.archive.org/web///', url2: '', encode: '', icon: 'archive.png' },
 ];
 const hashOsints = [
-	{ name: 'Virus Total', url1: 'https://www.virustotal.com/gui/search/', url2: '', encode: ''  },
+	{ name: 'Virus Total', url1: 'https://www.virustotal.com/gui/search/', url2: '', encode: '', icon: 'virustotal.png' },
 ];
 
 //　■■　子要素リセット対象要素（子要素が動的に追加される要素）　■■
@@ -54,6 +54,7 @@ let mails = [];
 let md5s = [];
 let sha1s = [];
 let sha256s = [];
+let invisibleCharacters = [];
 let macs = [];
 let dates = [];
 let dateTimes = [];
@@ -116,60 +117,11 @@ window.addEventListener('load',function() {
 	document.querySelectorAll('.save-ls--btn').forEach(function(target) {
 		target.addEventListener('click', saveLs);
 	});
-	//　■■　ACTボタン押下時　■■
-	document.querySelectorAll('.act--btn').forEach(function(elm) {
-		elm.addEventListener('click', function() {
-			if ( elm.dataset.act === 'copy' ) {
-				let copyValue = '';
-				let cppyTargets;
-				cppyTargets = elm.dataset.target == 'ipv4s' ? ipv4s : cppyTargets ;
-				cppyTargets = elm.dataset.target == 'urls' ? urls : cppyTargets ;
-				for ( cppyTarget of cppyTargets ) {
-					copyValue += cppyTarget + '\n';
-				}
-				navigator.clipboard.writeText(copyValue);
-			} else if ( elm.dataset.act === 'open')  {
-				let openTargets;
-				openTargets = elm.dataset.target == 'urls' ? urls : openTargets ;
-				if ( window.confirm('危険なURIは含まれていませんか？') ) {
-					for ( openTarget of openTargets ) {
-						window.open(openTarget, '_blank');
-					}
-				}
-			}
-		});
-	});
 	//　■■　CMDボタン押下時　■■
-	document.querySelectorAll('.cmd--btn').forEach(function(target) {
-		target.addEventListener('click', function() {
-			switch (target.dataset.action) {
-				case 'copy-memo':
-					navigator.clipboard.writeText(memoValue);
-				break;
-				case 'translate-memo':
-					if ( window.confirm('機密情報は含まれていませんか？') ) {
-						window.open('https://translate.google.co.jp/?tl=ja&text=' + memoValue.replace(/[\r\n]/g,'%0A'));
-					}
-				break;
-				case 'webhook-memo':
-					if ( window.confirm('機密情報は含まれていませんか？') ) {
-						const xhr = new XMLHttpRequest();
-						let webhookUrl = localStorage.getItem('config--webhook');
-						xhr.open("GET",webhookUrl + encodeURIComponent(memoValue));
-						xhr.send();
-					}
-				break;
-				case 'restore-memo':
-					loadItem('backupMemo','footer--textarea');
-					memoChanged();
-				break;
-				case 'clear-memo':
-					saveItem('backupMemo','footer--textarea');
-					document.getElementById('footer--textarea').value = '';
-					memoChanged();
-				break;
-			}
-		})
+	document.querySelectorAll('.a--cmd-btn').forEach(function(elm) {
+		elm.addEventListener('click', function() {
+			cmdAct(elm.dataset.act, elm.dataset.target);
+		});
 	});
 	//　■■　CALC-TOTP--BTN　■■
 	const calcTotpBtns = document.querySelectorAll('.calc-totp--btn');
@@ -195,6 +147,54 @@ function saveLs() {
 	let elms = document.getElementsByClassName('save-ls');
 	for (let elm of elms) {
 		saveItem(elm.getAttribute('id'),elm.getAttribute('id'));
+	}
+}
+
+function cmdAct(act, target) {
+	switch(act) {
+		case 'copy-memo':
+			navigator.clipboard.writeText(memoValue);
+			break;
+		case 'translate-memo':
+			if ( window.confirm('機密情報は含まれていませんか？') ) {
+				window.open('https://translate.google.co.jp/?tl=ja&text=' + memoValue.replace(/[\r\n]/g,'%0A'));
+			}
+			break;
+		case 'webhook-memo':
+			if ( window.confirm('機密情報は含まれていませんか？') ) {
+				const xhr = new XMLHttpRequest();
+				let webhookUrl = localStorage.getItem('config--webhook');
+				xhr.open("GET",webhookUrl + encodeURIComponent(memoValue));
+				xhr.send();
+			}
+			break;
+		case 'restore-memo':
+			loadItem('backupMemo','footer--textarea');
+			memoChanged();
+			break;
+		case 'clear-memo':
+			saveItem('backupMemo','footer--textarea');
+			document.getElementById('footer--textarea').value = '';
+			memoChanged();
+			break;
+		case 'copy-list':
+			let copyValue = '';
+			copyTargets = target == 'ipv4s' ? ipv4s : target ;
+			copyTargets = target == 'urls' ? urls : target ;
+			for ( copyTarget of copyTargets ) {
+				copyValue += copyTarget + '\n';
+			}
+			navigator.clipboard.writeText(copyValue);
+			break;
+		case 'open-list':
+			let openTargets;
+			openTargets = elm.dataset.target == 'urls' ? urls : openTargets ;
+			if ( window.confirm('危険なURIは含まれていませんか？') ) {
+				for ( openTarget of openTargets ) {
+					window.open(openTarget, '_blank');
+				}
+			}
+			break;
 	}
 }
 
@@ -393,6 +393,7 @@ function urlAnalysis(url) {
 //　■■　TABLE要素追加　■■
 function appendHtmlTable(parentElm, headers, datass) {
 	let tableElm = document.createElement('table');
+	tableElm.className = 'l--break-word';
 	parentElm.appendChild(tableElm);
 	let trThElm = document.createElement('tr');
 	tableElm.appendChild(trThElm);
@@ -412,14 +413,20 @@ function appendHtmlTable(parentElm, headers, datass) {
 	}
 }
 //　■■　UL＆LI要素追加　■■
-function appendHtmlList(parentElm, title, items, linkUrl1='default', linkUrl2, encode) {
+function appendHtmlList(parentElm, title, items, linkUrl1='default', linkUrl2, encode, icon) {
 	let divElm = document.createElement('div');
 	parentElm.appendChild(divElm);
 	let hElm = document.createElement('h3');
-	hElm.textContent = title;
+	hElm.className = 'l--flex-container l--align-items--center';
+	let imgElm = document.createElement('img');
+	imgElm.src = './img/osintIcon/' + icon;
+	imgElm.className = 'l--height--1rem l--width--1rem l--padding-right--025';
+	let hTitleNode = document.createTextNode(title);
 	let buttonElm = document.createElement('button');
 	buttonElm.className = 'open--list-link--btn d--btn d--color-grey d--no-border l--margin-left--1';
 	buttonElm.textContent = '⬀';
+	hElm.appendChild(imgElm);
+	hElm.appendChild(hTitleNode);
 	hElm.appendChild(buttonElm);
 	divElm.appendChild(hElm);
 	let ulElm = document.createElement('ul');
@@ -461,6 +468,7 @@ function appendHtmlUl(parentElm, ulId, title) {
 	divElm.appendChild(hElm);
 	let ulElm = document.createElement('ul');
 	ulElm.id = ulId;
+	ulElm.className = "l--break-word";
 	divElm.appendChild(ulElm);
 }
 //　■■　LI要素追加　■■
@@ -533,6 +541,13 @@ function extractIndicator() {
 		dupSha256s = dupSha256s.map(value => value.replace(regHash,''));
 	}
 	sha256s = new Set(dupSha256s);
+	//　■■　不可視文字抽出（invisibleCharactersに格納）　■■
+	let regInvisibleCharacters = /[͏؜឴឵᠋᠌᠍᠎     ​‌‍‎‏‪‫‬‭‮  ⁠⁡⁢⁣⁤⁥⁦⁧⁨⁩⁪⁫⁬⁭⁮⁯⠀󠀁󠀠󠀡󠀢󠀣󠀤󠀥󠀦󠀧󠀨󠀩󠀪󠀫󠀬󠀭󠀮󠀯󠀰󠀱󠀲󠀳󠀴󠀵󠀶󠀷󠀸󠀹󠀺󠀻󠀼󠀽󠀾󠀿󠁀󠁁󠁂󠁃󠁄󠁅󠁆󠁇󠁈󠁉󠁊󠁋󠁌󠁍󠁎󠁏󠁐󠁑󠁒󠁓󠁔󠁕󠁖󠁗󠁘󠁙󠁚󠁛󠁜󠁝󠁞󠁟󠁠󠁡󠁢󠁣󠁤󠁥󠁦󠁧󠁨󠁩󠁪󠁫󠁬󠁭󠁮󠁯󠁰󠁱󠁲󠁳󠁴󠁵󠁶󠁷󠁸󠁹󠁺󠁻󠁼󠁽󠁾󠁿󠄀󠄁󠄂󠄃󠄄󠄅󠄆󠄇󠄈󠄉󠄊󠄋󠄌󠄍󠄎󠄏󠄐󠄑󠄒󠄓󠄔󠄕󠄖󠄗󠄘󠄙󠄚󠄛󠄜󠄝󠄞󠄟󠄠󠄡󠄢󠄣󠄤󠄥󠄦󠄧󠄨󠄩󠄪󠄫󠄬󠄭󠄮󠄯󠄰󠄱󠄲󠄳󠄴󠄵󠄶󠄷󠄸󠄹󠄺󠄻󠄼󠄽󠄾󠄿󠅀󠅁󠅂󠅃󠅄󠅅󠅆󠅇󠅈󠅉󠅊󠅋󠅌󠅍󠅎󠅏󠅐󠅑󠅒󠅓󠅔󠅕󠅖󠅗󠅘󠅙󠅚󠅛󠅜󠅝󠅞󠅟󠅠󠅡󠅢󠅣󠅤󠅥󠅦󠅧󠅨󠅩󠅪󠅫󠅬󠅭󠅮󠅯󠅰󠅱󠅲󠅳󠅴󠅵󠅶󠅷󠅸󠅹󠅺󠅻󠅼󠅽󠅾󠅿󠆀󠆁󠆂󠆃󠆄󠆅󠆆󠆇󠆈󠆉󠆊󠆋󠆌󠆍󠆎󠆏󠆐󠆑󠆒󠆓󠆔󠆕󠆖󠆗󠆘󠆙󠆚󠆛󠆜󠆝󠆞󠆟󠆠󠆡󠆢󠆣󠆤󠆥󠆦󠆧󠆨󠆩󠆪󠆫󠆬󠆭󠆮󠆯󠆰󠆱󠆲󠆳󠆴󠆵󠆶󠆷󠆸󠆹󠆺󠆻󠆼󠆽󠆾󠆿󠇀󠇁󠇂󠇃󠇄󠇅󠇆󠇇󠇈󠇉󠇊󠇋󠇌󠇍󠇎󠇏󠇐󠇑󠇒󠇓󠇔󠇕󠇖󠇗󠇘󠇙󠇚󠇛󠇜󠇝󠇞󠇟󠇠󠇡󠇢󠇣󠇤󠇥󠇦󠇧󠇨󠇩󠇪󠇫󠇬󠇭󠇮︀︁︂︃︄︅︆︇︈︉︊︋︌︍︎️﻿￹￺￻￼]+/gi;
+	let dupInvisibleCharacters = memoValue.match(/.{0,32}[͏؜឴឵᠋᠌᠍᠎     ​‌‍‎‏‪‫‬‭‮  ⁠⁡⁢⁣⁤⁥⁦⁧⁨⁩⁪⁫⁬⁭⁮⁯⠀󠀁󠀠󠀡󠀢󠀣󠀤󠀥󠀦󠀧󠀨󠀩󠀪󠀫󠀬󠀭󠀮󠀯󠀰󠀱󠀲󠀳󠀴󠀵󠀶󠀷󠀸󠀹󠀺󠀻󠀼󠀽󠀾󠀿󠁀󠁁󠁂󠁃󠁄󠁅󠁆󠁇󠁈󠁉󠁊󠁋󠁌󠁍󠁎󠁏󠁐󠁑󠁒󠁓󠁔󠁕󠁖󠁗󠁘󠁙󠁚󠁛󠁜󠁝󠁞󠁟󠁠󠁡󠁢󠁣󠁤󠁥󠁦󠁧󠁨󠁩󠁪󠁫󠁬󠁭󠁮󠁯󠁰󠁱󠁲󠁳󠁴󠁵󠁶󠁷󠁸󠁹󠁺󠁻󠁼󠁽󠁾󠁿󠄀󠄁󠄂󠄃󠄄󠄅󠄆󠄇󠄈󠄉󠄊󠄋󠄌󠄍󠄎󠄏󠄐󠄑󠄒󠄓󠄔󠄕󠄖󠄗󠄘󠄙󠄚󠄛󠄜󠄝󠄞󠄟󠄠󠄡󠄢󠄣󠄤󠄥󠄦󠄧󠄨󠄩󠄪󠄫󠄬󠄭󠄮󠄯󠄰󠄱󠄲󠄳󠄴󠄵󠄶󠄷󠄸󠄹󠄺󠄻󠄼󠄽󠄾󠄿󠅀󠅁󠅂󠅃󠅄󠅅󠅆󠅇󠅈󠅉󠅊󠅋󠅌󠅍󠅎󠅏󠅐󠅑󠅒󠅓󠅔󠅕󠅖󠅗󠅘󠅙󠅚󠅛󠅜󠅝󠅞󠅟󠅠󠅡󠅢󠅣󠅤󠅥󠅦󠅧󠅨󠅩󠅪󠅫󠅬󠅭󠅮󠅯󠅰󠅱󠅲󠅳󠅴󠅵󠅶󠅷󠅸󠅹󠅺󠅻󠅼󠅽󠅾󠅿󠆀󠆁󠆂󠆃󠆄󠆅󠆆󠆇󠆈󠆉󠆊󠆋󠆌󠆍󠆎󠆏󠆐󠆑󠆒󠆓󠆔󠆕󠆖󠆗󠆘󠆙󠆚󠆛󠆜󠆝󠆞󠆟󠆠󠆡󠆢󠆣󠆤󠆥󠆦󠆧󠆨󠆩󠆪󠆫󠆬󠆭󠆮󠆯󠆰󠆱󠆲󠆳󠆴󠆵󠆶󠆷󠆸󠆹󠆺󠆻󠆼󠆽󠆾󠆿󠇀󠇁󠇂󠇃󠇄󠇅󠇆󠇇󠇈󠇉󠇊󠇋󠇌󠇍󠇎󠇏󠇐󠇑󠇒󠇓󠇔󠇕󠇖󠇗󠇘󠇙󠇚󠇛󠇜󠇝󠇞󠇟󠇠󠇡󠇢󠇣󠇤󠇥󠇦󠇧󠇨󠇩󠇪󠇫󠇬󠇭󠇮︀︁︂︃︄︅︆︇︈︉︊︋︌︍︎️﻿￹￺￻￼]+.{0,32}/gi);
+	if ( dupInvisibleCharacters !== null ) {
+		dupInvisibleCharacters = dupInvisibleCharacters.map(value => value.replace(regInvisibleCharacters,'👁'));
+	}
+	invisibleCharacters = new Set(dupInvisibleCharacters);
 }
 
 //　■■■　ANALYSIS　■■■
@@ -565,9 +580,9 @@ function analysis() {
 	//　■　OSINT-IP-ADDRESS　■
 	for ( let ipOsint of ipOsints ) {
 		let parentElm = document.getElementById('main--analysis--ip-address');
-		appendHtmlList(parentElm, ipOsint.name, ipv4s, ipOsint.url1, ipOsint.url2, ipOsint.encode);
+		appendHtmlList(parentElm, ipOsint.name, ipv4s, ipOsint.url1, ipOsint.url2, ipOsint.encode, ipOsint.icon);
 	}
-	//　■■　DOMAIN-ANALYSIS　■■
+	//　■■　ANALYSIS--DOMAIN　■■
 	let elmMAD = document.getElementById('main--analysis--domain');
 	//　■　DOMAIN　■
 	appendHtmlUl(elmMAD, 'main--analysis--domain--fang', 'Domain');
@@ -584,9 +599,9 @@ function analysis() {
 	}
 	//　■　OSINT-DOMAIN　■
 	for ( let domainOsint of domainOsints ) {
-		appendHtmlList(elmMAD, domainOsint.name, domains, domainOsint.url1, domainOsint.url2, domainOsint.encode);
+		appendHtmlList(elmMAD, domainOsint.name, domains, domainOsint.url1, domainOsint.url2, domainOsint.encode, domainOsint.icon);
 	}
-	//　■■　URL-ANALYSIS　■■
+	//　■■　ANALYSIS--URL　■■
 	let elmMAU = document.getElementById('main--analysis--url');
 	//　■　FLAG-URL　■
 	let urlDatass = [];
@@ -604,22 +619,29 @@ function analysis() {
 	}
 	//　■　OSINT-URL　■
 	for ( let urlOsint of urlOsints ) {
-		appendHtmlList(elmMAU, urlOsint.name, urls, urlOsint.url1, urlOsint.url2, urlOsint.encode);
+		appendHtmlList(elmMAU, urlOsint.name, urls, urlOsint.url1, urlOsint.url2, urlOsint.encode, urlOsint.icon);
 	}
-	//　■■　MAIL-ANALYSIS　■■
+	//　■■　ANALYSIS--MAIL　■■
 	let elmMAM = document.getElementById('main--analysis--mail');
 	appendHtmlUl(elmMAM, 'main--analysis--mail-address', 'Mail Address');
 	let elmMAMA = document.getElementById('main--analysis--mail-address');
 	for ( let mail of mails ) {
 		appendHtmlLi(elmMAMA, '', mail);
 	}
-	//　■■　HASH-ANALYSIS　■■
+	//　■■　ANALYSIS--HASH　■■
 	let elmMAH = document.getElementById('main--analysis--hash');
 	//　■　OSINT-HASH　■
 	for ( let hashOsint of hashOsints ) {
 		appendHtmlList(elmMAH, hashOsint.name, md5s, hashOsint.url1, hashOsint.url2, hashOsint.encode);
 		appendHtmlList(elmMAH, hashOsint.name, sha1s, hashOsint.url1, hashOsint.url2, hashOsint.encode);
 		appendHtmlList(elmMAH, hashOsint.name, sha256s, hashOsint.url1, hashOsint.url2, hashOsint.encode);
+	}
+	//　■■　ANALYSIS--UNICODE-INVISIBLE-CHARACTER　■■
+	let elmMAUIC = document.getElementById('main--analysis--unicode--invisible-character');
+	appendHtmlUl(elmMAUIC, 'main--analysis--unicode--invisible-character--list', 'Invisible Character');
+	let elmMAUICL = document.getElementById('main--analysis--unicode--invisible-character--list');
+	for ( invisibleCharacter of invisibleCharacters ) {
+		appendHtmlLi(elmMAUICL, '', invisibleCharacter);
 	}
 }
 

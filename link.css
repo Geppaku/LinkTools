@@ -77,6 +77,18 @@ code {
 	width: 100%;
 }
 
+.l--height--1rem {
+	height: 1rem;
+}
+
+.l--width--1rem {
+	width: 1rem;
+}
+
+.l--align-items--center {
+	align-items: center;
+}
+
 .l--width-75percent {
 	width: 75%;
 }
@@ -119,8 +131,8 @@ code {
 	margin-left: 1rem;
 }
 
-.l--padding-right--05 {
-	margin-right: 0.5rem;
+.l--padding-right--025 {
+	margin-right: 0.25rem;
 }
 
 .l--margin-right--auto {
@@ -136,6 +148,10 @@ code {
 .l--sideways {
 	writing-mode: vertical-rl;
 	text-orientation: sideways;
+}
+
+.l--break-word {
+	word-break: break-all;
 }
 
 .d--no-decoration {
