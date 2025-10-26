@@ -16,6 +16,10 @@
 		<symbol viewBox="0 0 16 16" id="svg--copy">
 			<path fill-rule="evenodd" d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
 		</symbol>
+		<symbol viewBox="0 0 16 16" id="svg--ext-link">
+			<path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5"/>
+			<path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0z"/>
+		</symbol>
 	</svg>
 	<div class="l--grid-container--body">
 		<!--　■■■■■　HEADER　■■■■■　-->
@@ -25,17 +29,11 @@
 					<li><a class="d--no-decoration d--color-white" href="#"><img src="favicon.ico" alt="TOP"></a></li>
 					<li><a class="d--no-decoration d--color-white" href="#analysis">Analysis</a></li>
 					<li><a class="d--no-decoration d--color-white" href="#work">Work</a></li>
+					<li><a class="d--no-decoration d--color-white" href="#mail">Mail</a></li>
 					<li><a class="d--no-decoration d--color-white">Tools<span class="caret"></span></a>
 						<ul class="l--pull-down d--bgcolor-black">
 							<li><a class="d--no-decoration d--color-white" href="htmlTools/copyTool.htm" target="_blank">Copy Tool</a></li>
 							<li><a class="d--no-decoration d--color-white" href="htmlTools/unicode.htm" target="_blank">Unicode一覧</a></li>
-						</ul>
-					</li>
-					<li><a class="d--no-decoration d--color-white">Mail<span class="caret"></span></a>
-						<ul class="l--pull-down d--bgcolor-black">
-							<li><a class="create-mail d--no-decoration d--color-white" data-type="telework-start" href="" target="_blank">テレワーク開始</a></li>
-							<li><a class="create-mail d--no-decoration d--color-white" data-type="telework-end" href="" target="_blank">テレワーク終了</a></li>
-							<li><a class="create-mail d--no-decoration d--color-white" data-type="paid-leave" href="" target="_blank">有給休暇取得</a></li>
 						</ul>
 					</li>
 					<li><a id="header--nav--config" class="d--no-decoration d--color-white" href="#config">⚙</a></li>
@@ -64,17 +62,9 @@
 						<summary class="d--h2">使い方</summary>
 					</details>
 					<!--　■■■　MAIN--TOP--UPDATE-HISTORY　■■■　-->
-					<details>
+					<details open>
 						<summary class="d--h2">更新履歴</summary>
-						<details>
-							<summary class="d--h3">2025/09/12：Clock/表示サイトURL抽出機能実装</summary>
-							<p>Clock：右下に時計（入力エリアを展開すると年月日も）を表示。</p>
-							<p>表示サイトURL抽出：Google検索やGoogle翻訳等のURLから、実際に表示されるサイトのURLを抽出。</p>
-						</details>
-						<details>
-							<summary class="d--h3">2025/09/08：β版リリース</summary>
-							<p>デザインは最低限。</p>
-						</details>
+						<iframe src="updateHistory.htm" class="l--full-height l--full-width"></iframe>
 					</details>
 				</div>
 			</article>
@@ -141,6 +131,38 @@
 				<h1 class="d--h1">Work</h1>
 				<div id="work--contents" class="l--padding-left--05"></div>
 			</article>
+			<!--　■■■■　MAIN--MAIL　■■■■　-->
+			<article id="mail" class="l--tab-content l--full-width">
+				<h1 class="d--h1">Mail</h1>
+				<div class="l--padding-left--05">
+					<details open>
+						<summary class="d--h2">勤怠連絡</summary>
+						<details open>
+							<summary class="d--h3"><input type="text" id="main--mail--1"><button class="a--create-mail l--margin-left--1rem d--btn">Create Mail</button></summary>
+							<table>
+								<tr>
+									<td>Subject</td>
+									<td class="d--inputarea l--width-medium a--save-ls--mail" data-mail="subject" contenteditable></td>
+									<td rowspan="4">Body</td>
+									<td rowspan="4" class="d--inputarea l--width-long a--save-ls--mail" data-mail="body" contenteditable></td>
+								</tr>
+								<tr>
+									<td>To</td>
+									<td class="d--inputarea l--width-medium a--save-ls--mail" data-mail="to" contenteditable></td>
+								</tr>
+								<tr>
+									<td>Cc</td>
+									<td class="d--inputarea l--width-medium a--save-ls--mail" data-mail="cc" contenteditable></td>
+								</tr>
+								<tr>
+									<td>Bcc</td>
+									<td class="d--inputarea l--width-medium a--save-ls--mail" data-mail="bcc" contenteditable></td>
+								</tr>
+							</table>
+						</details>
+					</details>
+				</div>
+			</article>
 			<!--　■■■■　MAIN--CONFIG　■■■■　-->
 			<article id="config" class="l--tab-content l--full-width">
 				<h1 class="d--h1">Config</h1>
@@ -154,8 +176,8 @@
 								<label for="config--user-name">ユーザー名</label>
 							</div>
 							<div class="config--value">
-								<input type="text" id="config--user-name" class="save-ls config--value-input" placeholder="苗字">
-								<button class="">Copy</button>
+								<input type="text" class="a--config" data-object="config--user-info" data-name="name" data-type="value" placeholder="苗字">
+								<button class="a--event-speaker d--btn" data-act="copy" data-target="previous" data-type="value">Copy</button>
 							</div>
 						</div>
 						<!--　■■　MAIN--CONFIG--USER-ID　■■　-->
@@ -164,7 +186,8 @@
 								<label for="config--user-id">ユーザーID</label>
 							</div>
 							<div class="config--value">
-								<input type="text" id="config--user-id" class="save-ls config--value-input" placeholder="0123456789">
+								<input type="text" class="a--config" data-object="config--user-info" data-name="id" data-type="value" placeholder="0123456789">
+								<button class="a--event-speaker d--btn" data-act="copy" data-target="previous" data-type="value">Copy</button>
 							</div>
 						</div>
 						<!--　■■　MAIN--CONFIG--MAIL　■■　-->
@@ -173,7 +196,8 @@
 								<label for="config--e-mail-address">メールアドレス</label>
 							</div>
 							<div class="config--value">
-								<input type="text" id="config--e-mail-address" class="save-ls config--value-input" placeholder="account@example.com">
+								<input type="text" class="a--config" data-object="config--user-info" data-name="mail" data-type="value" placeholder="account@example.com">
+								<button class="a--event-speaker d--btn" data-act="copy" data-target="previous" data-type="value">Copy</button>
 							</div>
 						</div>
 						<!--　■■　MAIN--CONFIG--PHONE-NIMBER-1　■■　-->
@@ -182,7 +206,8 @@
 								<label for="config--phone-number-1">電話番号１</label>
 							</div>
 							<div class="config--value">
-								<input type="text" id="config--phone-number-1" class="save-ls config--value-input" placeholder="090-1234-5678">
+								<input type="text" class="a--config" data-object="config--user-info" data-name="tel1" data-type="value" placeholder="090-1234-5678">
+								<button class="a--event-speaker d--btn" data-act="copy" data-target="previous" data-type="value">Copy</button>
 							</div>
 						</div>
 						<!--　■■　MAIN--CONFIG--PHONE-NIMBER-2　■■　-->
@@ -191,7 +216,8 @@
 								<label for="config--phone-number-2">電話番号２</label>
 							</div>
 							<div class="config--value">
-								<input type="text" id="config--phone-number-2" class="save-ls config--value-input" placeholder="03-1234-5678">
+								<input type="text" class="a--config" data-object="config--user-info" data-name="tel2" data-type="value" placeholder="03-1234-5678">
+								<button class="a--event-speaker d--btn" data-act="copy" data-target="previous" data-type="value">Copy</button>
 							</div>
 						</div>
 						<!--　■■　MAIN--CONFIG--POSTAL-CODE　■■　-->
@@ -200,7 +226,8 @@
 								<label for="config--postal-code">郵便番号</label>
 							</div>
 							<div class="config--value">
-								<input type="text" id="config--postal-code" class="save-ls config--value-input" placeholder="100-0002">
+								<input type="text" class="a--config" data-object="config--user-info" data-name="postal-code" data-type="value" placeholder="100-0002">
+								<button class="a--event-speaker d--btn" data-act="copy" data-target="previous" data-type="value">Copy</button>
 							</div>
 						</div>
 						<!--　■■　MAIN--CONFIG--ADDRESS-1　■■　-->
@@ -209,7 +236,8 @@
 								<label for="config--address-1">住所１</label>
 							</div>
 							<div class="config--value">
-								<input type="text" id="config--address-1" class="save-ls config--value-input" placeholder="東京都千代田区千代田1-1">
+								<input type="text" class="a--config" data-object="config--user-info" data-name="address1" data-type="value" placeholder="東京都千代田区千代田1-1">
+								<button class="a--event-speaker d--btn" data-act="copy" data-target="previous" data-type="value">Copy</button>
 							</div>
 						</div>
 						<!--　■■　MAIN--CONFIG--ADDRESS-2　■■　-->
@@ -218,88 +246,173 @@
 								<label for="config--address-2">住所２</label>
 							</div>
 							<div class="config--value">
-								<input type="text" id="config--address-2" class="save-ls config--value-input" placeholder="皇居">
-							</div>
-						</div>
-					</details>
-					<!--　■■■　MAIN--CONFIG--MAIL　■■■　-->
-					<details>
-						<summary class="d--h2">Mail</summary>
-						<!--　■■　MAIN--CONFIG--MAIL-TO　■■　-->
-						<div class="config--key-value">
-							<div class="config--key">
-								<label for="config--mail-to">To</label>
-							</div>
-							<div class="config--value">
-								<input type="text" id="config--mail-to" class="save-ls config--value-input" placeholder="username@example.com">
-							</div>
-						</div>
-						<!--　■■　MAIN--CONFIG--MAIL-CC　■■　-->
-						<div class="config--key-value">
-							<div class="config--key">
-								<label for="config--mail-cc">Cc</label>
-							</div>
-							<div class="config--value">
-								<input type="text" id="config--mail-cc" class="save-ls config--value-input" placeholder="username@example.com">
+								<input type="text" class="a--config" data-object="config--user-info" data-name="address2" data-type="value" placeholder="皇居">
+								<button class="a--event-speaker d--btn" data-act="copy" data-target="previous" data-type="value">Copy</button>
 							</div>
 						</div>
 					</details>
 					<!--　■■■　MAIN--CONFIG--WEB-SERVICE　■■■　-->
 					<details>
 						<summary class="d--h2">Web Service</summary>
+						<!--　■■　MAIN--CONFIG--SPLUNK　■■　-->
+						<div class="config--key-value">
+							<div class="config--key">
+								<label for="config--shodan">Splunk > URL</label>
+							</div>
+							<div class="config--value">
+								<input type="text" id="config--webhook" class="a--config l--width-long" data-object="config--osint" data-name="splunk-url" data-type="value" placeholder="https://www.splunk.com/">
+							</div>
+						</div>
 						<!--　■■　MAIN--CONFIG--SHODAN　■■　-->
 						<div class="config--key-value">
 							<div class="config--key">
 								<label for="config--shodan">Shodan > API Key</label>
 							</div>
 							<div class="config--value">
-								<input type="text" id="config--shodan" class="save-ls config--value-input l--width-long" placeholder="0123456789abcdefghijkABCDEFGHIJK">
+								<input type="text" id="config--shodan" class="a--config l--width-long" data-object="config--osint" data-name="shodan-api-key" data-type="value" placeholder="0123456789abcdefghijkABCDEFGHIJK">
 							</div>
 						</div>
 						<!--　■■　MAIN--CONFIG--WEBHOOK　■■　-->
 						<div class="config--key-value">
 							<div class="config--key">
-								<label for="config--webhook">Webhook</label>
+								<label for="config--webhook">Webhook > URL</label>
 							</div>
 							<div class="config--value">
-								<input type="text" id="config--webhook" class="save-ls config--value-input l--width-long" placeholder="https://webhook.site/550e8400-e29b-41d4-a716-446655440000?q=">
+								<input type="text" id="config--webhook" class="a--config l--width-long" data-object="config--osint" data-name="webhook-url" data-type="value" placeholder="https://webhook.site/550e8400-e29b-41d4-a716-446655440000?q=">
 							</div>
 						</div>
 					</details>
-					<!--　■■■　MAIN--CONFIG--WEB-SERVICE　■■■　-->
+					<!--　■■■　MAIN--CONFIG--DISPLAY-WEB-SERVICE　■■■　-->
 					<details>
-						<summary class="d--h2">Web Service</summary>
+						<summary class="d--h2">Display Web Service</summary>
 						<!--　■■　MAIN--CONFIG--IP-ADDRESS　■■　-->
-						<details>
-							<summary class="d--h3">Web Service - IP Address</summary>
+						<details open>
+							<summary class="d--h3">IP Address</summary>
 								<div class="l--flex-container">
-									<div class="l--width-short">Service Name</div>
-									<div>Enable</div>
+									<div class="l--width-short d--font-weight--bold">Service</div>
+									<div class="d--font-weight--bold">Enable</div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
 									<div class="l--width-short">Search</div>
-									<div><input type="checkbox" data-service="search" checked></div>
+									<div><input type="checkbox" class="a--config" data-object="config--display-osint" data-name="ip-search" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
 									<div class="l--width-short">Whois</div>
-									<div><input type="checkbox" data-service="whois" checked></div>
+									<div><input type="checkbox" class="a--config" data-object="config--display-osint" data-name="ip-whois" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
 									<div class="l--width-short">JPNIC WHOIS</div>
-									<div><input type="checkbox" data-service="jpnicwhois" checked></div>
+									<div><input type="checkbox" class="a--config" data-object="config--display-osint" data-name="ip-jpnicwhois" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
 									<div class="l--width-short">Nslookup</div>
-									<div><input type="checkbox" data-service="nslookup" checked></div>
+									<div><input type="checkbox" class="a--config" data-object="config--display-osint" data-name="ip-nslookup" data-type="checked" checked></div>
+									<div></div>
+								</div>
+								<div class="l--flex-container">
+									<div class="l--width-short">Virus Total</div>
+									<div><input type="checkbox" class="a--config" data-object="config--display-osint" data-name="ip-virustotal" data-type="checked" checked></div>
+									<div></div>
+								</div>
+								<div class="l--flex-container">
+									<div class="l--width-short">Shodan</div>
+									<div><input type="checkbox" class="a--config" data-object="config--display-osint" data-name="ip-shodan" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
 									<div class="l--width-short">urlscan Pro</div>
-									<div><input type="checkbox" data-service="urlscanpro" checked></div>
+									<div><input type="checkbox" class="a--config" data-object="config--display-osint" data-name="ip-urlscanpro" data-type="checked" checked></div>
+									<div></div>
+								</div>
+								<div class="l--flex-container">
+									<div class="l--width-short">IPSHU</div>
+									<div><input type="checkbox" class="a--config" data-object="config--display-osint" data-name="ip-ipshu" data-type="checked" checked></div>
+									<div></div>
+								</div>
+								<div class="l--flex-container">
+									<div class="l--width-short">IPinfo</div>
+									<div><input type="checkbox" class="a--config" data-object="config--display-osint" data-name="ip-ipinfo" data-type="checked" checked></div>
+									<div></div>
+								</div>
+								<div class="l--flex-container">
+									<div class="l--width-short">SPUR</div>
+									<div><input type="checkbox" class="a--config" data-object="config--display-osint" data-name="ip-spur" data-type="checked" checked></div>
+									<div></div>
+								</div>
+						</details>
+						<details open>
+							<summary class="d--h3">Domain</summary>
+								<div class="l--flex-container">
+									<div class="l--width-short d--font-weight--bold">Service</div>
+									<div class="d--font-weight--bold">Enable</div>
+									<div></div>
+								</div>
+								<div class="l--flex-container">
+									<div class="l--width-short">Search</div>
+									<div><input type="checkbox" class="a--config" data-object="config--display-osint" data-name="domain-search" data-type="checked" checked></div>
+									<div></div>
+								</div>
+								<div class="l--flex-container">
+									<div class="l--width-short">Whois</div>
+									<div><input type="checkbox" class="a--config" data-object="config--display-osint" data-name="domain-whois" data-type="checked" checked></div>
+									<div></div>
+								</div>
+								<div class="l--flex-container">
+									<div class="l--width-short">Nslookup</div>
+									<div><input type="checkbox" class="a--config" data-object="config--display-osint" data-name="domain-nslookup" data-type="checked" checked></div>
+									<div></div>
+								</div>
+								<div class="l--flex-container">
+									<div class="l--width-short">urlscan Pro</div>
+									<div><input type="checkbox" class="a--config" data-object="config--display-osint" data-name="domain-urlscanpro" data-type="checked" checked></div>
+									<div></div>
+								</div>
+						</details>
+						<details open>
+							<summary class="d--h3">URL</summary>
+								<div class="l--flex-container">
+									<div class="l--width-short d--font-weight--bold">Service</div>
+									<div class="d--font-weight--bold">Enable</div>
+									<div></div>
+								</div>
+								<div class="l--flex-container">
+									<div class="l--width-short">Virus Total</div>
+									<div><input type="checkbox" class="a--config" data-object="config--display-osint" data-name="url-virustotal" data-type="checked" checked></div>
+									<div></div>
+								</div>
+								<div class="l--flex-container">
+									<div class="l--width-short">Archive</div>
+									<div><input type="checkbox" class="a--config" data-object="config--display-osint" data-name="url-archive" data-type="checked" checked></div>
+									<div></div>
+								</div>
+						</details>
+						<details open>
+							<summary class="d--h3">Mail</summary>
+								<div class="l--flex-container">
+									<div class="l--width-short d--font-weight--bold">Service</div>
+									<div class="d--font-weight--bold">Enable</div>
+									<div></div>
+								</div>
+								<div class="l--flex-container">
+									<div class="l--width-short"></div>
+									<div><input type="checkbox" class="a--config" data-object="config--display-osint" data-name="mail-search" data-type="checked" checked></div>
+									<div></div>
+								</div>
+						</details>
+						<details open>
+							<summary class="d--h3">HASH</summary>
+								<div class="l--flex-container">
+									<div class="l--width-short d--font-weight--bold">Service</div>
+									<div class="d--font-weight--bold">Enable</div>
+									<div></div>
+								</div>
+								<div class="l--flex-container">
+									<div class="l--width-short">Virus Total</div>
+									<div><input type="checkbox" class="a--config" data-object="config--display-osint" data-name="hash-virustotal" data-type="checked" checked></div>
 									<div></div>
 								</div>
 						</details>
@@ -313,12 +426,12 @@
 								<label for="config--●">●</label>
 							</div>
 							<div class="config--value">
-								<input type="text" id="config--●" class="save-ls config--value-input" placeholder="●">
+								<input type="text" id="config--●" class="a--config" placeholder="●">
 							</div>
 						</div>
 					</details>
 					<hr>
-					<!--　■■　MAIN--SAVE-LS--BTN　■■　-->
+					<!--　■■　MAIN--CONFIG-SAVE　■■　-->
 					<div>
 						<div>
 							<label class="tgl-btn">
@@ -326,7 +439,7 @@
 							</labe>
 						</div>
 						<div>
-							<button id="sav-ls--btn" class="config-btn save-ls--btn">Save</button>
+							<button id="sav-ls--btn" class="config-btn a--event-speaker" data-act="save">Save</button>
 						</div>
 					</div>
 				</div>
@@ -344,74 +457,74 @@
 					<div class="l--padding-left--05">
 						<table>
 							<tr>
-								<th>Service</th>
-								<th>Key</th>
+								<th>Service Name</th>
+								<th>Seacret Key</th>
 								<th></th>
 								<th>OTP</th>
 							</tr>
 							<tr>
-								<td><input type="text" id="totp-1--name" class="save-ls"></td>
-								<td><input type="password" id="totp-1--secret" class="save-ls"></td>
-								<td><button class="d--btn calc-totp--btn" data-target="totp-1">Calc & Copy</button></td>
-								<td><input type="text" id="totp-1--output" class="l--width-short"></td>
+								<td><input type="text" class="a--config-totp"></td>
+								<td><input type="password"></td>
+								<td><button class="d--btn a--event-speaker" data-act="totp">Calc & Copy</button></td>
+								<td><input type="text" class="l--width-short"></td>
 							</tr>
 							<tr>
-								<td><input type="text" id="totp-2--name" class="save-ls"></td>
-								<td><input type="password" id="totp-2--secret" class="save-ls"></td>
-								<td><button class="d--btn calc-totp--btn" data-target="totp-2">Calc & Copy</button></td>
-								<td><input type="text" id="totp-2--output" class="l--width-short"></td>
+								<td><input type="text" class="a--config-totp"></td>
+								<td><input type="password"></td>
+								<td><button class="d--btn a--event-speaker" data-act="totp">Calc & Copy</button></td>
+								<td><input type="text" class="l--width-short"></td>
 							</tr>
 							<tr>
-								<td><input type="text" id="totp-3--name" class="save-ls"></td>
-								<td><input type="password" id="totp-3--secret" class="save-ls"></td>
-								<td><button class="d--btn calc-totp--btn" data-target="totp-3">Calc & Copy</button></td>
-								<td><input type="text" id="totp-3--output" class="l--width-short"></td>
+								<td><input type="text" class="a--config-totp"></td>
+								<td><input type="password"></td>
+								<td><button class="d--btn a--event-speaker" data-act="totp">Calc & Copy</button></td>
+								<td><input type="text" class="l--width-short"></td>
 							</tr>
 							<tr>
-								<td><input type="text" id="totp-4--name" class="save-ls"></td>
-								<td><input type="password" id="totp-4--secret" class="save-ls"></td>
-								<td><button class="d--btn calc-totp--btn" data-target="totp-4">Calc & Copy</button></td>
-								<td><input type="text" id="totp-4--output" class="l--width-short"></td>
+								<td><input type="text" class="a--config-totp"></td>
+								<td><input type="password"></td>
+								<td><button class="d--btn a--event-speaker" data-act="totp">Calc & Copy</button></td>
+								<td><input type="text" class="l--width-short"></td>
 							</tr>
 							<tr>
-								<td><input type="text" id="totp-5--name" class="save-ls"></td>
-								<td><input type="password" id="totp-5--secret" class="save-ls"></td>
-								<td><button class="d--btn calc-totp--btn" data-target="totp-5">Calc & Copy</button></td>
-								<td><input type="text" id="totp-5--output" class="l--width-short"></td>
+								<td><input type="text" class="a--config-totp"></td>
+								<td><input type="password"></td>
+								<td><button class="d--btn a--event-speaker" data-act="totp">Calc & Copy</button></td>
+								<td><input type="text" class="l--width-short"></td>
 							</tr>
 							<tr>
-								<td><input type="text" id="totp-6--name" class="save-ls"></td>
-								<td><input type="password" id="totp-6--secret" class="save-ls"></td>
-								<td><button class="d--btn calc-totp--btn" data-target="totp-6">Calc & Copy</button></td>
-								<td><input type="text" id="totp-6--output" class="l--width-short"></td>
+								<td><input type="text" class="a--config-totp"></td>
+								<td><input type="password"></td>
+								<td><button class="d--btn a--event-speaker" data-act="totp">Calc & Copy</button></td>
+								<td><input type="text" class="l--width-short"></td>
 							</tr>
 							<tr>
-								<td><input type="text" id="totp-7--name" class="save-ls"></td>
-								<td><input type="password" id="totp-7--secret" class="save-ls"></td>
-								<td><button class="d--btn calc-totp--btn" data-target="totp-7">Calc & Copy</button></td>
-								<td><input type="text" id="totp-7--output" class="l--width-short"></td>
+								<td><input type="text" class="a--config-totp"></td>
+								<td><input type="password"></td>
+								<td><button class="d--btn a--event-speaker" data-act="totp">Calc & Copy</button></td>
+								<td><input type="text" class="l--width-short"></td>
 							</tr>
 							<tr>
-								<td><input type="text" id="totp-8--name" class="save-ls"></td>
-								<td><input type="password" id="totp-8--secret" class="save-ls"></td>
-								<td><button class="d--btn calc-totp--btn" data-target="totp-8">Calc & Copy</button></td>
-								<td><input type="text" id="totp-8--output" class="l--width-short"></td>
+								<td><input type="text" class="a--config-totp"></td>
+								<td><input type="password"></td>
+								<td><button class="d--btn a--event-speaker" data-act="totp">Calc & Copy</button></td>
+								<td><input type="text" class="l--width-short"></td>
 							</tr>
 							<tr>
-								<td><input type="text" id="totp-9--name" class="save-ls"></td>
-								<td><input type="password" id="totp-9--secret" class="save-ls"></td>
-								<td><button class="d--btn calc-totp--btn" data-target="totp-9">Calc & Copy</button></td>
-								<td><input type="text" id="totp-9--output" class="l--width-short"></td>
+								<td><input type="text" class="a--config-totp"></td>
+								<td><input type="password"></td>
+								<td><button class="d--btn a--event-speaker" data-act="totp">Calc & Copy</button></td>
+								<td><input type="text" class="l--width-short"></td>
 							</tr>
 							<tr>
-								<td><input type="text" id="totp-10--name" class="save-ls"></td>
-								<td><input type="password" id="totp-10--secret" class="save-ls"></td>
-								<td><button class="d--btn calc-totp--btn" data-target="totp-10">Calc & Copy</button></td>
-								<td><input type="text" id="totp-10--output" class="l--width-short"></td>
+								<td><input type="text" class="a--config-totp"></td>
+								<td><input type="password"></td>
+								<td><button class="d--btn a--event-speaker" data-act="totp">Calc & Copy</button></td>
+								<td><input type="text" class="l--width-short"></td>
 							</tr>
 						</table>
 						<hr>
-						<button id="sav-ls--btn" class="config-btn save-ls--btn">Save</button>
+						<button id="sav-ls--btn" class="config-btn a--event-speaker" data-act="save">Save</button>
 					</div>
 				</article>
 			</div>
@@ -480,5 +593,6 @@
 			<div id="clock--time"></div>
 		</div>
 		</div>
+		
 	</body>
 </html>

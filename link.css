@@ -93,12 +93,16 @@ code {
 	width: 75%;
 }
 
-.l--width-long {
-	width: 32rem;
-}
-
 .l--width-short {
 	width: 8rem;
+}
+
+.l--width-medium {
+	width: 16rem;
+}
+
+.l--width-long {
+	width: 32rem;
 }
 
 .l--display-none {
@@ -119,6 +123,10 @@ code {
 	gap: 0 1rem;
 }
 
+.l--padding--0 {
+	padding: 0;
+}
+
 .l--padding-left--05 {
 	padding-left: 0.5rem;
 }
@@ -127,7 +135,7 @@ code {
 	margin-left: 0.5rem;
 }
 
-.l--margin-left--1 {
+.l--margin-left--1rem {
 	margin-left: 1rem;
 }
 
@@ -163,6 +171,10 @@ code {
 	fill: white;
 }
 
+.d--font-weight--bold {
+	font-weight: bold;
+}
+
 .d--bgcolor-black {
 	background-color: #000000;
 }
@@ -180,6 +192,11 @@ code {
 	th, td {
 		border-bottom: 1px solid;
 	}
+}
+
+.d--inputarea {
+	border: 1px solid;
+	padding: 0.25rem;
 }
 
 .d--h1 {
@@ -232,6 +249,18 @@ code {
 
 .d--no-border {
 	border: 0;
+}
+
+.d--icon-btn {
+	height: 1rem;
+	width: 1rem;
+	font-weight: normal;
+	cursor: pointer;
+	&:active {
+		color: white;
+		background-color: black;
+		fill: white;
+	}
 }
 
 .l--tab-content {
@@ -356,6 +385,7 @@ nav > ul > li {
 	text-align: center;
 }
 
+
 .config--key-value {
 	display: flex;
 	flex-wrap: wrap;
@@ -365,10 +395,6 @@ nav > ul > li {
 	width: 12rem;
 }
 
-.config--value-input {
-	height: 1.2rem;
-	font-size: 0.8rem;
-}
 
 .config-btn {
 	padding: 0.25rem 1rem;

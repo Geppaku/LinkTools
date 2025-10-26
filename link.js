@@ -1,49 +1,53 @@
-//　■■■■■　ルール　■■■■■
-//　■■■■　命名規則　■■■■
-//　■　関数、変数：camelCase　■
-//　■　クラス：PascalCase　■
-//　■　定数：UPPER_SNAKE_CASE　■
+//　■■■■■　命名規則　■■■■■
+//　■■■■　関数、変数：camelCase　■■■■
+//　■■■■　クラス：PascalCase　■■■■
+//　■■■■　定数：UPPER_SNAKE_CASE　■■■■
 
-//　■■■■■　変数・定数　■■■■■
-//　■■■■　定数　■■■■
-//　■■■　グローバル定数　■■■
-//　■■　OSINT　■■
+//　■■■■■　グローバル定数　■■■■■
+//　■■■■　OSINT　■■■■
 const ipOsints = [
-	{ name: 'Search', url1: 'https://www.google.com/search?q="', url2: '"', encode: '', icon: 'google.ico' },
-	{ name: 'Whois', url1: 'https://www.whois.com/whois/', url2: '', encode: '', icon: 'whois.png' },
-	{ name: 'JPNIC WHOIS', url1: 'https://whois.nic.ad.jp/cgi-bin/whois_gw?key=', url2: '', encode: '', icon: 'jpnic.png' },
-	{ name: 'Virus Total', url1: 'https://www.virustotal.com/gui/ip-address/', url2: '', encode: '', icon: 'virustotal.svg' },
-	{ name: 'SHODAN', url1: 'https://www.shodan.io/host/', url2: '', encode: '', icon: 'shodan.png' },
-	{ name: 'urlscan Pro', url1: 'https://pro.urlscan.io/search?query=page.ip:"', url2: '"', encode: '', icon: 'urlscan.png' },
+//	{ title: '表示名', name: '表示/非表示を切り替える識別名', url1: 'URL（IPアドレス等の前の部分）', url2: 'URL（IPアドレス等の後の部分）', encode: 'クエリで渡すドメイン等のエンコード種類', icon: 'アイコンのファイル名' },
+	{ title: 'Search', name: 'ip-search', url1: 'https://www.google.com/search?q="', url2: '"', encode: '', icon: 'google.ico' },
+	{ title: 'Whois', name: 'ip-whois', url1: 'https://www.whois.com/whois/', url2: '', encode: '', icon: 'whois.png' },
+	{ title: 'JPNIC WHOIS', name: 'ip-jpnicwhois', url1: 'https://whois.nic.ad.jp/cgi-bin/whois_gw?key=', url2: '', encode: '', icon: 'jpnic.png' },
+	{ title: 'Nslookup', name: 'ip-nslookup', url1: 'https://www.nslookup.io/domains/', url2: '/dns-records/', encode: '', icon: 'nslookup.png' },
+	{ title: 'Virus Total', name: 'ip-virustotal', url1: 'https://www.virustotal.com/gui/ip-address/', url2: '', encode: '', icon: 'virustotal.svg' },
+	{ title: 'SHODAN', name: 'ip-shodan', url1: 'https://www.shodan.io/host/', url2: '', encode: '', icon: 'shodan.png' },
+	{ title: 'urlscan Pro', name: 'ip-urlscanpro', url1: 'https://pro.urlscan.io/search?query=page.ip:"', url2: '"', encode: '', icon: 'urlscanpro.png' },
+	{ title: 'IPSHU', name: 'ip-ipshu', url1: 'https://ja.ipshu.com/ipv4/', url2: '', encode: '', icon: 'ipshu.ico' },
+	{ title: 'IPinfo', name: 'ip-ipinfo', url1: 'https://ipinfo.io/', url2: '', encode: '', icon: 'ipinfo.png' },
+	{ title: 'SPUR', name: 'ip-spur', url1: 'https://spur.us/context/', url2: '', encode: '', icon: 'spur.ico' },
 ];
 const domainOsints = [
-	{ name: 'Search', url1: 'https://www.google.com/search?q="', url2: '"', encode: '', icon: 'google.ico' },
-	{ name: 'Whois', url1: 'https://www.whois.com/whois/', url2: '', encode: '', icon: 'whois.png' },
-	{ name: 'Nslookup', url1: 'https://www.nslookup.io/domains/', url2: '/dns-records/', encode: '', icon: 'nslookup.png' },
-	{ name: 'urlscan Pro', url1: 'https://pro.urlscan.io/search?query="', url2: '"', encode: '', icon: 'urlscan.png' },
+	{ title: 'Search', name: 'domain-search', url1: 'https://www.google.com/search?q="', url2: '"', encode: '', icon: 'google.ico' },
+	{ title: 'Whois', name: 'domain-whois', url1: 'https://www.whois.com/whois/', url2: '', encode: '', icon: 'whois.png' },
+	{ title: 'Nslookup', name: 'domain-nslookup', url1: 'https://www.nslookup.io/domains/', url2: '/dns-records/', encode: '', icon: 'nslookup.png' },
+	{ title: 'urlscan Pro', name: 'domain-urlscanpro', url1: 'https://pro.urlscan.io/search?query="', url2: '"', encode: '', icon: 'urlscanpro.png' },
 ];
 const urlOsints = [
-	{ name: 'Virus Total', url1: 'https://www.virustotal.com/gui/search/', url2: '', encode: 'wPercent', icon: 'virustotal.png' },
-	{ name: 'Archive', url1: 'https://web.archive.org/web///', url2: '', encode: '', icon: 'archive.png' },
+	{ title: 'Virus Total', name: 'url-wirustotal', url1: 'https://www.virustotal.com/gui/search/', url2: '', encode: 'wPercent', icon: 'virustotal.svg' },
+	{ title: 'Archive', name: 'url-archive', url1: 'https://web.archive.org/web///', url2: '', encode: '', icon: 'archive.png' },
+];
+const mailOsints = [
+	{ title: 'Search', name: 'mail-search', url1: 'https://www.google.com/search?q="', url2: '"', encode: '', icon: 'google.ico' },
 ];
 const hashOsints = [
-	{ name: 'Virus Total', url1: 'https://www.virustotal.com/gui/search/', url2: '', encode: '', icon: 'virustotal.png' },
+	{ title: 'Virus Total', name: 'hash-virustotal', url1: 'https://www.virustotal.com/gui/search/', url2: '', encode: '', icon: 'virustotal.svg' },
 ];
 
-//　■■　子要素リセット対象要素（子要素が動的に追加される要素）　■■
-const childResetElms = document.getElementsByClassName('child-reset--elm');
-
-//　■■　TLD　■■
+//　■■■■　TLD　■■■■
 const tlds = ['AAA','AARP','ABB','ABBOTT','ABBVIE','ABC','ABLE','ABOGADO','ABUDHABI','AC','ACADEMY','ACCENTURE','ACCOUNTANT','ACCOUNTANTS','ACO','ACTOR','AD','ADS','ADULT','AE','AEG','AERO','AETNA','AF','AFL','AFRICA','AG','AGAKHAN','AGENCY','AI','AIG','AIRBUS','AIRFORCE','AIRTEL','AKDN','AL','ALIBABA','ALIPAY','ALLFINANZ','ALLSTATE','ALLY','ALSACE','ALSTOM','AM','AMAZON','AMERICANEXPRESS','AMERICANFAMILY','AMEX','AMFAM','AMICA','AMSTERDAM','ANALYTICS','ANDROID','ANQUAN','ANZ','AO','AOL','APARTMENTS','APP','APPLE','AQ','AQUARELLE','AR','ARAB','ARAMCO','ARCHI','ARMY','ARPA','ART','ARTE','AS','ASDA','ASIA','ASSOCIATES','AT','ATHLETA','ATTORNEY','AU','AUCTION','AUDI','AUDIBLE','AUDIO','AUSPOST','AUTHOR','AUTO','AUTOS','AW','AWS','AX','AXA','AZ','AZURE','BA','BABY','BAIDU','BANAMEX','BAND','BANK','BAR','BARCELONA','BARCLAYCARD','BARCLAYS','BAREFOOT','BARGAINS','BASEBALL','BASKETBALL','BAUHAUS','BAYERN','BB','BBC','BBT','BBVA','BCG','BCN','BD','BE','BEATS','BEAUTY','BEER','BERLIN','BEST','BESTBUY','BET','BF','BG','BH','BHARTI','BI','BIBLE','BID','BIKE','BING','BINGO','BIO','BIZ','BJ','BLACK','BLACKFRIDAY','BLOCKBUSTER','BLOG','BLOOMBERG','BLUE','BM','BMS','BMW','BN','BNPPARIBAS','BO','BOATS','BOEHRINGER','BOFA','BOM','BOND','BOO','BOOK','BOOKING','BOSCH','BOSTIK','BOSTON','BOT','BOUTIQUE','BOX','BR','BRADESCO','BRIDGESTONE','BROADWAY','BROKER','BROTHER','BRUSSELS','BS','BT','BUILD','BUILDERS','BUSINESS','BUY','BUZZ','BV','BW','BY','BZ','BZH','CA','CAB','CAFE','CAL','CALL','CALVINKLEIN','CAM','CAMERA','CAMP','CANON','CAPETOWN','CAPITAL','CAPITALONE','CAR','CARAVAN','CARDS','CARE','CAREER','CAREERS','CARS','CASA','CASE','CASH','CASINO','CAT','CATERING','CATHOLIC','CBA','CBN','CBRE','CC','CD','CENTER','CEO','CERN','CF','CFA','CFD','CG','CH','CHANEL','CHANNEL','CHARITY','CHASE','CHAT','CHEAP','CHINTAI','CHRISTMAS','CHROME','CHURCH','CI','CIPRIANI','CIRCLE','CISCO','CITADEL','CITI','CITIC','CITY','CK','CL','CLAIMS','CLEANING','CLICK','CLINIC','CLINIQUE','CLOTHING','CLOUD','CLUB','CLUBMED','CM','CN','CO','COACH','CODES','COFFEE','COLLEGE','COLOGNE','COM','COMMBANK','COMMUNITY','COMPANY','COMPARE','COMPUTER','COMSEC','CONDOS','CONSTRUCTION','CONSULTING','CONTACT','CONTRACTORS','COOKING','COOL','COOP','CORSICA','COUNTRY','COUPON','COUPONS','COURSES','CPA','CR','CREDIT','CREDITCARD','CREDITUNION','CRICKET','CROWN','CRS','CRUISE','CRUISES','CU','CUISINELLA','CV','CW','CX','CY','CYMRU','CYOU','CZ','DAD','DANCE','DATA','DATE','DATING','DATSUN','DAY','DCLK','DDS','DE','DEAL','DEALER','DEALS','DEGREE','DELIVERY','DELL','DELOITTE','DELTA','DEMOCRAT','DENTAL','DENTIST','DESI','DESIGN','DEV','DHL','DIAMONDS','DIET','DIGITAL','DIRECT','DIRECTORY','DISCOUNT','DISCOVER','DISH','DIY','DJ','DK','DM','DNP','DO','DOCS','DOCTOR','DOG','DOMAINS','DOT','DOWNLOAD','DRIVE','DTV','DUBAI','DUNLOP','DUPONT','DURBAN','DVAG','DVR','DZ','EARTH','EAT','EC','ECO','EDEKA','EDU','EDUCATION','EE','EG','EMAIL','EMERCK','ENERGY','ENGINEER','ENGINEERING','ENTERPRISES','EPSON','EQUIPMENT','ER','ERICSSON','ERNI','ES','ESQ','ESTATE','ET','EU','EUROVISION','EUS','EVENTS','EXCHANGE','EXPERT','EXPOSED','EXPRESS','EXTRASPACE','FAGE','FAIL','FAIRWINDS','FAITH','FAMILY','FAN','FANS','FARM','FARMERS','FASHION','FAST','FEDEX','FEEDBACK','FERRARI','FERRERO','FI','FIDELITY','FIDO','FILM','FINAL','FINANCE','FINANCIAL','FIRE','FIRESTONE','FIRMDALE','FISH','FISHING','FIT','FITNESS','FJ','FK','FLICKR','FLIGHTS','FLIR','FLORIST','FLOWERS','FLY','FM','FO','FOO','FOOD','FOOTBALL','FORD','FOREX','FORSALE','FORUM','FOUNDATION','FOX','FR','FREE','FRESENIUS','FRL','FROGANS','FRONTIER','FTR','FUJITSU','FUN','FUND','FURNITURE','FUTBOL','FYI','GA','GAL','GALLERY','GALLO','GALLUP','GAME','GAMES','GAP','GARDEN','GAY','GB','GBIZ','GD','GDN','GE','GEA','GENT','GENTING','GEORGE','GF','GG','GGEE','GH','GI','GIFT','GIFTS','GIVES','GIVING','GL','GLASS','GLE','GLOBAL','GLOBO','GM','GMAIL','GMBH','GMO','GMX','GN','GODADDY','GOLD','GOLDPOINT','GOLF','GOO','GOODYEAR','GOOG','GOOGLE','GOP','GOT','GOV','GP','GQ','GR','GRAINGER','GRAPHICS','GRATIS','GREEN','GRIPE','GROCERY','GROUP','GS','GT','GU','GUCCI','GUGE','GUIDE','GUITARS','GURU','GW','GY','HAIR','HAMBURG','HANGOUT','HAUS','HBO','HDFC','HDFCBANK','HEALTH','HEALTHCARE','HELP','HELSINKI','HERE','HERMES','HIPHOP','HISAMITSU','HITACHI','HIV','HK','HKT','HM','HN','HOCKEY','HOLDINGS','HOLIDAY','HOMEDEPOT','HOMEGOODS','HOMES','HOMESENSE','HONDA','HORSE','HOSPITAL','HOST','HOSTING','HOT','HOTELS','HOTMAIL','HOUSE','HOW','HR','HSBC','HT','HU','HUGHES','HYATT','HYUNDAI','IBM','ICBC','ICE','ICU','ID','IE','IEEE','IFM','IKANO','IL','IM','IMAMAT','IMDB','IMMO','IMMOBILIEN','IN','INC','INDUSTRIES','INFINITI','INFO','ING','INK','INSTITUTE','INSURANCE','INSURE','INT','INTERNATIONAL','INTUIT','INVESTMENTS','IO','IPIRANGA','IQ','IR','IRISH','IS','ISMAILI','IST','ISTANBUL','IT','ITAU','ITV','JAGUAR','JAVA','JCB','JE','JEEP','JETZT','JEWELRY','JIO','JLL','JM','JMP','JNJ','JO','JOBS','JOBURG','JOT','JOY','JP','JPMORGAN','JPRS','JUEGOS','JUNIPER','KAUFEN','KDDI','KE','KERRYHOTELS','KERRYPROPERTIES','KFH','KG','KH','KI','KIA','KIDS','KIM','KINDLE','KITCHEN','KIWI','KM','KN','KOELN','KOMATSU','KOSHER','KP','KPMG','KPN','KR','KRD','KRED','KUOKGROUP','KW','KY','KYOTO','KZ','LA','LACAIXA','LAMBORGHINI','LAMER','LAND','LANDROVER','LANXESS','LASALLE','LAT','LATINO','LATROBE','LAW','LAWYER','LB','LC','LDS','LEASE','LECLERC','LEFRAK','LEGAL','LEGO','LEXUS','LGBT','LI','LIDL','LIFE','LIFEINSURANCE','LIFESTYLE','LIGHTING','LIKE','LILLY','LIMITED','LIMO','LINCOLN','LINK','LIVE','LIVING','LK','LLC','LLP','LOAN','LOANS','LOCKER','LOCUS','LOL','LONDON','LOTTE','LOTTO','LOVE','LPL','LPLFINANCIAL','LR','LS','LT','LTD','LTDA','LU','LUNDBECK','LUXE','LUXURY','LV','LY','MA','MADRID','MAIF','MAISON','MAKEUP','MAN','MANAGEMENT','MANGO','MAP','MARKET','MARKETING','MARKETS','MARRIOTT','MARSHALLS','MATTEL','MBA','MC','MCKINSEY','MD','ME','MED','MEDIA','MEET','MELBOURNE','MEME','MEMORIAL','MEN','MENU','MERCKMSD','MG','MH','MIAMI','MICROSOFT','MIL','MINI','MINT','MIT','MITSUBISHI','MK','ML','MLB','MLS','MM','MMA','MN','MO','MOBI','MOBILE','MODA','MOE','MOI','MOM','MONASH','MONEY','MONSTER','MORMON','MORTGAGE','MOSCOW','MOTO','MOTORCYCLES','MOV','MOVIE','MP','MQ','MR','MS','MSD','MT','MTN','MTR','MU','MUSEUM','MUSIC','MV','MW','MX','MY','MZ','NA','NAB','NAGOYA','NAME','NAVY','NBA','NC','NE','NEC','NET','NETBANK','NETFLIX','NETWORK','NEUSTAR','NEW','NEWS','NEXT','NEXTDIRECT','NEXUS','NF','NFL','NG','NGO','NHK','NI','NICO','NIKE','NIKON','NINJA','NISSAN','NISSAY','NL','NO','NOKIA','NORTON','NOW','NOWRUZ','NOWTV','NP','NR','NRA','NRW','NTT','NU','NYC','NZ','OBI','OBSERVER','OFFICE','OKINAWA','OLAYAN','OLAYANGROUP','OLLO','OM','OMEGA','ONE','ONG','ONL','ONLINE','OOO','OPEN','ORACLE','ORANGE','ORG','ORGANIC','ORIGINS','OSAKA','OTSUKA','OTT','OVH','PA','PAGE','PANASONIC','PARIS','PARS','PARTNERS','PARTS','PARTY','PAY','PCCW','PE','PET','PF','PFIZER','PG','PH','PHARMACY','PHD','PHILIPS','PHONE','PHOTO','PHOTOGRAPHY','PHOTOS','PHYSIO','PICS','PICTET','PICTURES','PID','PIN','PING','PINK','PIONEER','PIZZA','PK','PL','PLACE','PLAY','PLAYSTATION','PLUMBING','PLUS','PM','PN','PNC','POHL','POKER','POLITIE','PORN','POST','PR','PRAXI','PRESS','PRIME','PRO','PROD','PRODUCTIONS','PROF','PROGRESSIVE','PROMO','PROPERTIES','PROPERTY','PROTECTION','PRU','PRUDENTIAL','PS','PT','PUB','PW','PWC','PY','QA','QPON','QUEBEC','QUEST','RACING','RADIO','RE','READ','REALESTATE','REALTOR','REALTY','RECIPES','RED','REDSTONE','REDUMBRELLA','REHAB','REISE','REISEN','REIT','RELIANCE','REN','RENT','RENTALS','REPAIR','REPORT','REPUBLICAN','REST','RESTAURANT','REVIEW','REVIEWS','REXROTH','RICH','RICHARDLI','RICOH','RIL','RIO','RIP','RO','ROCKS','RODEO','ROGERS','ROOM','RS','RSVP','RU','RUGBY','RUHR','RUN','RW','RWE','RYUKYU','SA','SAARLAND','SAFE','SAFETY','SAKURA','SALE','SALON','SAMSCLUB','SAMSUNG','SANDVIK','SANDVIKCOROMANT','SANOFI','SAP','SARL','SAS','SAVE','SAXO','SB','SBI','SBS','SC','SCB','SCHAEFFLER','SCHMIDT','SCHOLARSHIPS','SCHOOL','SCHULE','SCHWARZ','SCIENCE','SCOT','SD','SE','SEARCH','SEAT','SECURE','SECURITY','SEEK','SELECT','SENER','SERVICES','SEVEN','SEW','SEX','SEXY','SFR','SG','SH','SHANGRILA','SHARP','SHELL','SHIA','SHIKSHA','SHOES','SHOP','SHOPPING','SHOUJI','SHOW','SI','SILK','SINA','SINGLES','SITE','SJ','SK','SKI','SKIN','SKY','SKYPE','SL','SLING','SM','SMART','SMILE','SN','SNCF','SO','SOCCER','SOCIAL','SOFTBANK','SOFTWARE','SOHU','SOLAR','SOLUTIONS','SONG','SONY','SOY','SPA','SPACE','SPORT','SPOT','SR','SRL','SS','ST','STADA','STAPLES','STAR','STATEBANK','STATEFARM','STC','STCGROUP','STOCKHOLM','STORAGE','STORE','STREAM','STUDIO','STUDY','STYLE','SU','SUCKS','SUPPLIES','SUPPLY','SUPPORT','SURF','SURGERY','SUZUKI','SV','SWATCH','SWISS','SX','SY','SYDNEY','SYSTEMS','SZ','TAB','TAIPEI','TALK','TAOBAO','TARGET','TATAMOTORS','TATAR','TATTOO','TAX','TAXI','TC','TCI','TD','TDK','TEAM','TECH','TECHNOLOGY','TEL','TEMASEK','TENNIS','TEVA','TF','TG','TH','THD','THEATER','THEATRE','TIAA','TICKETS','TIENDA','TIPS','TIRES','TIROL','TJ','TJMAXX','TJX','TK','TKMAXX','TL','TM','TMALL','TN','TO','TODAY','TOKYO','TOOLS','TOP','TORAY','TOSHIBA','TOTAL','TOURS','TOWN','TOYOTA','TOYS','TR','TRADE','TRADING','TRAINING','TRAVEL','TRAVELERS','TRAVELERSINSURANCE','TRUST','TRV','TT','TUBE','TUI','TUNES','TUSHU','TV','TVS','TW','TZ','UA','UBANK','UBS','UG','UK','UNICOM','UNIVERSITY','UNO','UOL','UPS','US','UY','UZ','VA','VACATIONS','VANA','VANGUARD','VC','VE','VEGAS','VENTURES','VERISIGN','VERSICHERUNG','VET','VG','VI','VIAJES','VIDEO','VIG','VIKING','VILLAS','VIN','VIP','VIRGIN','VISA','VISION','VIVA','VIVO','VLAANDEREN','VN','VODKA','VOLVO','VOTE','VOTING','VOTO','VOYAGE','VU','WALES','WALMART','WALTER','WANG','WANGGOU','WATCH','WATCHES','WEATHER','WEATHERCHANNEL','WEBCAM','WEBER','WEBSITE','WED','WEDDING','WEIBO','WEIR','WF','WHOSWHO','WIEN','WIKI','WILLIAMHILL','WIN','WINDOWS','WINE','WINNERS','WME','WOLTERSKLUWER','WOODSIDE','WORK','WORKS','WORLD','WOW','WS','WTC','WTF','XBOX','XEROX','XIHUAN','XIN','XN--11B4C3D','XN--1CK2E1B','XN--1QQW23A','XN--2SCRJ9C','XN--30RR7Y','XN--3BST00M','XN--3DS443G','XN--3E0B707E','XN--3HCRJ9C','XN--3PXU8K','XN--42C2D9A','XN--45BR5CYL','XN--45BRJ9C','XN--45Q11C','XN--4DBRK0CE','XN--4GBRIM','XN--54B7FTA0CC','XN--55QW42G','XN--55QX5D','XN--5SU34J936BGSG','XN--5TZM5G','XN--6FRZ82G','XN--6QQ986B3XL','XN--80ADXHKS','XN--80AO21A','XN--80AQECDR1A','XN--80ASEHDB','XN--80ASWG','XN--8Y0A063A','XN--90A3AC','XN--90AE','XN--90AIS','XN--9DBQ2A','XN--9ET52U','XN--9KRT00A','XN--B4W605FERD','XN--BCK1B9A5DRE4C','XN--C1AVG','XN--C2BR7G','XN--CCK2B3B','XN--CCKWCXETD','XN--CG4BKI','XN--CLCHC0EA0B2G2A9GCD','XN--CZR694B','XN--CZRS0T','XN--CZRU2D','XN--D1ACJ3B','XN--D1ALF','XN--E1A4C','XN--ECKVDTC9D','XN--EFVY88H','XN--FCT429K','XN--FHBEI','XN--FIQ228C5HS','XN--FIQ64B','XN--FIQS8S','XN--FIQZ9S','XN--FJQ720A','XN--FLW351E','XN--FPCRJ9C3D','XN--FZC2C9E2C','XN--FZYS8D69UVGM','XN--G2XX48C','XN--GCKR3F0F','XN--GECRJ9C','XN--GK3AT1E','XN--H2BREG3EVE','XN--H2BRJ9C','XN--H2BRJ9C8C','XN--HXT814E','XN--I1B6B1A6A2E','XN--IMR513N','XN--IO0A7I','XN--J1AEF','XN--J1AMH','XN--J6W193G','XN--JLQ480N2RG','XN--JVR189M','XN--KCRX77D1X4A','XN--KPRW13D','XN--KPRY57D','XN--KPUT3I','XN--L1ACC','XN--LGBBAT1AD8J','XN--MGB9AWBF','XN--MGBA3A3EJT','XN--MGBA3A4F16A','XN--MGBA7C0BBN0A','XN--MGBAAM7A8H','XN--MGBAB2BD','XN--MGBAH1A3HJKRD','XN--MGBAI9AZGQP6J','XN--MGBAYH7GPA','XN--MGBBH1A','XN--MGBBH1A71E','XN--MGBC0A9AZCG','XN--MGBCA7DZDO','XN--MGBCPQ6GPA1A','XN--MGBERP4A5D4AR','XN--MGBGU82A','XN--MGBI4ECEXP','XN--MGBPL2FH','XN--MGBT3DHD','XN--MGBTX2B','XN--MGBX4CD0AB','XN--MIX891F','XN--MK1BU44C','XN--MXTQ1M','XN--NGBC5AZD','XN--NGBE9E0A','XN--NGBRX','XN--NODE','XN--NQV7F','XN--NQV7FS00EMA','XN--NYQY26A','XN--O3CW4H','XN--OGBPF8FL','XN--OTU796D','XN--P1ACF','XN--P1AI','XN--PGBS0DH','XN--PSSY2U','XN--Q7CE6A','XN--Q9JYB4C','XN--QCKA1PMC','XN--QXA6A','XN--QXAM','XN--RHQV96G','XN--ROVU88B','XN--RVC1E0AM3E','XN--S9BRJ9C','XN--SES554G','XN--T60B56A','XN--TCKWE','XN--TIQ49XQYJ','XN--UNUP4Y','XN--VERMGENSBERATER-CTB','XN--VERMGENSBERATUNG-PWB','XN--VHQUV','XN--VUQ861B','XN--W4R85EL8FHU5DNRA','XN--W4RS40L','XN--WGBH1C','XN--WGBL6A','XN--XHQ521B','XN--XKC2AL3HYE2A','XN--XKC2DL3A5EE0H','XN--Y9A3AQ','XN--YFRO4I67O','XN--YGBI2AMMX','XN--ZFR164B','XXX','XYZ','YACHTS','YAHOO','YAMAXUN','YANDEX','YE','YODOBASHI','YOGA','YOKOHAMA','YOU','YOUTUBE','YT','YUN','ZA','ZAPPOS','ZARA','ZERO','ZIP','ZM','ZONE','ZUERICH','ZW'];
 
-//　■■　曜日表記　■■
+//　■■■■　曜日表記　■■■■
 const JpDows = ["日", "月", "火", "水", "木", "金", "土"];
-const engDows = ["Sun.", "Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat."];
+const enDows = ["Sun.", "Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat."];
 
-//　■■■■　変数　■■■■
-//　■■■　グローバル変数　■■■
+//　■■■■　子要素リセット対象要素（子要素が動的に追加される要素）　■■■■
+const childResetElms = document.getElementsByClassName('child-reset--elm');
+
+//　■■■■■　グローバル変数　■■■■■
+let memoElm, memoValue, memoFangValue;
 let webhookUrl;
-let memoValue, memoFangValue;
 let now, YYYY, M, MM, D, DD, A, a, h, hh, m, mm, s, ss;
 let ipv4s = [];
 let ipv6s = [];
@@ -58,156 +62,32 @@ let invisibleCharacters = [];
 let macs = [];
 let dates = [];
 let dateTimes = [];
+let configObj = {};
+let displayOsintObj = {};
 
 //　■■■■■　関数　■■■■■
-//　■■■■　自動実行　■■■■
-//　■■■　DOM読込時　■■■
+//　■■■■　DOM読込時　■■■■
 window.addEventListener('DOMContentLoaded', function() {
-	domLoaded();
-	memoChanged();
-});
-
-//　■■■　DOM読込時の処理　■■■
-function domLoaded() {
-	loadItem('memo','footer--textarea');
-	memoValue = document.getElementById('footer--textarea').value;
-	memoFangValue = memoValue.replace(/hxxps?:/gi,'https:').replace(/\[\.\]|\[dot\]/g,'.');
-	//　■■　LocalStorageに保存したデータの読込　■■
-	let elms = document.getElementsByClassName('save-ls');
-	for (let elm of elms) {
-		loadItem(elm.getAttribute('id'),elm.getAttribute('id'));
+	memoElm = document.getElementById('footer--textarea');
+	if ( memoElm !== null ) {
+		loadLS2Value('memo',memoElm);
+		memoChanged();
+		setEventListener();
 	}
-	for (childResetElm of childResetElms) {
-		while(childResetElm.firstChild) {
-			childResetElm.removeChild(childResetElm.firstChild);
-		}
-	}
-	userName = localStorage.getItem('config--user-name');
-	document.getElementById('header--nav--config').innerText = '⚙ User：' + userName;
-	extractIndicator();
+	loadConfig();
+//　■■■　時計（日時）表示　■■■
 	setTimeout(function () {
 		showClock();
 		setInterval("showClock()", 1000);
 	}, 1000 - new Date().getUTCMilliseconds() );
-}
-
-//　■■■　MEMO更新時の処理　■■■
-function memoChanged() {
-	saveItem('memo','footer--textarea');
-	memoValue = document.getElementById('footer--textarea').value;
-	memoFangValue = memoValue.replace(/\[\.\]|\[dot\]/g,'.').replace(/http\[:\]/gi,'http:').replace(/hxxp:/gi,'http:').replace(/hxxp\[:\]/gi,'http:').replace(/https\[:\]/gi,'https:').replace(/hxxps:/gi,'https:').replace(/hxxps\[:\]/gi,'https:');
-	extractIndicator();
-	for (childResetElm of childResetElms) {
-		while(childResetElm.firstChild) {
-			childResetElm.removeChild(childResetElm.firstChild);
-		}
-	}
-	analysis();
-	copyList();
-	openListLink();
-	flagMemo(memoValue, 'footer--textarea-flag');
-	cntStr('footer--textarea', 'footer--textarea-cnt');
-}
-
-//　■■■　ページ読込後　■■■
-window.addEventListener('load',function() {
-	//　■■　MEMO更新時　■■
-	document.getElementById('footer--textarea').addEventListener('input', memoChanged);
-	//　■■　SAVEボタン押下時　■■
-	document.querySelectorAll('.save-ls--btn').forEach(function(target) {
-		target.addEventListener('click', saveLs);
-	});
-	//　■■　CMDボタン押下時　■■
-	document.querySelectorAll('.a--cmd-btn').forEach(function(elm) {
-		elm.addEventListener('click', function() {
-			cmdAct(elm.dataset.act, elm.dataset.target);
-		});
-	});
-	//　■■　CALC-TOTP--BTN　■■
-	const calcTotpBtns = document.querySelectorAll('.calc-totp--btn');
-	calcTotpBtns.forEach(function(target) {
-		target.addEventListener('click', function() {
-			let secretElmId = target.dataset.target + '--secret';
-			let outputElmId = target.dataset.target + '--output';
-			calcTotp(secretElmId, outputElmId);
-		})
-	});
-	//　■■　CREATE-MAIL　■■
-	const createMailElms = document.querySelectorAll('.create-mail');
-	createMailElms.forEach(function(target) {
-		target.addEventListener('click', function() {
-			createMail(target.dataset.type);
-		})
-	});
 });
 
-//　■■■■　グローバル関数　■■■■
-//　■■■　SAVEボタン押下時の処理　■■■
-function saveLs() {
-	let elms = document.getElementsByClassName('save-ls');
-	for (let elm of elms) {
-		saveItem(elm.getAttribute('id'),elm.getAttribute('id'));
-	}
-}
-
-function cmdAct(act, target) {
-	switch(act) {
-		case 'copy-memo':
-			navigator.clipboard.writeText(memoValue);
-			break;
-		case 'translate-memo':
-			if ( window.confirm('機密情報は含まれていませんか？') ) {
-				window.open('https://translate.google.co.jp/?tl=ja&text=' + memoValue.replace(/[\r\n]/g,'%0A'));
-			}
-			break;
-		case 'webhook-memo':
-			if ( window.confirm('機密情報は含まれていませんか？') ) {
-				const xhr = new XMLHttpRequest();
-				let webhookUrl = localStorage.getItem('config--webhook');
-				xhr.open("GET",webhookUrl + encodeURIComponent(memoValue));
-				xhr.send();
-			}
-			break;
-		case 'restore-memo':
-			loadItem('backupMemo','footer--textarea');
-			memoChanged();
-			break;
-		case 'clear-memo':
-			saveItem('backupMemo','footer--textarea');
-			document.getElementById('footer--textarea').value = '';
-			memoChanged();
-			break;
-		case 'copy-list':
-			let copyValue = '';
-			copyTargets = target == 'ipv4s' ? ipv4s : target ;
-			copyTargets = target == 'urls' ? urls : target ;
-			for ( copyTarget of copyTargets ) {
-				copyValue += copyTarget + '\n';
-			}
-			navigator.clipboard.writeText(copyValue);
-			break;
-		case 'open-list':
-			let openTargets;
-			openTargets = elm.dataset.target == 'urls' ? urls : openTargets ;
-			if ( window.confirm('危険なURIは含まれていませんか？') ) {
-				for ( openTarget of openTargets ) {
-					window.open(openTarget, '_blank');
-				}
-			}
-			break;
-	}
-}
-
 //　■■■■　汎用関数　■■■■
-//　■■■　ローカルストレージ　■■■
-//　■■　ローカルストレージに保存　■■
-function saveItem(key,elmId) {
-	let item = document.getElementById(elmId).value;
-	localStorage.setItem(key,item);
-}
-//　■■　ローカルストレージから取得　■■
-function loadItem(key,elmId) {
-	document.getElementById(elmId).value = localStorage.getItem(key);
+//　■■■　LocalStorage　■■■
+function loadLS2Value(key,elm) {
+	if ( localStorage.getItem(key) !== null && elm !== null ) {
+		elm.value = localStorage.getItem(key);
+	}
 }
 
 //　■■■　日時　■■■
@@ -215,7 +95,6 @@ function getDateTime() {
 	now = new Date();
 	separateDateTime(now);
 }
-//　■■　日時の表示形式　■■
 function separateDateTime(dateTime) {
 	YYYY = dateTime.getFullYear();
 	M = dateTime.getMonth() + 1;
@@ -223,64 +102,13 @@ function separateDateTime(dateTime) {
 	MM = ('0' + M).slice(-2);
 	DD = ('0' + D).slice(-2);
 	A = JpDows[dateTime.getDay()];
-	a = engDows[dateTime.getDay()];
+	a = enDows[dateTime.getDay()];
 	h = dateTime.getHours();
 	m = dateTime.getMinutes();
 	s = dateTime.getSeconds();
 	hh = ('0' + h).slice(-2);
 	mm = ('0' + m).slice(-2);
 	ss = ('0' + s).slice(-2);
-}
-
-//　■■■　ACT--BTN　■■■
-//　■■　COPY--LIST　■■
-function copyList() {
-	document.querySelectorAll('.copy--list--btn').forEach(function(target){
-		target.addEventListener('click', function() {
-			let lis = target.parentNode.nextElementSibling.children;
-			let txt = '';
-			for ( let li of lis ) {
-				txt += li.textContent + '\n';
-			}
-			navigator.clipboard.writeText(txt);
-		});
-	});
-}
-//　■■　OPEN--LIST-LINK　■■
-function openListLink() {
-	document.querySelectorAll('.open--list-link--btn').forEach(function(target){
-		target.addEventListener('click', function() {
-			let lis = target.parentNode.nextElementSibling.children;
-			for ( li of lis ) {
-				let links = li.querySelectorAll('a');
-				for ( let link of links ) {
-					window.open(link.getAttribute('href'), '_blank');
-				}
-			}
-		});
-	});
-}
-
-//　■■■　CALC-TOTP　■■■
-function calcTotp(privateKey,otp) {
-	let secret = document.getElementById(privateKey).value;
-	let b32=s=>[0,8,16,24,32,40,48,56]
-		.map(i=>[0,1,2,3,4,5,6,7]
-			.map(j=>s.charCodeAt(i+j)).map(c=>c<65?c-24:c-65))
-		.map(a=>[(a[0]<<3)+(a[1]>>2),
-			(a[1]<<6)+(a[2]<<1)+(a[3]>>4),
-			(a[3]<<4)+(a[4]>>1),
-			(a[4]<<7)+(a[5]<<2)+(a[6]>>3),
-			(a[6]<<5)+(a[7]>>0),
-		]).flat(),
-		trunc=dv=>dv.getUint32(dv.getInt8(19)&0x0f)&0x7fffffff,
-		c=Math.floor(Date.now()/1000/30);
-	crypto.subtle.importKey('raw',new Int8Array(b32(secret)),{name:'HMAC',hash:{name:'SHA-1'}},true,['sign'])
-		.then(k=>crypto.subtle.sign('HMAC',k,new Int8Array([0,0,0,0,c>>24,c>>16,c>>8,c])))
-		.then(h=>document.getElementById(otp).value=('0'+trunc(new DataView(h))).slice(-6));
-	crypto.subtle.importKey('raw',new Int8Array(b32(secret)),{name:'HMAC',hash:{name:'SHA-1'}},true,['sign'])
-		.then(k=>crypto.subtle.sign('HMAC',k,new Int8Array([0,0,0,0,c>>24,c>>16,c>>8,c])))
-		.then(h=>navigator.clipboard.writeText(('0'+trunc(new DataView(h))).slice(-6)));
 }
 
 //　■■■　IPアドレス　■■■
@@ -347,46 +175,19 @@ function ipInRange(ip, cidr) {
 	let cidrIpNetwork = cidrIpNumber >>> (32 - cidrRange);
 	return ipNetwork === cidrIpNetwork;
 }
-
-//　■■■　IPv4分類　■■■
+//　■■　IPv4分類　■■
 function ipv4Classify(ipv4) {
-	let ipv4Obj = {'class': '', 'ipv4': ipv4};
-	ipv4Obj.class += ipInRange(ipv4, '10.0.0.0/8') ? 'Private' : '';
-	ipv4Obj.class += ipInRange(ipv4, '172.16.0.0/12') ? 'Private' : '';
-	ipv4Obj.class += ipInRange(ipv4, '192.168.0.0/16') ? 'Private' : '';
-	ipv4Obj.class += ipInRange(ipv4, '192.0.2.0/24') ? 'Example' : '';
-	ipv4Obj.class += ipInRange(ipv4, '198.51.100.0/24') ? 'Example' : '';
-	ipv4Obj.class += ipInRange(ipv4, '203.0.113.0/24') ? 'Example' : '';
-	ipv4Obj.class += ipInRange(ipv4, '169.254.0.0/16') ? 'LinkLocal' : '';
-	ipv4Obj.class += ipInRange(ipv4, '127.0.0.0/8') ? 'Loopback' : '';
-	ipv4Obj.class += (ipv4Obj.class.length == 0) ? 'Global' : '';
-	return ipv4Obj;
-}
-
-//　■■■　URL分析　■■■
-function urlAnalysis(url) {
-	let urlObj = {'flag': '', 'url': url, 'siteDisplayed':''};
-	urlObj.flag += /https?:\/?[^\/]/.test(url) ? '🤡' : '' ;
-	urlObj.flag += /[∕⁄]/.test(url) ? '➗' : '' ;
-	urlObj.flag += /https?:\/{0,2}[@\w\-\.]*[^@\w\-\.\/]/.test(url) ? '👽' : '' ;
-	urlObj.flag += /https?:\/{0,2}[^\/]*@[^\/]+/.test(url) ? '🔑' : '' ;
-	urlObj.flag += /https?:\/{0,2}[^\/]*translate\.google\.com\//.test(url) ? '📖' : '' ;
-	urlObj.flag += /https?:\/{0,2}[^\/]+\.translate\.goog[\/]/.test(url) ? '📖' : '' ;
-	urlObj.flag += /https?:\/{0,2}[^\/]*www\.google\.com\/url\?/.test(url) ? '➡️' : '' ;
-	urlObj.flag += /https?:\/{0,2}[^\/]*www\.bing\.com\/ck\/a\?/.test(url) ? '➡️' : '' ;
-	urlObj.flag += /https?:\/{0,2}[^\/]*[\-\.]?ipfs[\-\.]?[^\/]+/.test(url) ? '🌐' : '' ;
-	urlObj.flag += /https?:\/{0,2}[^\/]*\w{16,}/.test(url) ? '🎲' : '' ;
-	urlObj.flag += /https?:\/{0,2}[^\/]*[bcdfghjklmnpqrstvwxyz0-9]{8,}/.test(url) ? '🎲' : '' ;
-	let parser = new URL(url);
-	urlObj.siteDisplayed += /https?:\/{0,2}[^\/]*safelinks\.protection\.outlook\.com\/(\?.*)?[\?&]url=https?[^&]+/.test(url)
-		? decodeURIComponent(url.match(/[\?&]url=https?[^&]+/gi)[0].match(/https?.+/gi)[0]) : '';
-	urlObj.siteDisplayed += /https?:\/{0,2}[^\/]*www\.google\.com\/url(\?.*)?[\?&]url=https?[^&]+/.test(url)
-		? decodeURIComponent(url.match(/[\?&]url=https?[^&]+/gi)[0].match(/https?.+/gi)[0]) : '';
-	urlObj.siteDisplayed += /https?:\/{0,2}[^\/]*www\.bing\.com\/ck\/a(\?.*)?[\?&]u=a1aHR0c[^&]+/.test(url)
-		? atob(url.match(/a1aHR0c[^&]+/gi)[0]) : '';
-	urlObj.siteDisplayed += /https?:\/{0,2}[^\/]+\.translate\.goog[\/]/.test(url)
-		? url.replace('.translate.goog/','/').replace(/\?.*/,'').replaceAll('-','.').replaceAll('..','.') : '';
-	return urlObj;
+	let ipv4Class;
+	ipv4Class = ipInRange(ipv4, '10.0.0.0/8') ? 'Private' : '';
+	ipv4Class = ipInRange(ipv4, '172.16.0.0/12') ? 'Private' : '';
+	ipv4Class = ipInRange(ipv4, '192.168.0.0/16') ? 'Private' : '';
+	ipv4Class = ipInRange(ipv4, '192.0.2.0/24') ? 'Example' : '';
+	ipv4Class = ipInRange(ipv4, '198.51.100.0/24') ? 'Example' : '';
+	ipv4Class = ipInRange(ipv4, '203.0.113.0/24') ? 'Example' : '';
+	ipv4Class = ipInRange(ipv4, '169.254.0.0/16') ? 'LinkLocal' : '';
+	ipv4Class = ipInRange(ipv4, '127.0.0.0/8') ? 'Loopback' : '';
+	ipv4Class = (ipv4Class.length == 0) ? 'Global' : '';
+	return ipv4Class;
 }
 
 //　■■■　HTML要素追加　■■■
@@ -413,45 +214,51 @@ function appendHtmlTable(parentElm, headers, datass) {
 	}
 }
 //　■■　UL＆LI要素追加　■■
-function appendHtmlList(parentElm, title, items, linkUrl1='default', linkUrl2, encode, icon) {
-	let divElm = document.createElement('div');
-	parentElm.appendChild(divElm);
-	let hElm = document.createElement('h3');
-	hElm.className = 'l--flex-container l--align-items--center';
-	let imgElm = document.createElement('img');
-	imgElm.src = './img/osintIcon/' + icon;
-	imgElm.className = 'l--height--1rem l--width--1rem l--padding-right--025';
-	let hTitleNode = document.createTextNode(title);
-	let buttonElm = document.createElement('button');
-	buttonElm.className = 'open--list-link--btn d--btn d--color-grey d--no-border l--margin-left--1';
-	buttonElm.textContent = '⬀';
-	hElm.appendChild(imgElm);
-	hElm.appendChild(hTitleNode);
-	hElm.appendChild(buttonElm);
-	divElm.appendChild(hElm);
-	let ulElm = document.createElement('ul');
-	divElm.appendChild(ulElm);
-	for ( let item of items ) {
-		if ( item.length > 64) {
-			item = item.substr(0,32) + ' ... ' + item.substr(-16);
-		}
-		let liElm = document.createElement('li');
-		ulElm.appendChild(liElm);
-		switch (encode) {
-			case 'wPercent' :
-				decodeItem = encodeURI(encodeURIComponent(item));
-			break;
-			default :
-				decodeItem = item;
-		}
-		if ( linkUrl1=='default' ) {
-			liElm.textContent = title + '：' + item;
-		} else {
-			let aElm = document.createElement('a');
-			aElm.textContent = title + '：' + item;
-			aElm.href = linkUrl1 + decodeItem +linkUrl2;
-			aElm.target = '_blank';
-			liElm.appendChild(aElm);
+function appendHtmlList(parentElm, items, osintObj) {
+	let displayOsintObj = JSON.parse(localStorage.getItem('config--display-osint'));
+	if( displayOsintObj[osintObj.name] !== false ) {
+		let divElm = document.createElement('div');
+		parentElm.appendChild(divElm);
+		let hElm = document.createElement('h3');
+		hElm.className = 'l--flex-container l--align-items--center';
+		let imgElm = document.createElement('img');
+		imgElm.src = './img/osintIcon/' + osintObj.icon;
+		imgElm.className = 'l--height--1rem l--width--1rem l--padding-right--025';
+		let hTitleNode = document.createTextNode(osintObj.title);
+		let svgElm = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+		svgElm.setAttribute('class', 'a--copy--list d--icon-btn l--margin-left--1rem');
+		svgElm.setAttribute('data-act', 'open-list-link');
+		let useElm = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+		useElm.setAttribute('href', '#svg--ext-link');
+		divElm.appendChild(hElm);
+		hElm.appendChild(imgElm);
+		hElm.appendChild(hTitleNode);
+		hElm.appendChild(svgElm);
+		svgElm.appendChild(useElm);
+		let ulElm = document.createElement('ul');
+		divElm.appendChild(ulElm);
+		for ( let item of items ) {
+			if ( item.length > 64) {
+				item = item.substr(0,32) + ' ... ' + item.substr(-16);
+			}
+			let liElm = document.createElement('li');
+			ulElm.appendChild(liElm);
+			switch (osintObj.encode) {
+				case 'wPercent' :
+					decodeItem = encodeURI(encodeURIComponent(item));
+				break;
+				default :
+					decodeItem = item;
+			}
+			if ( osintObj.linkUrl1=='default' ) {
+				liElm.textContent = item;
+			} else {
+				let aElm = document.createElement('a');
+				aElm.textContent = item;
+				aElm.href = osintObj.url1 + decodeItem + osintObj.url2;
+				aElm.target = '_blank';
+				liElm.appendChild(aElm);
+			}
 		}
 	}
 }
@@ -461,11 +268,14 @@ function appendHtmlUl(parentElm, ulId, title) {
 	parentElm.appendChild(divElm);
 	let hElm = document.createElement('h3');
 	hElm.textContent = title;
-	let buttonElm = document.createElement('button');
-	buttonElm.className = 'copy--list--btn d--btn d--color-grey d--no-border l--margin-left--1';
-	buttonElm.textContent = '❐';
-	hElm.appendChild(buttonElm);
+	let svgElm = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+	svgElm.setAttribute('class', 'a--copy--list d--icon-btn l--margin-left--1rem');
+	svgElm.setAttribute('data-act', 'copy-list');
+	let useElm = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+	useElm.setAttribute('href', '#svg--copy');
 	divElm.appendChild(hElm);
+	hElm.appendChild(svgElm);
+	svgElm.appendChild(useElm);
 	let ulElm = document.createElement('ul');
 	ulElm.id = ulId;
 	ulElm.className = "l--break-word";
@@ -486,6 +296,115 @@ function appendHtmlLi(parentElm, prefix, item, linkUrl='default') {
 		liElm.appendChild(aElm);
 	}
 }
+
+
+
+
+
+
+
+//　■■■■　関数　■■■■
+//　■■■　SAVE-CONFIG　■■■
+function saveConfig() {
+	let elms = document.querySelectorAll('.a--config');
+	let configObjNames = [];
+	for ( let elm of elms ) {
+		configObjNames.push(elm.dataset.object);
+	}
+	configObjNames = new Set(configObjNames);
+	for ( let configObjName of configObjNames ) {
+		let obj = {};
+		for ( let elm of elms ) {
+			if ( elm.dataset.object == configObjName ) {
+				switch ( elm.dataset.type ) {
+					case 'checked' :
+						obj[elm.dataset.name] = elm.checked;
+					break;
+					case 'value' :
+						obj[elm.dataset.name] = elm.value;
+					break;
+				}
+			}
+		}
+		configObj[configObjName] = obj;
+	}
+	//　■■　TOTP設定の保存　■■
+	let totpElms = document.querySelectorAll('.a--config-totp');
+	let configTotpObj = {};
+	for ( let i=0; i<totpElms.length; i++ ) {
+		let obj = {};
+		obj['name'] = totpElms[i].value;
+		obj['seacret'] = totpElms[i].parentElement.nextElementSibling.firstElementChild.value;
+		configTotpObj[i] = obj;
+	}
+	configObj['config--totp'] = configTotpObj;
+	//　■■　LocalStorageへの保存　■■
+	for ( let key of Object.keys(configObj) ) {
+		localStorage.setItem(key,JSON.stringify(configObj[key]));
+	}
+	location.reload()
+}
+
+//　■■■　LOAD-CONFIG　■■■
+function loadConfig() {
+	let elms = document.querySelectorAll('.a--config');
+	let configObjNames = [];
+	for ( let elm of elms ) {
+		configObjNames.push(elm.dataset.object);
+	}
+	configObjNames = new Set(configObjNames);
+	for ( let configObjName of configObjNames ) {
+		let obj = JSON.parse(localStorage.getItem(configObjName));
+		for ( let elm of elms ) {
+			if ( elm.dataset.name !== null && elm.dataset.object == configObjName ) {
+				switch ( elm.dataset.type ) {
+					case 'checked' :
+						elm.checked = obj[elm.dataset.name];
+					break;
+					case 'value' :
+						elm.value = obj[elm.dataset.name];
+					break;
+				}
+			}
+		}
+	}
+	//　■■　TOTP設定の読込　■■
+	let totpElms = document.querySelectorAll('.a--config-totp');
+	let configTotpObj = JSON.parse(localStorage.getItem('config--totp'));
+	for ( let i=0; i<totpElms.length; i++ ) {
+		totpElms[i].value = configTotpObj[i]['name'];
+		totpElms[i].parentElement.nextElementSibling.firstElementChild.value = configTotpObj[i]['seacret'];
+	}
+}
+
+function showClock() {
+	getDateTime();
+	let dateStr = YYYY + '-' + MM + '-' + DD + ' ' + a;
+	let clockStr = hh + '<br>' + mm + '<br>' + ss;
+	if ( document.getElementById('clock--date') !== null && document.getElementById('clock--time') ) {
+		document.getElementById('clock--date').innerHTML = dateStr;
+		document.getElementById('clock--time').innerHTML = clockStr;
+	}
+}
+
+function memoChanged() {
+	localStorage.setItem('memo',memoElm.value);
+	memoValue = memoElm.value;
+	memoFangValue = memoValue.replace(/\[\.\]|\[dot\]/g,'.').replace(/http\[:\]/gi,'http:').replace(/hxxp:/gi,'http:').replace(/hxxp\[:\]/gi,'http:').replace(/https\[:\]/gi,'https:').replace(/hxxps:/gi,'https:').replace(/hxxps\[:\]/gi,'https:');
+	for (childResetElm of childResetElms) {
+		while(childResetElm.firstChild) {
+			childResetElm.removeChild(childResetElm.firstChild);
+		}
+	}
+	extractIndicator();
+	analysis();
+/*
+	copyList();
+	openListLink();
+	cntStr('footer--textarea', 'footer--textarea-cnt');
+*/
+}
+
 
 //　■■■　Indicator抽出　■■■
 function extractIndicator() {
@@ -554,21 +473,21 @@ function extractIndicator() {
 function analysis() {
 	//　■■　ANALYSIS--IP-ADDRESS　■■
 	let elmMAI = document.getElementById('main--analysis--ip-address');
-	//　■　TYPE-IP-ADDRESS　■
-	let ipv4Datass = [];
+	//　■　ANALYSIS--IP-ADDRESS--TYPE　■
+	let ipv4Datass = [];　//　[[Class,IPv4],[Class,IPv4],...]の二重配列
 	for ( let ipv4 of ipv4s ) {
-		let ipv4Obj = ipv4Classify(ipv4);
-		ipv4Datass.push(Object.values(ipv4Obj));
+		let ipv4Class = ipv4Classify(ipv4);
+		ipv4Datass.push([ipv4Class,ipv4]);
 	}
 	appendHtmlTable(elmMAI, ['Class', 'IP Address'], ipv4Datass);
-	//　■　DEFANG-IP-ADDRESS　■
+	//　■　ANALYSIS--IP-ADDRESS--DEFANG　■
 	appendHtmlUl(elmMAI, 'main--analysis--ip-address--defang', 'Defang');
 	let elmMAID = document.getElementById('main--analysis--ip-address--defang');
 	for ( let ip of ipv4s ){
 		let defangIp = ip.replace(/\./g,'[.]');
 		appendHtmlLi(elmMAID, '', defangIp);
 	}
-	//　■　CIDR　■
+	//　■　ANALYSIS--IP-ADDRESS--CIDR　■
 	appendHtmlUl(elmMAI, 'main--analysis--ip-address--cidr', 'Cidr');
 	let elmMAIC = document.getElementById('main--analysis--ip-address--cidr');
 	for ( let cidr of cidrs ) {
@@ -577,49 +496,49 @@ function analysis() {
 		let str = ( ipRange.min !== '' && ipRange.max !== '' ) ? cidr + ' = ' + convertToIp(ipRange.min) + ' - ' + convertToIp(ipRange.max) : '' ;
 		appendHtmlLi(elmMAIC, '', str, linkUrl);
 	}
-	//　■　OSINT-IP-ADDRESS　■
+	//　■　ANALYSIS--IP-ADDRESS--OSINT　■
+	let elmMAIP = document.getElementById('main--analysis--ip-address');
 	for ( let ipOsint of ipOsints ) {
-		let parentElm = document.getElementById('main--analysis--ip-address');
-		appendHtmlList(parentElm, ipOsint.name, ipv4s, ipOsint.url1, ipOsint.url2, ipOsint.encode, ipOsint.icon);
+		appendHtmlList(elmMAIP, ipv4s, ipOsint);
 	}
 	//　■■　ANALYSIS--DOMAIN　■■
 	let elmMAD = document.getElementById('main--analysis--domain');
-	//　■　DOMAIN　■
+	//　■　ANALYSIS--DOMAIN--DOMAIN　■
 	appendHtmlUl(elmMAD, 'main--analysis--domain--fang', 'Domain');
 	let elmMADF = document.getElementById('main--analysis--domain--fang');
 	for ( let domain of domains ){
 		appendHtmlLi(elmMADF, '', domain);
 	}
-	//　■　DEFANG-DOMAIN　■
+	//　■　ANALYSIS--DOMAIN--DEFANG　■
 	appendHtmlUl(elmMAD, 'main--analysis--domain--defang', 'Defang');
 	let elmMADD = document.getElementById('main--analysis--domain--defang');
 	for ( let domain of domains ){
 		let defangDomain = domain.replace(/\./g,'[.]');
 		appendHtmlLi(elmMADD, '', defangDomain);
 	}
-	//　■　OSINT-DOMAIN　■
+	//　■　ANALYSIS--DOMAIN--OSINT　■
 	for ( let domainOsint of domainOsints ) {
-		appendHtmlList(elmMAD, domainOsint.name, domains, domainOsint.url1, domainOsint.url2, domainOsint.encode, domainOsint.icon);
+		appendHtmlList(elmMAD, domains, domainOsint);
 	}
 	//　■■　ANALYSIS--URL　■■
 	let elmMAU = document.getElementById('main--analysis--url');
-	//　■　FLAG-URL　■
+	//　■　ANALYSIS--URL--FLAG　■
 	let urlDatass = [];
 	for ( let url of urls ) {
 		let urlObj = urlAnalysis(url);
 		urlDatass.push(Object.values(urlObj));
 	}
 	appendHtmlTable(elmMAU, ['Flag', 'URL', 'Site Displayed'], urlDatass );
-	//　■　DEFANG-URL　■
+	//　■　ANALYSIS--URL--DEFANG　■
 	appendHtmlUl(elmMAU, 'main--analysis--url--defang', 'Defang');
 	let elmMAUD = document.getElementById('main--analysis--url--defang');
 	for ( let url of urls ){
 		let defangUrl = url.replace(/http/,'hxxp').replace(/\./gi,'[.]');
 		appendHtmlLi(elmMAUD, '', defangUrl);
 	}
-	//　■　OSINT-URL　■
+	//　■　ANALYSIS--URL--OSINT　■
 	for ( let urlOsint of urlOsints ) {
-		appendHtmlList(elmMAU, urlOsint.name, urls, urlOsint.url1, urlOsint.url2, urlOsint.encode, urlOsint.icon);
+		appendHtmlList(elmMAU, urls, urlOsint);
 	}
 	//　■■　ANALYSIS--MAIL　■■
 	let elmMAM = document.getElementById('main--analysis--mail');
@@ -628,15 +547,17 @@ function analysis() {
 	for ( let mail of mails ) {
 		appendHtmlLi(elmMAMA, '', mail);
 	}
+	for ( let mailOsint of mailOsints ) {
+		appendHtmlList(elmMAM, mails, mailOsint);
+	}
 	//　■■　ANALYSIS--HASH　■■
 	let elmMAH = document.getElementById('main--analysis--hash');
-	//　■　OSINT-HASH　■
+	//　■　ANALYSIS--HASH--OSINT　■
+	let hashs = [...md5s, ...sha1s, ...sha256s];
 	for ( let hashOsint of hashOsints ) {
-		appendHtmlList(elmMAH, hashOsint.name, md5s, hashOsint.url1, hashOsint.url2, hashOsint.encode);
-		appendHtmlList(elmMAH, hashOsint.name, sha1s, hashOsint.url1, hashOsint.url2, hashOsint.encode);
-		appendHtmlList(elmMAH, hashOsint.name, sha256s, hashOsint.url1, hashOsint.url2, hashOsint.encode);
+		appendHtmlList(elmMAH, hashs, hashOsint);
 	}
-	//　■■　ANALYSIS--UNICODE-INVISIBLE-CHARACTER　■■
+	//　■■　ANALYSIS--UNICODE　■■
 	let elmMAUIC = document.getElementById('main--analysis--unicode--invisible-character');
 	appendHtmlUl(elmMAUIC, 'main--analysis--unicode--invisible-character--list', 'Invisible Character');
 	let elmMAUICL = document.getElementById('main--analysis--unicode--invisible-character--list');
@@ -645,68 +566,105 @@ function analysis() {
 	}
 }
 
-//　■■■　FLAG-MEMO　■■■
-function flagMemo(str, outputElmId) {
-	let flag = /[͏؜឴឵᠋᠌᠍᠎     ​‌‍‎‏‪‫‬‭‮  ⁠⁡⁢⁣⁤⁥⁦⁧⁨⁩⁪⁫⁬⁭⁮⁯⠀󠀁󠀠󠀡󠀢󠀣󠀤󠀥󠀦󠀧󠀨󠀩󠀪󠀫󠀬󠀭󠀮󠀯󠀰󠀱󠀲󠀳󠀴󠀵󠀶󠀷󠀸󠀹󠀺󠀻󠀼󠀽󠀾󠀿󠁀󠁁󠁂󠁃󠁄󠁅󠁆󠁇󠁈󠁉󠁊󠁋󠁌󠁍󠁎󠁏󠁐󠁑󠁒󠁓󠁔󠁕󠁖󠁗󠁘󠁙󠁚󠁛󠁜󠁝󠁞󠁟󠁠󠁡󠁢󠁣󠁤󠁥󠁦󠁧󠁨󠁩󠁪󠁫󠁬󠁭󠁮󠁯󠁰󠁱󠁲󠁳󠁴󠁵󠁶󠁷󠁸󠁹󠁺󠁻󠁼󠁽󠁾󠁿󠄀󠄁󠄂󠄃󠄄󠄅󠄆󠄇󠄈󠄉󠄊󠄋󠄌󠄍󠄎󠄏󠄐󠄑󠄒󠄓󠄔󠄕󠄖󠄗󠄘󠄙󠄚󠄛󠄜󠄝󠄞󠄟󠄠󠄡󠄢󠄣󠄤󠄥󠄦󠄧󠄨󠄩󠄪󠄫󠄬󠄭󠄮󠄯󠄰󠄱󠄲󠄳󠄴󠄵󠄶󠄷󠄸󠄹󠄺󠄻󠄼󠄽󠄾󠄿󠅀󠅁󠅂󠅃󠅄󠅅󠅆󠅇󠅈󠅉󠅊󠅋󠅌󠅍󠅎󠅏󠅐󠅑󠅒󠅓󠅔󠅕󠅖󠅗󠅘󠅙󠅚󠅛󠅜󠅝󠅞󠅟󠅠󠅡󠅢󠅣󠅤󠅥󠅦󠅧󠅨󠅩󠅪󠅫󠅬󠅭󠅮󠅯󠅰󠅱󠅲󠅳󠅴󠅵󠅶󠅷󠅸󠅹󠅺󠅻󠅼󠅽󠅾󠅿󠆀󠆁󠆂󠆃󠆄󠆅󠆆󠆇󠆈󠆉󠆊󠆋󠆌󠆍󠆎󠆏󠆐󠆑󠆒󠆓󠆔󠆕󠆖󠆗󠆘󠆙󠆚󠆛󠆜󠆝󠆞󠆟󠆠󠆡󠆢󠆣󠆤󠆥󠆦󠆧󠆨󠆩󠆪󠆫󠆬󠆭󠆮󠆯󠆰󠆱󠆲󠆳󠆴󠆵󠆶󠆷󠆸󠆹󠆺󠆻󠆼󠆽󠆾󠆿󠇀󠇁󠇂󠇃󠇄󠇅󠇆󠇇󠇈󠇉󠇊󠇋󠇌󠇍󠇎󠇏󠇐󠇑󠇒󠇓󠇔󠇕󠇖󠇗󠇘󠇙󠇚󠇛󠇜󠇝󠇞󠇟󠇠󠇡󠇢󠇣󠇤󠇥󠇦󠇧󠇨󠇩󠇪󠇫󠇬󠇭󠇮︀︁︂︃︄︅︆︇︈︉︊︋︌︍︎️﻿￹￺￻￼]/.test(str) 
-		? '👁' : '' ;
-	document.getElementById(outputElmId).textContent = flag;
+
+
+function setEventListener() {
+	memoElm.addEventListener('input', memoChanged);
+	document.querySelectorAll('.a--event-speaker').forEach(function(elm) {
+		elm.addEventListener('click', function() {
+			switch ( elm.dataset.act ) {
+				case 'save' :
+					saveConfig();
+				break;
+				case 'copy' :
+					copy(elm);
+				break;
+				case 'totp' :
+					totp(elm);
+				break;
+			}
+		});
+	});
+	document.getElementById('analysis').addEventListener('click', function(elm) {
+		if ( elm.target.tagName == 'svg' ) {
+			switch ( elm.target.dataset.act ) {
+				case 'copy-list' :
+					copyList(elm.target);
+				break;
+				case 'open-list-url' :
+					openListUrl(elm.target);
+				break;
+				case 'open-list-link' :
+					openListLink(elm.target);
+				break;
+			}
+		}
+	});
 }
 
-//　■■■　文字数カウント　■■■
-function cntStr(cntElmId, outputElmId) {
-	let strCnt = document.getElementById(cntElmId).value.length;
-	document.getElementById(outputElmId).textContent = strCnt.toLocaleString() + ' 文字';
-}
-
-//　■■■　CLOCK　■■■
-function showClock() {
-	getDateTime();
-	let dateStr = YYYY + '-' + MM + '-' + DD + ' ' + a;
-	let clockStr = hh + '<br>' + mm + '<br>' + ss;
-	document.getElementById('clock--date').innerHTML = dateStr;
-	document.getElementById('clock--time').innerHTML = clockStr;
-}
-
-//　■■■　メール作成　■■■
-function createMail(type) {
-	let mailTo = localStorage.getItem('config--mail-to');
-	let mailCc = localStorage.getItem('config--mail-cc');
-	let mailName = '石川さん';
-	let phoneNumber = localStorage.getItem('config--phone-number-1');
-	let mailSubject, mailBody;
-	switch (type) {
-		case 'telework-start':
-			mailSubject = '【勤怠連絡】本日のテレワークを開始します';
-			mailBody = 
-				mailName + '%0D%0A%0D%0A' + 
-				'%0D%0A%0D%0A' + 
-				'本日のテレワークを開始いたします。%0D%0A%0D%0A' + 
-				'よろしくお願いいたします。%0D%0A%0D%0A' + 
-				'%0D%0A%0D%0A' + 
-				userName;
-		break;
-		case 'telework-end':
-			mailSubject = '【勤怠連絡】本日のテレワークを終了します';
-			mailBody = 
-				mailName + '%0D%0A%0D%0A' + 
-				'%0D%0A%0D%0A' + 
-				'本日のテレワークを終了いたします。%0D%0A%0D%0A' + 
-				'よろしくお願いいたします。%0D%0A%0D%0A' + 
-				'%0D%0A%0D%0A' + 
-				userName;
-		break;
-		case 'paid-leave':
-			mailSubject = '【勤怠連絡】●/●に休暇をいただきます';
-			mailBody = 
-				mailName + '%0D%0A%0D%0A' + 
-				'%0D%0A%0D%0A' + 
-				'●/●（●）に休暇をいただきます。%0D%0A%0D%0A' + 
-				'お忙しい中ご迷惑をおかけいたしますが、よろしくお願いいたします。%0D%0A%0D%0A' + 
-				'%0D%0A%0D%0A' + 
-				'緊急の要件は、携帯電話（' + phoneNumber + '）までご連絡ください。%0D%0A%0D%0A' +
-				'%0D%0A%0D%0A' + 
-				userName;
+function copy(elm) {
+	switch ( elm.dataset.target ) {
+		case 'previous' :
+			switch ( elm.dataset.type ) {
+				case 'value' :
+					navigator.clipboard.writeText(elm.previousElementSibling.value);
+				break;
+			}
 		break;
 	}
-	window.open('mailto:' + mailTo + '?cc=' + mailCc + '&subject=' + mailSubject + '&body=' + mailBody, '_blank');
 }
+
+function totp(elm) {
+	let secret = elm.parentElement.previousElementSibling.firstElementChild.value;
+	let output = elm.parentElement.nextElementSibling.firstElementChild;
+	let b32=s=>[0,8,16,24,32,40,48,56]
+		.map(i=>[0,1,2,3,4,5,6,7]
+			.map(j=>s.charCodeAt(i+j)).map(c=>c<65?c-24:c-65))
+		.map(a=>[(a[0]<<3)+(a[1]>>2),
+			(a[1]<<6)+(a[2]<<1)+(a[3]>>4),
+			(a[3]<<4)+(a[4]>>1),
+			(a[4]<<7)+(a[5]<<2)+(a[6]>>3),
+			(a[6]<<5)+(a[7]>>0),
+		]).flat(),
+		trunc=dv=>dv.getUint32(dv.getInt8(19)&0x0f)&0x7fffffff,
+		c=Math.floor(Date.now()/1000/30);
+	crypto.subtle.importKey('raw',new Int8Array(b32(secret)),{name:'HMAC',hash:{name:'SHA-1'}},true,['sign'])
+		.then(k=>crypto.subtle.sign('HMAC',k,new Int8Array([0,0,0,0,c>>24,c>>16,c>>8,c])))
+		.then(h=>output.value=('0'+trunc(new DataView(h))).slice(-6));
+	crypto.subtle.importKey('raw',new Int8Array(b32(secret)),{name:'HMAC',hash:{name:'SHA-1'}},true,['sign'])
+		.then(k=>crypto.subtle.sign('HMAC',k,new Int8Array([0,0,0,0,c>>24,c>>16,c>>8,c])))
+		.then(h=>navigator.clipboard.writeText(('0'+trunc(new DataView(h))).slice(-6)));
+}
+
+function copyList(elm) {
+	let items = elm.parentNode.nextElementSibling.children;
+	let text = '';
+	for ( let item of items ) {
+		text += item.textContent + '\n';
+	}
+	navigator.clipboard.writeText(text);
+}
+
+function openListLink(elm) {
+	let items = elm.parentElement.nextElementSibling.children;
+	for ( item of items ) {
+		let links = item.querySelectorAll('a');
+		for ( let link of links ) {
+			window.open(link.getAttribute('href'), '_blank');
+		}
+	}
+}
+
+
+
+
+
+
+
+//　■■■■■　要見直し　■■■■■
+
+
+
+
+
+
