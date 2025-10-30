@@ -29,7 +29,6 @@
 					<li><a class="d--no-decoration d--color-white" href="#"><img src="favicon.ico" alt="TOP"></a></li>
 					<li><a class="d--no-decoration d--color-white" href="#analysis">Analysis</a></li>
 					<li><a class="d--no-decoration d--color-white" href="#work">Work</a></li>
-					<li><a class="d--no-decoration d--color-white" href="#mail">Mail</a></li>
 					<li><a class="d--no-decoration d--color-white">Tools<span class="caret"></span></a>
 						<ul class="l--pull-down d--bgcolor-black">
 							<li><a class="d--no-decoration d--color-white" href="htmlTools/copyTool.htm" target="_blank">Copy Tool</a></li>
@@ -42,10 +41,6 @@
 		</header>
 		<!--　■■■■■　LINK　■■■■■　-->
 		<div class="link">
-			<ul>
-				<li><img ></li>
-				<li><img ></li>
-			</ul>
 		</div>
 		<!--　■■■■■　MAIN　■■■■■　-->
 		<main class="main">
@@ -75,9 +70,6 @@
 					<!--　■■■　MAIN--ANALYSIS--IP-ADDRESS　■■■　-->
 					<details open>
 						<summary class="d--h2">IP Address</summary>
-						<div class="l--flex-container">
-							<button class="d--btn a--cmd-btn" data-act="copy-list" data-target="ipv4s">Copy IP Addresses</button>
-						</div>
 						<div id="main--analysis--ip-address" class="child-reset--elm l--flex-container"></div>
 					</details>
 					<!--　■■■　MAIN--ANALYSIS--DOMAIN　■■■　-->
@@ -88,10 +80,6 @@
 					<!--　■■■　MAIN--ANALYSIS--URL　■■■　-->
 					<details open>
 						<summary class="d--h2">URL</summary>
-						<div class="l--flex-container">
-							<button class="d--btn a--cmd-btn" data-act="copy-list" data-target="urls">Copy URLs</button>
-							<button class="d--btn a--cmd-btn" data-act="open-list" data-target="urls">Open URLs</button>
-						</div>
 						<div class="l--flex-container l--legend">
 							<p>🤡：検出回避</p>
 							<p>➗：除算スラッシュ</p>
@@ -131,38 +119,6 @@
 				<h1 class="d--h1">Work</h1>
 				<div id="work--contents" class="l--padding-left--05"></div>
 			</article>
-			<!--　■■■■　MAIN--MAIL　■■■■　-->
-			<article id="mail" class="l--tab-content l--full-width">
-				<h1 class="d--h1">Mail</h1>
-				<div class="l--padding-left--05">
-					<details open>
-						<summary class="d--h2">勤怠連絡</summary>
-						<details open>
-							<summary class="d--h3"><input type="text" id="main--mail--1"><button class="a--create-mail l--margin-left--1rem d--btn">Create Mail</button></summary>
-							<table>
-								<tr>
-									<td>Subject</td>
-									<td class="d--inputarea l--width-medium a--save-ls--mail" data-mail="subject" contenteditable></td>
-									<td rowspan="4">Body</td>
-									<td rowspan="4" class="d--inputarea l--width-long a--save-ls--mail" data-mail="body" contenteditable></td>
-								</tr>
-								<tr>
-									<td>To</td>
-									<td class="d--inputarea l--width-medium a--save-ls--mail" data-mail="to" contenteditable></td>
-								</tr>
-								<tr>
-									<td>Cc</td>
-									<td class="d--inputarea l--width-medium a--save-ls--mail" data-mail="cc" contenteditable></td>
-								</tr>
-								<tr>
-									<td>Bcc</td>
-									<td class="d--inputarea l--width-medium a--save-ls--mail" data-mail="bcc" contenteditable></td>
-								</tr>
-							</table>
-						</details>
-					</details>
-				</div>
-			</article>
 			<!--　■■■■　MAIN--CONFIG　■■■■　-->
 			<article id="config" class="l--tab-content l--full-width">
 				<h1 class="d--h1">Config</h1>
@@ -176,7 +132,7 @@
 								<label for="config--user-name">ユーザー名</label>
 							</div>
 							<div class="config--value">
-								<input type="text" class="a--config" data-object="config--user-info" data-name="name" data-type="value" placeholder="苗字">
+								<input type="text" class="a--config" data-object="user-info" data-name="name" data-type="value" placeholder="苗字">
 								<button class="a--event-speaker d--btn" data-act="copy" data-target="previous" data-type="value">Copy</button>
 							</div>
 						</div>
@@ -186,7 +142,7 @@
 								<label for="config--user-id">ユーザーID</label>
 							</div>
 							<div class="config--value">
-								<input type="text" class="a--config" data-object="config--user-info" data-name="id" data-type="value" placeholder="0123456789">
+								<input type="text" class="a--config" data-object="user-info" data-name="id" data-type="value" placeholder="0123456789">
 								<button class="a--event-speaker d--btn" data-act="copy" data-target="previous" data-type="value">Copy</button>
 							</div>
 						</div>
@@ -196,7 +152,7 @@
 								<label for="config--e-mail-address">メールアドレス</label>
 							</div>
 							<div class="config--value">
-								<input type="text" class="a--config" data-object="config--user-info" data-name="mail" data-type="value" placeholder="account@example.com">
+								<input type="text" class="a--config" data-object="user-info" data-name="mail" data-type="value" placeholder="account@example.com">
 								<button class="a--event-speaker d--btn" data-act="copy" data-target="previous" data-type="value">Copy</button>
 							</div>
 						</div>
@@ -206,7 +162,7 @@
 								<label for="config--phone-number-1">電話番号１</label>
 							</div>
 							<div class="config--value">
-								<input type="text" class="a--config" data-object="config--user-info" data-name="tel1" data-type="value" placeholder="090-1234-5678">
+								<input type="text" class="a--config" data-object="user-info" data-name="tel1" data-type="value" placeholder="090-1234-5678">
 								<button class="a--event-speaker d--btn" data-act="copy" data-target="previous" data-type="value">Copy</button>
 							</div>
 						</div>
@@ -216,7 +172,7 @@
 								<label for="config--phone-number-2">電話番号２</label>
 							</div>
 							<div class="config--value">
-								<input type="text" class="a--config" data-object="config--user-info" data-name="tel2" data-type="value" placeholder="03-1234-5678">
+								<input type="text" class="a--config" data-object="user-info" data-name="tel2" data-type="value" placeholder="03-1234-5678">
 								<button class="a--event-speaker d--btn" data-act="copy" data-target="previous" data-type="value">Copy</button>
 							</div>
 						</div>
@@ -226,7 +182,7 @@
 								<label for="config--postal-code">郵便番号</label>
 							</div>
 							<div class="config--value">
-								<input type="text" class="a--config" data-object="config--user-info" data-name="postal-code" data-type="value" placeholder="100-0002">
+								<input type="text" class="a--config" data-object="user-info" data-name="postal-code" data-type="value" placeholder="100-0002">
 								<button class="a--event-speaker d--btn" data-act="copy" data-target="previous" data-type="value">Copy</button>
 							</div>
 						</div>
@@ -236,7 +192,7 @@
 								<label for="config--address-1">住所１</label>
 							</div>
 							<div class="config--value">
-								<input type="text" class="a--config" data-object="config--user-info" data-name="address1" data-type="value" placeholder="東京都千代田区千代田1-1">
+								<input type="text" class="a--config" data-object="user-info" data-name="address1" data-type="value" placeholder="東京都千代田区千代田1-1">
 								<button class="a--event-speaker d--btn" data-act="copy" data-target="previous" data-type="value">Copy</button>
 							</div>
 						</div>
@@ -246,7 +202,7 @@
 								<label for="config--address-2">住所２</label>
 							</div>
 							<div class="config--value">
-								<input type="text" class="a--config" data-object="config--user-info" data-name="address2" data-type="value" placeholder="皇居">
+								<input type="text" class="a--config" data-object="user-info" data-name="address2" data-type="value" placeholder="皇居">
 								<button class="a--event-speaker d--btn" data-act="copy" data-target="previous" data-type="value">Copy</button>
 							</div>
 						</div>
@@ -254,13 +210,13 @@
 					<!--　■■■　MAIN--CONFIG--WEB-SERVICE　■■■　-->
 					<details>
 						<summary class="d--h2">Web Service</summary>
-						<!--　■■　MAIN--CONFIG--SPLUNK　■■　-->
+						<!--　■■　MAIN--CONFIG--WEBHOOK　■■　-->
 						<div class="config--key-value">
 							<div class="config--key">
-								<label for="config--shodan">Splunk > URL</label>
+								<label for="config--webhook">Webhook > URL</label>
 							</div>
 							<div class="config--value">
-								<input type="text" id="config--webhook" class="a--config l--width-long" data-object="config--osint" data-name="splunk-url" data-type="value" placeholder="https://www.splunk.com/">
+								<input type="text" id="config--webhook" class="a--config l--width-long" data-object="osint" data-name="webhook-url" data-type="value" placeholder="https://webhook.site/550e8400-e29b-41d4-a716-446655440000?q=">
 							</div>
 						</div>
 						<!--　■■　MAIN--CONFIG--SHODAN　■■　-->
@@ -269,16 +225,7 @@
 								<label for="config--shodan">Shodan > API Key</label>
 							</div>
 							<div class="config--value">
-								<input type="text" id="config--shodan" class="a--config l--width-long" data-object="config--osint" data-name="shodan-api-key" data-type="value" placeholder="0123456789abcdefghijkABCDEFGHIJK">
-							</div>
-						</div>
-						<!--　■■　MAIN--CONFIG--WEBHOOK　■■　-->
-						<div class="config--key-value">
-							<div class="config--key">
-								<label for="config--webhook">Webhook > URL</label>
-							</div>
-							<div class="config--value">
-								<input type="text" id="config--webhook" class="a--config l--width-long" data-object="config--osint" data-name="webhook-url" data-type="value" placeholder="https://webhook.site/550e8400-e29b-41d4-a716-446655440000?q=">
+								<input type="text" id="config--shodan" class="a--config l--width-long" data-object="osint" data-name="shodan-api-key" data-type="value" placeholder="0123456789abcdefghijkABCDEFGHIJK">
 							</div>
 						</div>
 					</details>
@@ -295,52 +242,52 @@
 								</div>
 								<div class="l--flex-container">
 									<div class="l--width-short">Search</div>
-									<div><input type="checkbox" class="a--config" data-object="config--display-osint" data-name="ip-search" data-type="checked" checked></div>
+									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="ip-search" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
 									<div class="l--width-short">Whois</div>
-									<div><input type="checkbox" class="a--config" data-object="config--display-osint" data-name="ip-whois" data-type="checked" checked></div>
+									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="ip-whois" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
 									<div class="l--width-short">JPNIC WHOIS</div>
-									<div><input type="checkbox" class="a--config" data-object="config--display-osint" data-name="ip-jpnicwhois" data-type="checked" checked></div>
+									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="ip-jpnicwhois" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
 									<div class="l--width-short">Nslookup</div>
-									<div><input type="checkbox" class="a--config" data-object="config--display-osint" data-name="ip-nslookup" data-type="checked" checked></div>
+									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="ip-nslookup" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
 									<div class="l--width-short">Virus Total</div>
-									<div><input type="checkbox" class="a--config" data-object="config--display-osint" data-name="ip-virustotal" data-type="checked" checked></div>
+									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="ip-virustotal" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
 									<div class="l--width-short">Shodan</div>
-									<div><input type="checkbox" class="a--config" data-object="config--display-osint" data-name="ip-shodan" data-type="checked" checked></div>
+									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="ip-shodan" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
 									<div class="l--width-short">urlscan Pro</div>
-									<div><input type="checkbox" class="a--config" data-object="config--display-osint" data-name="ip-urlscanpro" data-type="checked" checked></div>
+									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="ip-urlscanpro" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
 									<div class="l--width-short">IPSHU</div>
-									<div><input type="checkbox" class="a--config" data-object="config--display-osint" data-name="ip-ipshu" data-type="checked" checked></div>
+									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="ip-ipshu" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
 									<div class="l--width-short">IPinfo</div>
-									<div><input type="checkbox" class="a--config" data-object="config--display-osint" data-name="ip-ipinfo" data-type="checked" checked></div>
+									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="ip-ipinfo" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
 									<div class="l--width-short">SPUR</div>
-									<div><input type="checkbox" class="a--config" data-object="config--display-osint" data-name="ip-spur" data-type="checked" checked></div>
+									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="ip-spur" data-type="checked" checked></div>
 									<div></div>
 								</div>
 						</details>
@@ -353,22 +300,22 @@
 								</div>
 								<div class="l--flex-container">
 									<div class="l--width-short">Search</div>
-									<div><input type="checkbox" class="a--config" data-object="config--display-osint" data-name="domain-search" data-type="checked" checked></div>
+									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="domain-search" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
 									<div class="l--width-short">Whois</div>
-									<div><input type="checkbox" class="a--config" data-object="config--display-osint" data-name="domain-whois" data-type="checked" checked></div>
+									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="domain-whois" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
 									<div class="l--width-short">Nslookup</div>
-									<div><input type="checkbox" class="a--config" data-object="config--display-osint" data-name="domain-nslookup" data-type="checked" checked></div>
+									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="domain-nslookup" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
 									<div class="l--width-short">urlscan Pro</div>
-									<div><input type="checkbox" class="a--config" data-object="config--display-osint" data-name="domain-urlscanpro" data-type="checked" checked></div>
+									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="domain-urlscanpro" data-type="checked" checked></div>
 									<div></div>
 								</div>
 						</details>
@@ -381,12 +328,12 @@
 								</div>
 								<div class="l--flex-container">
 									<div class="l--width-short">Virus Total</div>
-									<div><input type="checkbox" class="a--config" data-object="config--display-osint" data-name="url-virustotal" data-type="checked" checked></div>
+									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="url-virustotal" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
 									<div class="l--width-short">Archive</div>
-									<div><input type="checkbox" class="a--config" data-object="config--display-osint" data-name="url-archive" data-type="checked" checked></div>
+									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="url-archive" data-type="checked" checked></div>
 									<div></div>
 								</div>
 						</details>
@@ -399,7 +346,7 @@
 								</div>
 								<div class="l--flex-container">
 									<div class="l--width-short"></div>
-									<div><input type="checkbox" class="a--config" data-object="config--display-osint" data-name="mail-search" data-type="checked" checked></div>
+									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="mail-search" data-type="checked" checked></div>
 									<div></div>
 								</div>
 						</details>
@@ -412,23 +359,10 @@
 								</div>
 								<div class="l--flex-container">
 									<div class="l--width-short">Virus Total</div>
-									<div><input type="checkbox" class="a--config" data-object="config--display-osint" data-name="hash-virustotal" data-type="checked" checked></div>
+									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="hash-virustotal" data-type="checked" checked></div>
 									<div></div>
 								</div>
 						</details>
-					</details>
-					<!--　■■■　MAIN--CONFIG--●　■■■　-->
-					<details>
-						<summary class="d--h2">●</summary>
-						<!--　■■　MAIN--CONFIG--●　■■　-->
-						<div class="config--key-value">
-							<div class="config--key">
-								<label for="config--●">●</label>
-							</div>
-							<div class="config--value">
-								<input type="text" id="config--●" class="a--config" placeholder="●">
-							</div>
-						</div>
 					</details>
 					<hr>
 					<!--　■■　MAIN--CONFIG-SAVE　■■　-->
@@ -439,7 +373,7 @@
 							</labe>
 						</div>
 						<div>
-							<button id="sav-ls--btn" class="config-btn a--event-speaker" data-act="save">Save</button>
+							<button class="config-btn a--event-speaker" data-act="save">Save</button>
 						</div>
 					</div>
 				</div>
@@ -447,7 +381,108 @@
 		</main>
 		<!--　■■■■■　SIDEBAR　■■■■■　-->
 		<div class="sidebar">
-			<!--　■■■■　TOTP　■■■■　-->
+			<!--　■■■■　SIDEBAR--MAIL　■■■■　-->
+			<div class="sidebar--item l--flex-container">
+				<div class="sidebar--title">
+					<p class="l--sideways">Mail</p>
+				</div>
+				<article class="sidebar--contents">
+					<h1 class="d--h1">Mail</h1>
+					<div class="l--padding-left--05">
+						<details>
+							<summary class="d--h2">プレースホルダーの説明</summary>
+						</details>
+						<details open>
+							<summary class="d--h2">定型メール</summary>
+							<details>
+								<summary class="d--h3">
+									<input type="text" class="a--config-mail" placeholder="定型メール名">
+									<button class="a--event-speaker l--margin-left--1rem d--btn" data-act="create-mail">Create Mail</button>
+								</summary>
+								<div class="l--flex-container">
+									<label class="l--width-4rem">To</label><input type="text" class="l--width-long">
+								</div>
+								<div class="l--flex-container">
+									<label class="l--width-4rem">Cc</label><input type="text" class="l--width-long">
+								</div>
+								<div class="l--flex-container">
+									<label class="l--width-4rem">Bcc</label><input type="text" class="l--width-long">
+								</div>
+								<div class="l--flex-container">
+									<label class="l--width-4rem">Subject</label><input type="text" class="l--width-long">
+								</div>
+								<div class="l--flex-container">
+									<label class="l--width-4rem">Body</label><textarea class="l--width-long"></textarea>
+								</div>
+							</details>
+							<details>
+								<summary class="d--h3">
+									<input type="text" class="a--config-mail" placeholder="定型メール名">
+									<button class="a--event-speaker l--margin-left--1rem d--btn" data-act="create-mail">Create Mail</button>
+								</summary>
+								<div class="l--flex-container">
+									<label class="l--width-4rem">To</label><input type="text" class="l--width-long">
+								</div>
+								<div class="l--flex-container">
+									<label class="l--width-4rem">Cc</label><input type="text" class="l--width-long">
+								</div>
+								<div class="l--flex-container">
+									<label class="l--width-4rem">Bcc</label><input type="text" class="l--width-long">
+								</div>
+								<div class="l--flex-container">
+									<label class="l--width-4rem">Subject</label><input type="text" class="l--width-long">
+								</div>
+								<div class="l--flex-container">
+									<label class="l--width-4rem">Body</label><textarea class="l--width-long"></textarea>
+								</div>
+							</details>
+							<details>
+								<summary class="d--h3">
+									<input type="text" class="a--config-mail" placeholder="定型メール名">
+									<button class="a--event-speaker l--margin-left--1rem d--btn" data-act="create-mail">Create Mail</button>
+								</summary>
+								<div class="l--flex-container">
+									<label class="l--width-4rem">To</label><input type="text" class="l--width-long">
+								</div>
+								<div class="l--flex-container">
+									<label class="l--width-4rem">Cc</label><input type="text" class="l--width-long">
+								</div>
+								<div class="l--flex-container">
+									<label class="l--width-4rem">Bcc</label><input type="text" class="l--width-long">
+								</div>
+								<div class="l--flex-container">
+									<label class="l--width-4rem">Subject</label><input type="text" class="l--width-long">
+								</div>
+								<div class="l--flex-container">
+									<label class="l--width-4rem">Body</label><textarea class="l--width-long"></textarea>
+								</div>
+							</details>
+							<details>
+								<summary class="d--h3">
+									<input type="text" class="a--config-mail" placeholder="定型メール名">
+									<button class="a--event-speaker l--margin-left--1rem d--btn" data-act="create-mail">Create Mail</button>
+								</summary>
+								<div class="l--flex-container">
+									<label class="l--width-4rem">To</label><input type="text" class="l--width-long">
+								</div>
+								<div class="l--flex-container">
+									<label class="l--width-4rem">Cc</label><input type="text" class="l--width-long">
+								</div>
+								<div class="l--flex-container">
+									<label class="l--width-4rem">Bcc</label><input type="text" class="l--width-long">
+								</div>
+								<div class="l--flex-container">
+									<label class="l--width-4rem">Subject</label><input type="text" class="l--width-long">
+								</div>
+								<div class="l--flex-container">
+									<label class="l--width-4rem">Body</label><textarea class="l--width-long"></textarea>
+								</div>
+							</details>
+						</details>
+					</div>
+				</article>
+			</div>
+			<!--　■■■■　SIDEBAR--TOTP　■■■■　-->
 			<div class="sidebar--item l--flex-container">
 				<div class="sidebar--title">
 					<p class="l--sideways">TOTP</p>
@@ -465,70 +500,70 @@
 							<tr>
 								<td><input type="text" class="a--config-totp"></td>
 								<td><input type="password"></td>
-								<td><button class="d--btn a--event-speaker" data-act="totp">Calc & Copy</button></td>
+								<td><button class="d--btn a--event-speaker" data-act="calc-totp">Calc & Copy</button></td>
 								<td><input type="text" class="l--width-short"></td>
 							</tr>
 							<tr>
 								<td><input type="text" class="a--config-totp"></td>
 								<td><input type="password"></td>
-								<td><button class="d--btn a--event-speaker" data-act="totp">Calc & Copy</button></td>
+								<td><button class="d--btn a--event-speaker" data-act="calc-totp">Calc & Copy</button></td>
 								<td><input type="text" class="l--width-short"></td>
 							</tr>
 							<tr>
 								<td><input type="text" class="a--config-totp"></td>
 								<td><input type="password"></td>
-								<td><button class="d--btn a--event-speaker" data-act="totp">Calc & Copy</button></td>
+								<td><button class="d--btn a--event-speaker" data-act="calc-totp">Calc & Copy</button></td>
 								<td><input type="text" class="l--width-short"></td>
 							</tr>
 							<tr>
 								<td><input type="text" class="a--config-totp"></td>
 								<td><input type="password"></td>
-								<td><button class="d--btn a--event-speaker" data-act="totp">Calc & Copy</button></td>
+								<td><button class="d--btn a--event-speaker" data-act="calc-totp">Calc & Copy</button></td>
 								<td><input type="text" class="l--width-short"></td>
 							</tr>
 							<tr>
 								<td><input type="text" class="a--config-totp"></td>
 								<td><input type="password"></td>
-								<td><button class="d--btn a--event-speaker" data-act="totp">Calc & Copy</button></td>
+								<td><button class="d--btn a--event-speaker" data-act="calc-totp">Calc & Copy</button></td>
 								<td><input type="text" class="l--width-short"></td>
 							</tr>
 							<tr>
 								<td><input type="text" class="a--config-totp"></td>
 								<td><input type="password"></td>
-								<td><button class="d--btn a--event-speaker" data-act="totp">Calc & Copy</button></td>
+								<td><button class="d--btn a--event-speaker" data-act="calc-totp">Calc & Copy</button></td>
 								<td><input type="text" class="l--width-short"></td>
 							</tr>
 							<tr>
 								<td><input type="text" class="a--config-totp"></td>
 								<td><input type="password"></td>
-								<td><button class="d--btn a--event-speaker" data-act="totp">Calc & Copy</button></td>
+								<td><button class="d--btn a--event-speaker" data-act="calc-totp">Calc & Copy</button></td>
 								<td><input type="text" class="l--width-short"></td>
 							</tr>
 							<tr>
 								<td><input type="text" class="a--config-totp"></td>
 								<td><input type="password"></td>
-								<td><button class="d--btn a--event-speaker" data-act="totp">Calc & Copy</button></td>
+								<td><button class="d--btn a--event-speaker" data-act="calc-totp">Calc & Copy</button></td>
 								<td><input type="text" class="l--width-short"></td>
 							</tr>
 							<tr>
 								<td><input type="text" class="a--config-totp"></td>
 								<td><input type="password"></td>
-								<td><button class="d--btn a--event-speaker" data-act="totp">Calc & Copy</button></td>
+								<td><button class="d--btn a--event-speaker" data-act="calc-totp">Calc & Copy</button></td>
 								<td><input type="text" class="l--width-short"></td>
 							</tr>
 							<tr>
 								<td><input type="text" class="a--config-totp"></td>
 								<td><input type="password"></td>
-								<td><button class="d--btn a--event-speaker" data-act="totp">Calc & Copy</button></td>
+								<td><button class="d--btn a--event-speaker" data-act="calc-totp">Calc & Copy</button></td>
 								<td><input type="text" class="l--width-short"></td>
 							</tr>
 						</table>
 						<hr>
-						<button id="sav-ls--btn" class="config-btn a--event-speaker" data-act="save">Save</button>
+						<button class="config-btn a--event-speaker" data-act="save">Save</button>
 					</div>
 				</article>
 			</div>
-			<!--　■■■■　COMMAND　■■■■　-->
+			<!--　■■■■　SIDEBAR--COMMAND　■■■■　-->
 			<div class="sidebar--item l--flex-container">
 				<div class="sidebar--title">
 					<p class="l--sideways">Command</p>
@@ -551,34 +586,34 @@
 				<div id="footer--textarea-flag" class="l--margin-left--05"></div>
 				<div id="footer--textarea-cnt" class="l--margin-left--05 l--margin-right--auto"></div>
 				<!--　■■■　FOOTER--CMD-BTNS　■■■　-->
-				<button class="d--btn a--cmd-btn l--flex-container" data-act="copy-memo">
+				<button class="d--btn a--event-speaker l--flex-container" data-act="memo-cmd" data-cmd="copy">
 					<svg class="l--btn-icon" xmlns="http://www.w3.org/2000/svg">
 						<path d="M4 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-1h1v1a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h1v1z"/>
 					</svg>
 					Copy
 				</button>
-				<button class="d--btn a--cmd-btn l--flex-container" data-act="translate-memo">
+				<button class="d--btn a--event-speaker l--flex-container" data-act="memo-cmd" data-cmd="translate">
 					<svg class="l--btn-icon" xmlns="http://www.w3.org/2000/svg">
 						<path d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286zm1.634-.736L5.5 3.956h-.049l-.679 2.022z"/>
 						<path d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zm7.138 9.995q.289.451.63.846c-.748.575-1.673 1.001-2.768 1.292.178.217.451.635.555.867 1.125-.359 2.08-.844 2.886-1.494.777.665 1.739 1.165 2.93 1.472.133-.254.414-.673.629-.89-1.125-.253-2.057-.694-2.82-1.284.681-.747 1.222-1.651 1.621-2.757H14V8h-3v1.047h.765c-.318.844-.74 1.546-1.272 2.13a6 6 0 0 1-.415-.492 2 2 0 0 1-.94.31"/>
 					</svg>
 					Translate
 				</button>
-				<button class="d--btn a--cmd-btn l--flex-container" data-act="webhook-memo">
+				<button class="d--btn a--event-speaker l--flex-container" data-act="memo-cmd" data-cmd="webhook">
 					<svg class="l--btn-icon" xmlns="http://www.w3.org/2000/svg">
 						<path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"/>
 						<path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z"/>
 					</svg>
 					Webhook
 				</button>
-				<button class="d--btn a--cmd-btn l--flex-container" data-act="restore-memo">
+				<button class="d--btn a--event-speaker l--flex-container" data-act="memo-cmd" data-cmd="restore">
 					<svg class="l--btn-icon" xmlns="http://www.w3.org/2000/svg">
 						<path d="M8 3a5 5 0 1 1-4.546 2.914.5.5 0 0 0-.908-.417A6 6 0 1 0 8 2z"/>
 						<path d="M8 4.466V.534a.25.25 0 0 0-.41-.192L5.23 2.308a.25.25 0 0 0 0 .384l2.36 1.966A.25.25 0 0 0 8 4.466"/>
 					</svg>
 					Restore
 				</button>
-				<button class="d--btn a--cmd-btn l--flex-container" data-act="clear-memo">
+				<button class="d--btn a--event-speaker l--flex-container" data-act="memo-cmd" data-cmd="clear">
 					<svg class="l--btn-icon" xmlns="http://www.w3.org/2000/svg">
 						<path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm3.354 4.646L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 1 1 .708-.708"/>
 					</svg>

@@ -190,6 +190,32 @@ function ipv4Classify(ipv4) {
 	return ipv4Class;
 }
 
+//　■■■　URL分析　■■■
+function urlAnalysis(url) {
+	let urlObj = {'flag': '', 'url': url, 'siteDisplayed':''};
+	urlObj.flag += /https?:\/?[^\/]/.test(url) ? '🤡' : '' ;
+	urlObj.flag += /[∕⁄]/.test(url) ? '➗' : '' ;
+	urlObj.flag += /https?:\/{0,2}[@\w\-\.]*[^@\w\-\.\/]/.test(url) ? '👽' : '' ;
+	urlObj.flag += /https?:\/{0,2}[^\/]*@[^\/]+/.test(url) ? '🔑' : '' ;
+	urlObj.flag += /https?:\/{0,2}[^\/]*translate\.google\.com\//.test(url) ? '📖' : '' ;
+	urlObj.flag += /https?:\/{0,2}[^\/]+\.translate\.goog[\/]/.test(url) ? '📖' : '' ;
+	urlObj.flag += /https?:\/{0,2}[^\/]*www\.google\.com\/url\?/.test(url) ? '➡️' : '' ;
+	urlObj.flag += /https?:\/{0,2}[^\/]*www\.bing\.com\/ck\/a\?/.test(url) ? '➡️' : '' ;
+	urlObj.flag += /https?:\/{0,2}[^\/]*[\-\.]?ipfs[\-\.]?[^\/]+/.test(url) ? '🌐' : '' ;
+	urlObj.flag += /https?:\/{0,2}[^\/]*\w{16,}/.test(url) ? '🎲' : '' ;
+	urlObj.flag += /https?:\/{0,2}[^\/]*[bcdfghjklmnpqrstvwxyz0-9]{8,}/.test(url) ? '🎲' : '' ;
+	let parser = new URL(url);
+	urlObj.siteDisplayed += /https?:\/{0,2}[^\/]*safelinks\.protection\.outlook\.com\/(\?.*)?[\?&]url=https?[^&]+/.test(url)
+		? decodeURIComponent(url.match(/[\?&]url=https?[^&]+/gi)[0].match(/https?.+/gi)[0]) : '';
+	urlObj.siteDisplayed += /https?:\/{0,2}[^\/]*www\.google\.com\/url(\?.*)?[\?&]url=https?[^&]+/.test(url)
+		? decodeURIComponent(url.match(/[\?&]url=https?[^&]+/gi)[0].match(/https?.+/gi)[0]) : '';
+	urlObj.siteDisplayed += /https?:\/{0,2}[^\/]*www\.bing\.com\/ck\/a(\?.*)?[\?&]u=a1aHR0c[^&]+/.test(url)
+		? atob(url.match(/a1aHR0c[^&]+/gi)[0]) : '';
+	urlObj.siteDisplayed += /https?:\/{0,2}[^\/]+\.translate\.goog[\/]/.test(url)
+		? url.replace('.translate.goog/','/').replace(/\?.*/,'').replaceAll('-','.').replaceAll('..','.') : '';
+	return urlObj;
+}
+
 //　■■■　HTML要素追加　■■■
 //　■■　TABLE要素追加　■■
 function appendHtmlTable(parentElm, headers, datass) {
@@ -198,10 +224,30 @@ function appendHtmlTable(parentElm, headers, datass) {
 	parentElm.appendChild(tableElm);
 	let trThElm = document.createElement('tr');
 	tableElm.appendChild(trThElm);
-	for ( let header of headers ) {
+	for ( let i=0; i<headers.length; i++ ) {
 		let thElm = document.createElement('th');
 		trThElm.appendChild(thElm);
-		thElm.textContent = header;
+		thElm.textContent = headers[i];
+		if ( i > 0 ) {
+			//　■　Copyアイコン追加
+			let svgCopyElm = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+			svgCopyElm.setAttribute('class', 'd--icon-btn l--margin-left--1rem');
+			svgCopyElm.setAttribute('data-act', 'copy--table-column');
+			svgCopyElm.setAttribute('data-target', i);
+			let useCopyElm = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+			useCopyElm.setAttribute('href', '#svg--copy');
+			svgCopyElm.appendChild(useCopyElm);
+			thElm.appendChild(svgCopyElm);
+			//　■　Openアイコン追加
+			let svgOpenElm = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+			svgOpenElm.setAttribute('class', 'd--icon-btn l--margin-left--1rem');
+			svgOpenElm.setAttribute('data-act', 'open--table-column--uri');
+			svgOpenElm.setAttribute('data-target', i);
+			let useOpenElm = document.createElementNS('http://www.w3.org/2000/svg', 'use');
+			useOpenElm.setAttribute('href', '#svg--ext-link');
+			svgOpenElm.appendChild(useOpenElm);
+			thElm.appendChild(svgOpenElm);
+		}
 	}
 	for ( let datas of datass ) {
 		let trTdElm = document.createElement('tr');
@@ -215,7 +261,7 @@ function appendHtmlTable(parentElm, headers, datass) {
 }
 //　■■　UL＆LI要素追加　■■
 function appendHtmlList(parentElm, items, osintObj) {
-	let displayOsintObj = JSON.parse(localStorage.getItem('config--display-osint'));
+	let displayOsintObj = JSON.parse(localStorage.getItem('display-osint'));
 	if( displayOsintObj[osintObj.name] !== false ) {
 		let divElm = document.createElement('div');
 		parentElm.appendChild(divElm);
@@ -226,8 +272,8 @@ function appendHtmlList(parentElm, items, osintObj) {
 		imgElm.className = 'l--height--1rem l--width--1rem l--padding-right--025';
 		let hTitleNode = document.createTextNode(osintObj.title);
 		let svgElm = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-		svgElm.setAttribute('class', 'a--copy--list d--icon-btn l--margin-left--1rem');
-		svgElm.setAttribute('data-act', 'open-list-link');
+		svgElm.setAttribute('class', 'd--icon-btn l--margin-left--1rem');
+		svgElm.setAttribute('data-act', 'open--list--link');
 		let useElm = document.createElementNS('http://www.w3.org/2000/svg', 'use');
 		useElm.setAttribute('href', '#svg--ext-link');
 		divElm.appendChild(hElm);
@@ -269,8 +315,8 @@ function appendHtmlUl(parentElm, ulId, title) {
 	let hElm = document.createElement('h3');
 	hElm.textContent = title;
 	let svgElm = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-	svgElm.setAttribute('class', 'a--copy--list d--icon-btn l--margin-left--1rem');
-	svgElm.setAttribute('data-act', 'copy-list');
+	svgElm.setAttribute('class', 'd--icon-btn l--margin-left--1rem');
+	svgElm.setAttribute('data-act', 'copy--list');
 	let useElm = document.createElementNS('http://www.w3.org/2000/svg', 'use');
 	useElm.setAttribute('href', '#svg--copy');
 	divElm.appendChild(hElm);
@@ -337,7 +383,21 @@ function saveConfig() {
 		obj['seacret'] = totpElms[i].parentElement.nextElementSibling.firstElementChild.value;
 		configTotpObj[i] = obj;
 	}
-	configObj['config--totp'] = configTotpObj;
+	configObj['totp'] = configTotpObj;
+	//　■■　メール設定の保存　■■
+	let mailElms = document.querySelectorAll('.a--config-mail');
+	let configMailObj = {};
+	for ( let i=0; i<mailElms.length; i++ ) {
+		let obj = {};
+		obj['name'] = mailElms[i].value;
+		obj['to'] = mailElms[i].parentElement.parentElement.children[1].children[1].value;
+		obj['cc'] = mailElms[i].parentElement.parentElement.children[2].children[1].value;
+		obj['bcc'] = mailElms[i].parentElement.parentElement.children[3].children[1].value;
+		obj['subject'] = mailElms[i].parentElement.parentElement.children[4].children[1].value;
+		obj['body'] = mailElms[i].parentElement.parentElement.children[5].children[1].value;
+		configMailObj[i] = obj;
+	}
+	configObj['mail'] = configMailObj;
 	//　■■　LocalStorageへの保存　■■
 	for ( let key of Object.keys(configObj) ) {
 		localStorage.setItem(key,JSON.stringify(configObj[key]));
@@ -370,10 +430,21 @@ function loadConfig() {
 	}
 	//　■■　TOTP設定の読込　■■
 	let totpElms = document.querySelectorAll('.a--config-totp');
-	let configTotpObj = JSON.parse(localStorage.getItem('config--totp'));
+	let configTotpObj = JSON.parse(localStorage.getItem('totp'));
 	for ( let i=0; i<totpElms.length; i++ ) {
 		totpElms[i].value = configTotpObj[i]['name'];
 		totpElms[i].parentElement.nextElementSibling.firstElementChild.value = configTotpObj[i]['seacret'];
+	}
+	//　■■　メール設定の読込　■■
+	let mailElms = document.querySelectorAll('.a--config-mail');
+	let configMailObj = JSON.parse(localStorage.getItem('mail'));
+	for ( let i=0; i<mailElms.length; i++ ) {
+		mailElms[i].value = configMailObj[i]['name'];
+		mailElms[i].parentElement.parentElement.children[1].children[1].value = configMailObj[i]['to'];
+		mailElms[i].parentElement.parentElement.children[2].children[1].value = configMailObj[i]['cc'];
+		mailElms[i].parentElement.parentElement.children[3].children[1].value = configMailObj[i]['bcc'];
+		mailElms[i].parentElement.parentElement.children[4].children[1].value = configMailObj[i]['subject'];
+		mailElms[i].parentElement.parentElement.children[5].children[1].value = configMailObj[i]['body'];
 	}
 }
 
@@ -399,8 +470,6 @@ function memoChanged() {
 	extractIndicator();
 	analysis();
 /*
-	copyList();
-	openListLink();
 	cntStr('footer--textarea', 'footer--textarea-cnt');
 */
 }
@@ -579,23 +648,39 @@ function setEventListener() {
 				case 'copy' :
 					copy(elm);
 				break;
-				case 'totp' :
-					totp(elm);
+				case 'calc-totp' :
+					calcTotp(elm);
+				break;
+				case 'create-mail' :
+					createMail(elm);
+				break;
+				case 'memo-cmd' :
+					memoCmd(elm);
+				break;
+				default :
+					console.log(elm);
 				break;
 			}
 		});
 	});
-	document.getElementById('analysis').addEventListener('click', function(elm) {
-		if ( elm.target.tagName == 'svg' ) {
-			switch ( elm.target.dataset.act ) {
-				case 'copy-list' :
-					copyList(elm.target);
+	document.getElementById('analysis').addEventListener('click', function(e) {
+		if ( e.target.tagName == 'svg' || e.target.tagName == 'use' ) {
+			let elm = ( e.target.tagName == 'svg' ) ? e.target : e.target.parentElement ;
+			switch ( elm.dataset.act ) {
+				case 'copy--list' :
+					copyList(elm);
 				break;
-				case 'open-list-url' :
-					openListUrl(elm.target);
+				case 'open--list--link' :
+					openListLink(elm);
 				break;
-				case 'open-list-link' :
-					openListLink(elm.target);
+				case 'copy--table-column' :
+					copyTableColumn(elm);
+				break;
+				case 'open--table-column--uri' :
+					openTableColumnUri(elm);
+				break;
+				default :
+					console.log(elm);
 				break;
 			}
 		}
@@ -614,7 +699,7 @@ function copy(elm) {
 	}
 }
 
-function totp(elm) {
+function calcTotp(elm) {
 	let secret = elm.parentElement.previousElementSibling.firstElementChild.value;
 	let output = elm.parentElement.nextElementSibling.firstElementChild;
 	let b32=s=>[0,8,16,24,32,40,48,56]
@@ -655,8 +740,70 @@ function openListLink(elm) {
 	}
 }
 
+function copyTableColumn(elm) {
+	let trs = elm.parentElement.parentElement.parentElement.children;
+	let colNum = elm.dataset.target;
+	let text = '';
+	for ( let i=1; i<trs.length; i++ ) {
+		text += trs[i].children[colNum].innerText + '\n';
+	}
+	navigator.clipboard.writeText(text);
+}
 
+function openTableColumnUri(elm,target) {
+	let trs = elm.parentElement.parentElement.parentElement.children;
+	let colNum = elm.dataset.target;
+	if ( window.confirm('危険なURIは含まれていませんか？') ) {
+		for ( let i=1; i<trs.length; i++ ) {
+			window.open(trs[i].children[colNum].innerText, '_blank');
+		}
+	}
+}
 
+function memoCmd(elm) {
+	switch ( elm.dataset.cmd ) {
+		case 'copy' :
+			navigator.clipboard.writeText(memoValue);
+		break;
+		case 'translate' :
+			if ( window.confirm('機密情報は含まれていませんか？') ) {
+				window.open('https://translate.google.co.jp/?tl=ja&text=' + memoValue.replace(/[\r\n]/g,'%0A'));
+			}
+		break;
+		case 'webhook' :
+			if ( window.confirm('機密情報は含まれていませんか？') ) {
+				const xhr = new XMLHttpRequest();
+				let webhookUrl = document.getElementById('config--webhook');
+				xhr.open("GET",webhookUrl + encodeURIComponent(memoValue));
+				xhr.send();
+			}
+		break;
+		case 'restore' :
+			memoElm.value = localStorage.getItem('memoBackup');
+			memoChanged();
+		break;
+		case 'clear' :
+			localStorage.setItem('memoBackup',memoElm.value);
+			memoElm.value = '';
+			memoChanged();
+		break;
+		default :
+			console.log(elm);
+		break;
+	}
+}
+
+function createMail(elm) {
+	getDateTime();
+	let to = elm.parentElement.parentElement.children[1].children[1].value;
+	let cc = elm.parentElement.parentElement.children[2].children[1].value;
+	let bcc = elm.parentElement.parentElement.children[3].children[1].value;
+	let subject = elm.parentElement.parentElement.children[4].children[1].value;
+	let body = elm.parentElement.parentElement.children[5].children[1].value;
+	subject = subject.replace(/%YYYY/g,YYYY).replace(/%MM/g,MM).replace(/%M/g,M).replace(/%DD/g,DD).replace(/%D/g,D).replace(/%hh/g,hh).replace(/%h/g,h).replace(/%mm/g,mm).replace(/%m/g,m).replace(/%A/g,A);
+	body = body.replace(/%YYYY/g,YYYY).replace(/%MM/g,MM).replace(/%M/g,M).replace(/%DD/g,DD).replace(/%D/g,D).replace(/%hh/g,hh).replace(/%h/g,h).replace(/%mm/g,mm).replace(/%m/g,m).replace(/%A/g,A);
+	window.open('mailto:' + to + '?cc=' + cc + '?bcc=' + bcc + '&subject=' + subject + '&body=' + body, '_blank');
+}
 
 
 
