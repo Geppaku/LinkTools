@@ -262,7 +262,7 @@ function appendHtmlTable(parentElm, headers, datass) {
 //　■■　UL＆LI要素追加　■■
 function appendHtmlList(parentElm, items, osintObj) {
 	let displayOsintObj = JSON.parse(localStorage.getItem('display-osint'));
-	if( displayOsintObj[osintObj.name] !== false ) {
+	if( displayOsintObj[osintObj.name] !== false || displayOsintObj[osintObj.name] == null ) {
 		let divElm = document.createElement('div');
 		parentElm.appendChild(divElm);
 		let hElm = document.createElement('h3');
