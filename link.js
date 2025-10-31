@@ -14,8 +14,10 @@ const ipOsints = [
 	{ title: 'Virus Total', name: 'ip-virustotal', url1: 'https://www.virustotal.com/gui/ip-address/', url2: '', encode: '', icon: 'virustotal.svg' },
 	{ title: 'SHODAN', name: 'ip-shodan', url1: 'https://www.shodan.io/host/', url2: '', encode: '', icon: 'shodan.png' },
 	{ title: 'urlscan Pro', name: 'ip-urlscanpro', url1: 'https://pro.urlscan.io/search?query=page.ip:"', url2: '"', encode: '', icon: 'urlscanpro.png' },
-	{ title: 'IPSHU', name: 'ip-ipshu', url1: 'https://ja.ipshu.com/ipv4/', url2: '', encode: '', icon: 'ipshu.ico' },
 	{ title: 'IPinfo', name: 'ip-ipinfo', url1: 'https://ipinfo.io/', url2: '', encode: '', icon: 'ipinfo.png' },
+	{ title: 'IPSHU', name: 'ip-ipshu', url1: 'https://ja.ipshu.com/ipv4/', url2: '', encode: '', icon: 'ipshu.ico' },
+	{ title: 'AbuseIPDB', name: 'ip-abuseipdb', url1: 'https://www.abuseipdb.com/check/', url2: '', encode: '', icon: 'abuseipdb.ico' },
+	{ title: 'Hurricane Electric', name: 'ip-he', url1: 'https://bgp.he.net/ip/', url2: '', encode: '', icon: 'he.ico' },
 	{ title: 'SPUR', name: 'ip-spur', url1: 'https://spur.us/context/', url2: '', encode: '', icon: 'spur.ico' },
 ];
 const domainOsints = [
@@ -177,16 +179,16 @@ function ipInRange(ip, cidr) {
 }
 //　■■　IPv4分類　■■
 function ipv4Classify(ipv4) {
-	let ipv4Class;
-	ipv4Class = ipInRange(ipv4, '10.0.0.0/8') ? 'Private' : '';
-	ipv4Class = ipInRange(ipv4, '172.16.0.0/12') ? 'Private' : '';
-	ipv4Class = ipInRange(ipv4, '192.168.0.0/16') ? 'Private' : '';
-	ipv4Class = ipInRange(ipv4, '192.0.2.0/24') ? 'Example' : '';
-	ipv4Class = ipInRange(ipv4, '198.51.100.0/24') ? 'Example' : '';
-	ipv4Class = ipInRange(ipv4, '203.0.113.0/24') ? 'Example' : '';
-	ipv4Class = ipInRange(ipv4, '169.254.0.0/16') ? 'LinkLocal' : '';
-	ipv4Class = ipInRange(ipv4, '127.0.0.0/8') ? 'Loopback' : '';
-	ipv4Class = (ipv4Class.length == 0) ? 'Global' : '';
+	let ipv4Class = '';
+	ipv4Class += ipInRange(ipv4, '10.0.0.0/8') ? 'Private' : '';
+	ipv4Class += ipInRange(ipv4, '172.16.0.0/12') ? 'Private' : '';
+	ipv4Class += ipInRange(ipv4, '192.168.0.0/16') ? 'Private' : '';
+	ipv4Class += ipInRange(ipv4, '192.0.2.0/24') ? 'Example' : '';
+	ipv4Class += ipInRange(ipv4, '198.51.100.0/24') ? 'Example' : '';
+	ipv4Class += ipInRange(ipv4, '203.0.113.0/24') ? 'Example' : '';
+	ipv4Class += ipInRange(ipv4, '169.254.0.0/16') ? 'LinkLocal' : '';
+	ipv4Class += ipInRange(ipv4, '127.0.0.0/8') ? 'Loopback' : '';
+	ipv4Class += (ipv4Class.length == 0) ? 'Global' : '';
 	return ipv4Class;
 }
 
@@ -261,8 +263,8 @@ function appendHtmlTable(parentElm, headers, datass) {
 }
 //　■■　UL＆LI要素追加　■■
 function appendHtmlList(parentElm, items, osintObj) {
-	let displayOsintObj = JSON.parse(localStorage.getItem('display-osint'));
-	if( displayOsintObj[osintObj.name] !== false || displayOsintObj[osintObj.name] == null ) {
+	let displayOsintObj = localStorage.getItem('display-osint')==null ? {} : JSON.parse(localStorage.getItem('display-osint'));
+	if( displayOsintObj[osintObj.name] == null || displayOsintObj[osintObj.name] !== false ) {
 		let divElm = document.createElement('div');
 		parentElm.appendChild(divElm);
 		let hElm = document.createElement('h3');
@@ -445,6 +447,9 @@ function loadConfig() {
 		mailElms[i].parentElement.parentElement.children[3].children[1].value = configMailObj[i]['bcc'];
 		mailElms[i].parentElement.parentElement.children[4].children[1].value = configMailObj[i]['subject'];
 		mailElms[i].parentElement.parentElement.children[5].children[1].value = configMailObj[i]['body'];
+	}
+	if ( document.getElementById('header--nav--config')!==null && localStorage.getItem('user-info')!==null ) {
+		document.getElementById('header--nav--config').innerText = '⚙ ' + JSON.parse(localStorage.getItem('user-info'))['name'];
 	}
 }
 
@@ -802,7 +807,9 @@ function createMail(elm) {
 	let body = elm.parentElement.parentElement.children[5].children[1].value;
 	subject = subject.replace(/%YYYY/g,YYYY).replace(/%MM/g,MM).replace(/%M/g,M).replace(/%DD/g,DD).replace(/%D/g,D).replace(/%hh/g,hh).replace(/%h/g,h).replace(/%mm/g,mm).replace(/%m/g,m).replace(/%A/g,A);
 	body = body.replace(/%YYYY/g,YYYY).replace(/%MM/g,MM).replace(/%M/g,M).replace(/%DD/g,DD).replace(/%D/g,D).replace(/%hh/g,hh).replace(/%h/g,h).replace(/%mm/g,mm).replace(/%m/g,m).replace(/%A/g,A);
-	window.open('mailto:' + to + '?cc=' + cc + '?bcc=' + bcc + '&subject=' + subject + '&body=' + body, '_blank');
+	let mailCc = cc=='' ? '' : '&cc=' + cc;
+	let mailBcc = bcc=='' ? '' : '&bcc=' + bcc;
+	window.open('mailto:' + to + '?' + 'subject=' + subject + mailCc + mailBcc + '&body=' + body, '_blank');
 }
 
 

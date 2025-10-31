@@ -132,7 +132,7 @@
 								<label for="config--user-name">ユーザー名</label>
 							</div>
 							<div class="config--value">
-								<input type="text" class="a--config" data-object="user-info" data-name="name" data-type="value" placeholder="苗字">
+								<input type="text" id="config--user-name" class="a--config" data-object="user-info" data-name="name" data-type="value" placeholder="苗字">
 								<button class="a--event-speaker d--btn" data-act="copy" data-target="previous" data-type="value">Copy</button>
 							</div>
 						</div>
@@ -236,57 +236,67 @@
 						<details open>
 							<summary class="d--h3">IP Address</summary>
 								<div class="l--flex-container">
-									<div class="l--width-short d--font-weight--bold">Service</div>
+									<div class="l--width-medium d--font-weight--bold">Service</div>
 									<div class="d--font-weight--bold">Enable</div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-short">Search</div>
+									<div class="l--width-medium">Search</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="ip-search" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-short">Whois</div>
+									<div class="l--width-medium">Whois</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="ip-whois" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-short">JPNIC WHOIS</div>
+									<div class="l--width-medium">JPNIC WHOIS</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="ip-jpnicwhois" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-short">Nslookup</div>
+									<div class="l--width-medium">Nslookup</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="ip-nslookup" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-short">Virus Total</div>
+									<div class="l--width-medium">Virus Total</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="ip-virustotal" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-short">Shodan</div>
+									<div class="l--width-medium">Shodan</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="ip-shodan" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-short">urlscan Pro</div>
+									<div class="l--width-medium">urlscan Pro</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="ip-urlscanpro" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-short">IPSHU</div>
-									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="ip-ipshu" data-type="checked" checked></div>
-									<div></div>
-								</div>
-								<div class="l--flex-container">
-									<div class="l--width-short">IPinfo</div>
+									<div class="l--width-medium">IPinfo</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="ip-ipinfo" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-short">SPUR</div>
+									<div class="l--width-medium">IPSHU</div>
+									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="ip-ipshu" data-type="checked" checked></div>
+									<div></div>
+								</div>
+								<div class="l--flex-container">
+									<div class="l--width-medium">AbuseIPDB</div>
+									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="ip-abuseipdb" data-type="checked" checked></div>
+									<div></div>
+								</div>
+								<div class="l--flex-container">
+									<div class="l--width-medium">Hurricane Electric</div>
+									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="ip-he" data-type="checked" checked></div>
+									<div></div>
+								</div>
+								<div class="l--flex-container">
+									<div class="l--width-medium">SPUR</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="ip-spur" data-type="checked" checked></div>
 									<div></div>
 								</div>
@@ -294,27 +304,27 @@
 						<details open>
 							<summary class="d--h3">Domain</summary>
 								<div class="l--flex-container">
-									<div class="l--width-short d--font-weight--bold">Service</div>
+									<div class="l--width-medium d--font-weight--bold">Service</div>
 									<div class="d--font-weight--bold">Enable</div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-short">Search</div>
+									<div class="l--width-medium">Search</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="domain-search" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-short">Whois</div>
+									<div class="l--width-medium">Whois</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="domain-whois" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-short">Nslookup</div>
+									<div class="l--width-medium">Nslookup</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="domain-nslookup" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-short">urlscan Pro</div>
+									<div class="l--width-medium">urlscan Pro</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="domain-urlscanpro" data-type="checked" checked></div>
 									<div></div>
 								</div>
@@ -322,17 +332,17 @@
 						<details open>
 							<summary class="d--h3">URL</summary>
 								<div class="l--flex-container">
-									<div class="l--width-short d--font-weight--bold">Service</div>
+									<div class="l--width-medium d--font-weight--bold">Service</div>
 									<div class="d--font-weight--bold">Enable</div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-short">Virus Total</div>
+									<div class="l--width-medium">Virus Total</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="url-virustotal" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-short">Archive</div>
+									<div class="l--width-medium">Archive</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="url-archive" data-type="checked" checked></div>
 									<div></div>
 								</div>
@@ -340,12 +350,12 @@
 						<details open>
 							<summary class="d--h3">Mail</summary>
 								<div class="l--flex-container">
-									<div class="l--width-short d--font-weight--bold">Service</div>
+									<div class="l--width-medium d--font-weight--bold">Service</div>
 									<div class="d--font-weight--bold">Enable</div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-short"></div>
+									<div class="l--width-medium">Search</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="mail-search" data-type="checked" checked></div>
 									<div></div>
 								</div>
@@ -353,12 +363,12 @@
 						<details open>
 							<summary class="d--h3">HASH</summary>
 								<div class="l--flex-container">
-									<div class="l--width-short d--font-weight--bold">Service</div>
+									<div class="l--width-medium d--font-weight--bold">Service</div>
 									<div class="d--font-weight--bold">Enable</div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-short">Virus Total</div>
+									<div class="l--width-medium">Virus Total</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="hash-virustotal" data-type="checked" checked></div>
 									<div></div>
 								</div>
