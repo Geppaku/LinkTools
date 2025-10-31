@@ -476,9 +476,8 @@ function memoChanged() {
 	}
 	extractIndicator();
 	analysis();
-/*
-	cntStr('footer--textarea', 'footer--textarea-cnt');
-*/
+	let memoCntElm = document.getElementById('footer--textarea--cnt');
+	cntStr(memoElm, memoCntElm);
 }
 
 
@@ -814,7 +813,12 @@ function createMail(elm) {
 	window.open('mailto:' + to + '?' + 'subject=' + subject + mailCc + mailBcc + '&body=' + body, '_blank');
 }
 
-
+function cntStr(cntElm, outputElm) {
+	let strCnt = cntElm.value.length;
+	let strLines = cntElm.value.match(/\n/g);
+	strLine = strLines==null ? 1 : strLines.length + 1;
+	outputElm.innerText = strLine + ' 行 / ' + strCnt + ' 文字';
+}
 
 
 //　■■■■■　要見直し　■■■■■
