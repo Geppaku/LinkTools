@@ -65,7 +65,6 @@ let macs = [];
 let dates = [];
 let dateTimes = [];
 let configObj = {};
-let displayOsintObj = {};
 
 //　■■■■■　関数　■■■■■
 //　■■■■　DOM読込時　■■■■
@@ -266,6 +265,7 @@ function appendHtmlList(parentElm, items, osintObj) {
 	if ( localStorage.getItem('display-osint')==null ) {
 		saveConfig();
 	}
+	displayOsintObj = JSON.parse(localStorage.getItem('display-osint'));
 	if( displayOsintObj[osintObj.name] == null || displayOsintObj[osintObj.name] !== false ) {
 		let divElm = document.createElement('div');
 		parentElm.appendChild(divElm);
@@ -817,7 +817,7 @@ function cntStr(cntElm, outputElm) {
 	let strCnt = cntElm.value.length;
 	let strLines = cntElm.value.match(/\n/g);
 	strLine = strLines==null ? 1 : strLines.length + 1;
-	outputElm.innerText = strLine + ' 行 / ' + strCnt + ' 文字';
+	outputElm.innerText = strLine.toLocaleString() + ' 行 / ' + strCnt.toLocaleString() + ' 文字';
 }
 
 
