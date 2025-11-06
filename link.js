@@ -805,7 +805,7 @@ function createMail(elm) {
 	let cc = elm.parentElement.parentElement.children[2].children[1].value;
 	let bcc = elm.parentElement.parentElement.children[3].children[1].value;
 	let subject = elm.parentElement.parentElement.children[4].children[1].value;
-	let body = elm.parentElement.parentElement.children[5].children[1].value;
+	let body = elm.parentElement.parentElement.children[5].children[1].value.replace(/\n/g,'%OD%OA%OD%OA');
 	subject = subject.replace(/%YYYY/g,YYYY).replace(/%MM/g,MM).replace(/%M/g,M).replace(/%DD/g,DD).replace(/%D/g,D).replace(/%hh/g,hh).replace(/%h/g,h).replace(/%mm/g,mm).replace(/%m/g,m).replace(/%A/g,A);
 	body = body.replace(/%YYYY/g,YYYY).replace(/%MM/g,MM).replace(/%M/g,M).replace(/%DD/g,DD).replace(/%D/g,D).replace(/%hh/g,hh).replace(/%h/g,h).replace(/%mm/g,mm).replace(/%m/g,m).replace(/%A/g,A);
 	let mailCc = cc=='' ? '' : '&cc=' + cc;
@@ -822,6 +822,7 @@ function cntStr(cntElm, outputElm) {
 
 
 //　■■■■■　要見直し　■■■■■
+
 
 
 
