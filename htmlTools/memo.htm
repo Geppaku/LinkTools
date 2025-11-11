@@ -215,7 +215,7 @@
 			alert('未実装');
 		}
 		function fang() {
-			memoElm.innerText = memoElm.innerText.replace(/(https?|hxxps?)\[?:\]?\/\//g, '$1://').replace(/\[\.\]/g,'.').replace(/\[dot\]/g,'.');
+			memoElm.innerText = memoElm.innerText.replace(/h[tx][tx]p(s?)\[?:\]?\/\//g, 'http$1://').replace(/\[\.\]/g,'.').replace(/\[dot\]/g,'.');
 		}
 		function defang() {
 			memoElm.innerText = memoElm.innerText.replace(/http(s?):\/\//g, 'hxxp$1[:]//').replace(/\./g,'[.]');
