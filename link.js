@@ -468,7 +468,7 @@ function showClock() {
 function memoChanged() {
 	localStorage.setItem('memo',memoElm.value);
 	memoValue = memoElm.value;
-	memoFangValue = memoValue.replace(/\[\.\]|\[dot\]/g,'.').replace(/http\[:\]/gi,'http:').replace(/hxxp:/gi,'http:').replace(/hxxp\[:\]/gi,'http:').replace(/https\[:\]/gi,'https:').replace(/hxxps:/gi,'https:').replace(/hxxps\[:\]/gi,'https:');
+	memoFangValue = memoValue.replace(/\[\.\]|\[dot\]/g,'.').replace(/(https?|hxxps?)\[?:\]?\/{0,2}/gi,'$1://');
 	for (childResetElm of childResetElms) {
 		while(childResetElm.firstChild) {
 			childResetElm.removeChild(childResetElm.firstChild);
@@ -608,7 +608,7 @@ function analysis() {
 	appendHtmlUl(elmMAU, 'main--analysis--url--defang', 'Defang');
 	let elmMAUD = document.getElementById('main--analysis--url--defang');
 	for ( let url of urls ){
-		let defangUrl = url.replace(/http/,'hxxp').replace(/\./gi,'[.]');
+		let defangUrl = url.replace(/http(s?):\/\//,'hxxp$1[:]//').replace(/\./gi,'[.]');
 		appendHtmlLi(elmMAUD, '', defangUrl);
 	}
 	//　■　ANALYSIS--URL--OSINT　■
@@ -636,7 +636,7 @@ function analysis() {
 	let elmMAUIC = document.getElementById('main--analysis--unicode--invisible-character');
 	appendHtmlUl(elmMAUIC, 'main--analysis--unicode--invisible-character--list', 'Invisible Character');
 	let elmMAUICL = document.getElementById('main--analysis--unicode--invisible-character--list');
-	for ( invisibleCharacter of invisibleCharacters ) {
+	for ( let invisibleCharacter of invisibleCharacters ) {
 		appendHtmlLi(elmMAUICL, '', invisibleCharacter);
 	}
 }
@@ -738,7 +738,7 @@ function copyList(elm) {
 
 function openListLink(elm) {
 	let items = elm.parentElement.nextElementSibling.children;
-	for ( item of items ) {
+	for ( let item of items ) {
 		let links = item.querySelectorAll('a');
 		for ( let link of links ) {
 			window.open(link.getAttribute('href'), '_blank');
@@ -822,9 +822,12 @@ function cntStr(cntElm, outputElm) {
 
 
 //　■■■■■　要見直し　■■■■■
-
-
-
+function exportConfig() {
+	Object.keys(localStorage).forEach(function(key) {
+		configObj[key] = localStorage.getItem(key);
+	});
+	console.log(configObj);
+}
 
 
 
