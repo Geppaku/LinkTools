@@ -80,9 +80,9 @@
 		<header class="header">
 			<div class="l--flex-container">
 				<input type="text" id="search-str">
-				<button>検索</button>
-				<button>Grep</button>
-				<button>検索解除</button>
+				<button class="a--event-speaker" data-act="search">検索</button>
+				<button class="a--event-speaker" data-act="grep">Grep</button>
+				<button class="a--event-speaker" data-act="">検索解除</button>
 			</div>
 			<div class="l--flex-container l--gap--1rem">
 				<label><input type="checkbox" id="regex" checked>正規表現</label>
@@ -91,18 +91,18 @@
 			</div>
 			<div class="l--flex-container">
 				<input type="text" id="replace-str">
-				<button>置換</button>
+				<button class="a--event-speaker" data-act="replace">置換</button>
 				<label><input type="checkbox" id="replace-all" checked>全て置換</label>
 			</div>
 		</header>
 		<div class="menu l--flex-container--column">
-			<button>Fang</button>
-			<button>Defang</button>
-			<button>重複行削除</button>
-			<button>昇順ソート</button>
-			<button>降順ソート</button>
-			<button>行頭空白削除</button>
-			<button>行末空白削除</button>
+			<button class="a--event-speaker" data-act="">Fang</button>
+			<button class="a--event-speaker" data-act="">Defang</button>
+			<button class="a--event-speaker" data-act="">重複行削除</button>
+			<button class="a--event-speaker" data-act="">昇順ソート</button>
+			<button class="a--event-speaker" data-act="">降順ソート</button>
+			<button class="a--event-speaker" data-act="">行頭空白削除</button>
+			<button class="a--event-speaker" data-act="">行末空白削除</button>
 		</div>
 		<main class="main l--flex-container">
 			<div id="ln">1</div>
@@ -112,6 +112,19 @@
 	<!--　■■■■■　JavaScript　■■■■■　-->
 	<script type="text/javascript">
 		window.onload = function() {
+			document.querySelectorAll('.a--event-speaker').forEach(function(elm) {
+				elm.addEventListener('click', function() {
+					switch ( elm.dataset.act ) {
+						case 'search':
+							search();
+							break;
+						case 'replace':
+							replace();
+							break;
+					}
+				countLineNumber();
+				});
+			});
 		}
 		function countLineNumber() {
 			let lineCount = document.getElementById('memo').innerText.match(/\n/g).length;
