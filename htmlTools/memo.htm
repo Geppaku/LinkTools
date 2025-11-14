@@ -32,15 +32,21 @@
 		.l--flex-container {
 			display: flex;
 		}
-		.l--flex-container--column{
+		.l--flex-container--column {
 			display: flex;
 			flex-direction: column;
+		}
+		.l--align-items--center {
+			align-items: center;
 		}
 		.l--flex--1 {
 			flex: 1;
 		}
 		.d--highlight {
 			background-color: yellow;
+		}
+		.d--width--4rem {
+			width: 4rem;
 		}
 		.l--grid-container--body {
 			display: grid;
@@ -65,7 +71,7 @@
 			overflow: auto;
 			border: 1px solid;
 		}
-		#ln {
+		#line-number {
 			padding: 0.25rem 0.25rem 0.25rem 0.5rem;
 			text-align: right;
 			color :grey;
@@ -80,25 +86,28 @@
 
 <body>
 	<div class="l--grid-container--body">
-		<div class="info"><h1>開発中</h1></div>
+		<div class="info l--flex-container--column l--align-items--center">
+			<div id="line-count"></div>
+			<div id="string-count"></div>
+		</div>
 		<header class="header">
 			<div class="l--flex-container">
 				<input type="text" id="search-str" class="l--flex--1">
-				<button class="a--event-speaker" data-act="search">検索</button>
+				<button class="a--event-speaker d--width--4rem" data-act="search">検索</button>
 			</div>
 			<div class="l--flex-container">
 				<input type="text" id="replace-str" class="l--flex--1">
-				<button class="a--event-speaker" data-act="replace">置換</button>
+				<button class="a--event-speaker d--width--4rem" data-act="replace">置換</button>
 			</div>
 			<div class="l--flex-container">
 				<div class="l--flex-container l--gap--1rem l--flex--1">
 					<label><input type="checkbox" id="regex" checked>正規表現</label>
 					<label><input type="checkbox" id="case-sensitive">大/小文字を区別</label>
 					<label><input type="checkbox" id="replace-all" checked>全て検索/置換</label>
-					<label><input type="checkbox" id="search-line" checked>各行検索/置換</label>
+					<label><input type="checkbox" id="search-line" checked>複数行検索/置換</label>
 				</div>
 				<div class="l--flex-container">
-					<button class="a--event-speaker" data-act="grep">Grep</button>
+					<button class="a--event-speaker d--width--4rem" data-act="grep">Grep</button>
 				</div>
 			</div>
 		</header>
@@ -112,14 +121,16 @@
 			<button class="a--event-speaker" data-act="del-end-space">行末空白削除</button>
 		</div>
 		<main class="main l--flex-container">
-			<div id="ln">1</div>
-			<div id="memo" contenteditable>hogehoge<br>fugafuga<br>piyopiyo<br>http://www.example.com<br>https://www.example.com<br>192.0.2.0</div>
+			<div id="line-number">1</div>
+			<div id="memo" contenteditable></div>
 		</main>
 	</div>
 	<!--　■■■■■　JavaScript　■■■■■　-->
 	<script type="text/javascript">
 		memoElm = document.getElementById('memo');
+		countLineStr();
 		window.onload = function() {
+			memoElm.addEventListener('input', countLineStr);
 			document.querySelectorAll('.a--event-speaker').forEach(function(elm) {
 				elm.addEventListener('click', function() {
 					switch ( elm.dataset.act ) {
@@ -154,65 +165,65 @@
 							delEndSpace();
 							break;
 					}
-				countLineNumber();
+				countLineStr();
 				});
 			});
 		}
-		function countLineNumber() {
+		function countLineStr() {
 			let lineCount = memoElm.innerText.match(/\n/g);
 			lineCount = lineCount==null ? 1 : lineCount.length+1;
-			let ln = '';
+			let lineNumber = '';
 			for ( let i=1; i<=lineCount; i++) {
-				ln += i + '\n';
+				lineNumber += i + '\n';
 			}
-			document.getElementById('ln').innerText = ln;
+			let stringCount = memoElm.innerText.length;
+			document.getElementById('line-number').innerText = lineNumber;
+			document.getElementById('line-count').innerText = lineCount + '行';
+			document.getElementById('string-count').innerText = stringCount + '文字';
 		}
 		function search() {
-			if( document.getElementById('regex').checked ) {
-				let flag = document.getElementById('case-sensitive').checked ? '' : 'i';
-				flag += document.getElementById('replace-all').checked ? 'g' : '';
-				let outputStrs = [];
-				if ( document.getElementById('search-line').checked ) {
-					let lines = memoElm.innerText.split(/\n/);
-					for ( let line of lines ) {
-						let replaceStr = '<span class="d--highlight">' + JSON.parse( "\"" + '$1' + "\"") + '</span>';
-						line = line.replace(new RegExp('('+document.getElementById('search-str').value+')', flag), replaceStr);
-						outputStrs.push(line);
-					}
-				} else {
+			let searchStr = document.getElementById('regex').checked ? document.getElementById('search-str').value : RegExp.escape(document.getElementById('search-str').value);
+			let flag = document.getElementById('case-sensitive').checked ? '' : 'i';
+			flag += document.getElementById('replace-all').checked ? 'g' : '';
+			let outputStrs = [];
+			if ( document.getElementById('search-line').checked ) {
+				let lines = memoElm.innerText.split(/\n/);
+				for ( let line of lines ) {
 					let replaceStr = '<span class="d--highlight">' + JSON.parse( "\"" + '$1' + "\"") + '</span>';
-					let outputStr = memoElm.innerText.replace(new RegExp('('+document.getElementById('search-str').value+')', flag), replaceStr);
-					outputStrs.push(outputStr);
+					line = line.replace(new RegExp('('+searchStr+')', flag), replaceStr);
+					outputStrs.push(line);
 				}
-				memoElm.innerHTML = outputStrs.join('<br>');
 			} else {
-				alert('未実装');
+				let replaceStr = '<span class="d--highlight">' + JSON.parse( "\"" + '$1' + "\"") + '</span>';
+				let outputStr = memoElm.innerText.replace(new RegExp('('+searchStr+')', flag), replaceStr);
+				outputStrs.push(outputStr);
 			}
+			memoElm.innerHTML = outputStrs.join('<br>');
 		}
 		function replace() {
-			if( document.getElementById('regex').checked ) {
-				let flag = document.getElementById('case-sensitive').checked ? '' : 'i';
-				flag += document.getElementById('replace-all').checked ? 'g' : '';
-				let outputStrs = [];
-				if ( document.getElementById('search-line').checked ) {
-					let lines = memoElm.innerText.split(/\n/);
-					let replaceStr = JSON.parse( "\"" + document.getElementById('replace-str').value.replace(/"/g,'\\"') + "\"");
-					for ( let line of lines ) {
-						line = line.replace(new RegExp(document.getElementById('search-str').value, flag), replaceStr);
-						outputStrs.push(line);
-					}
-				} else {
-					let replaceStr = JSON.parse( "\"" + document.getElementById('replace-str').value.replace(/"/g,'\\"') + "\"");
-					let outputStr = memoElm.innerText.replace(new RegExp(document.getElementById('search-str').value, flag), replaceStr);
-					outputStrs.push(outputStr);
-				}
-				memoElm.innerText = outputStrs.join('\n');
-			} else {
-				alert('未実装');
-			}
+			let searchStr = document.getElementById('regex').checked ? document.getElementById('search-str').value : RegExp.escape(document.getElementById('search-str').value);
+			let flag = document.getElementById('case-sensitive').checked ? '' : 'i';
+			flag += document.getElementById('replace-all').checked ? 'g' : '';
+			flag += document.getElementById('search-line').checked ? 'm' : '';
+			let outputStrs = [];
+			let replaceStr = JSON.parse( "\"" + document.getElementById('replace-str').value.replace(/"/g,'\\"') + "\"");
+			memoElm.innerText = memoElm.innerText.replace(new RegExp(searchStr, flag), replaceStr);
 		}
 		function grep() {
-			alert('未実装');
+			let searchStr = document.getElementById('regex').checked ? document.getElementById('search-str').value : RegExp.escape(document.getElementById('search-str').value);
+			let flag = document.getElementById('case-sensitive').checked ? '' : 'i';
+			flag += document.getElementById('replace-all').checked ? 'g' : '';
+			let outputStrs = [];
+			let lines = memoElm.innerText.split(/\n/);
+			for ( let line of lines ) {
+				if ( line.match(new RegExp(searchStr, flag))!==null ) {
+					let replaceStr = '<span class="d--highlight">' + JSON.parse( "\"" + '$1' + "\"") + '</span>';
+					line = line.replace(new RegExp('('+searchStr+')', flag), replaceStr);
+					outputStrs.push(line);
+				}
+			memoElm.innerHTML = outputStrs.join('<br>');
+			}
+
 		}
 		function fang() {
 			memoElm.innerText = memoElm.innerText.replace(/h[tx][tx]p(s?)\[?:\]?\/\//g, 'http$1://').replace(/\[\.\]/g,'.').replace(/\[dot\]/g,'.');
@@ -226,16 +237,30 @@
 			memoElm.innerText = lines.join('\n');
 		}
 		function ascSort() {
-			alert('未実装');
+			let lines = memoElm.innerText.split(/\n/);
+			lines.sort((a,b) => (a < b ? -1 : 1));
+			memoElm.innerText = lines.join('\n');
 		}
 		function desSort() {
-			alert('未実装');
+			let lines = memoElm.innerText.split(/\n/);
+			lines.sort((a,b) => (a > b ? -1 : 1));
+			memoElm.innerText = lines.join('\n');
 		}
 		function delHeadSpace() {
-			alert('未実装');
+			let lines = memoElm.innerText.split(/\n/);
+			let outputLines = [];
+			for ( let line of lines ) {
+				outputLines.push(line.replace(/^\s*/,''));
+			}
+			memoElm.innerText = outputLines.join('\n');
 		}
 		function delEndSpace() {
-			alert('未実装');
+			let lines = memoElm.innerText.split(/\n/);
+			let outputLines = [];
+			for ( let line of lines ) {
+				outputLines.push(line.replace(/\s*$/,''));
+			}
+			memoElm.innerText = outputLines.join('\n');
 		}
 	</script>
 </body>
