@@ -468,7 +468,7 @@ function showClock() {
 function memoChanged() {
 	localStorage.setItem('memo',memoElm.value);
 	memoValue = memoElm.value;
-	memoFangValue = memoValue.replace(/\[\.\]|\[dot\]/g,'.').replace(/http|hxxp(s?)\[?:\]?\/{0,2}/gi,'http$1://');
+	memoFangValue = memoValue.replace(/\[\.\]|\[dot\]/g,'.').replace(/(http|hxxp)(s?)\[?:\]?\/{0,2}/gi,'http$2://');
 	for (childResetElm of childResetElms) {
 		while(childResetElm.firstChild) {
 			childResetElm.removeChild(childResetElm.firstChild);
