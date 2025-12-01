@@ -805,7 +805,7 @@ function createMail(elm) {
 	let cc = elm.parentElement.parentElement.children[2].children[1].value;
 	let bcc = elm.parentElement.parentElement.children[3].children[1].value;
 	let subject = elm.parentElement.parentElement.children[4].children[1].value;
-	let body = elm.parentElement.parentElement.children[5].children[1].value.replace(/\n/g,'%OD%OA%OD%OA');
+	let body = elm.parentElement.parentElement.children[5].children[1].value.replace(/\n/g,'%0D%0A%0D%0A');
 	subject = subject.replace(/%YYYY/g,YYYY).replace(/%MM/g,MM).replace(/%M/g,M).replace(/%DD/g,DD).replace(/%D/g,D).replace(/%hh/g,hh).replace(/%h/g,h).replace(/%mm/g,mm).replace(/%m/g,m).replace(/%A/g,A);
 	body = body.replace(/%YYYY/g,YYYY).replace(/%MM/g,MM).replace(/%M/g,M).replace(/%DD/g,DD).replace(/%D/g,D).replace(/%hh/g,hh).replace(/%h/g,h).replace(/%mm/g,mm).replace(/%m/g,m).replace(/%A/g,A);
 	let mailCc = cc=='' ? '' : '&cc=' + cc;
@@ -821,15 +821,74 @@ function cntStr(cntElm, outputElm) {
 }
 
 
-//　■■■■■　要見直し　■■■■■
+//　■■■■■　作成中　■■■■■
+function alarm() {
+	Notification.requestPermission();
+	alarmConfObj = JSON.parse(localStorage.getItem('alarm'));
+	const timeRegex = /^(\d+):(\d+)\s*(.*)/;
+	if ( alarmConfObj!==null ) {
+		let lines = alarmConfObj.alarm.split(/\r?\n/);
+		let alarmObj = {}
+		for ( let i=0; i<lines.length; i++ ) {
+			let alarmSet = lines[i].match(timeRegex);
+			if( alarmSet[1] !== undefined && alarmSet[2] !== undefined ) {
+				let obj = {};
+				obj.hh = alarmSet[1];
+				obj.mm = alarmSet[2];
+				obj.msg = alarmSet[3];
+				alarmObj[i] = obj;
+			}
+		}
+		setInterval(function() { checkAlarm(alarmObj) }, 1000);
+	}
+}
+
+function checkAlarm(alarmObj) {
+	for ( let key in alarmObj ) {
+		if ( hh==alarmObj[key].hh && mm==alarmObj[key].mm && ss=='00' ) {
+			const options = {
+				body: alarmObj[key].msg,
+				icon: 'favicon.ico'
+			};
+			console.log('Alarm: ' + alarmObj[key].msg);
+			const notification = new Notification("LinkTools Alarm", options);
+		}
+	}
+}
+
+
+
 function exportConfig() {
 	Object.keys(localStorage).forEach(function(key) {
 		configObj[key] = localStorage.getItem(key);
 	});
-	console.log(configObj);
+	const downloadLink = document.createElement('a');
+	downloadLink.download = 'LinkTools.conf';
+	downloadLink.href = URL.createObjectURL(new Blob([JSON.stringify(configObj)], { 'type' : 'application/json' }));
+	downloadLink.setAttribute('hidden', true);
+	document.body.appendChild(downloadLink);
+	downloadLink.click();
+	downloadLink.remove();
 }
 
-
+function importConfig() {
+	const fileInput = document.createElement('input');
+	fileInput.type = 'file';
+	fileInput.setAttribute('hidden', true);
+	fileInput.addEventListener('change', (e) => {
+		const file = e.target.files[0];
+		const reader = new FileReader();
+		reader.onload = (e) => {
+			const fileContents = e.target.result;
+			displayElement.textContent = fileContents;
+			currentContents = fileContents;
+		}
+		reader.readAsText(file);
+	}, false);
+	fileInput.click();
+	fileInput.remove();
+	console.log(fileInput);
+}
 
 
 

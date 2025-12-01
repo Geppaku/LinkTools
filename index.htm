@@ -31,9 +31,9 @@
 					<li><a class="d--no-decoration d--color-white" href="#work">Work</a></li>
 					<li><a class="d--no-decoration d--color-white">Tools<span class="caret"></span></a>
 						<ul class="l--pull-down d--bgcolor-black">
-							<li><a class="d--no-decoration d--color-white" href="htmlTools/copyTool.htm" target="_blank">Copy Tool</a></li>
-							<li><a class="d--no-decoration d--color-white" href="htmlTools/memo.htm" target="_blank">Memo</a></li>
-							<li><a class="d--no-decoration d--color-white" href="htmlTools/unicode.htm" target="_blank">Unicode一覧</a></li>
+							<li><a class="d--no-decoration d--color-white" href="htmlTools/memo.htm" target="_blank">Memo<svg class="l--icon"><use xlink:href="#svg--ext-link"></svg></a></li>
+							<li><a class="d--no-decoration d--color-white" href="htmlTools/copyTool.htm" target="_blank">Copy Tool<svg class="l--icon"><use xlink:href="#svg--ext-link"></svg></a></li>
+							<li><a class="d--no-decoration d--color-white" href="htmlTools/unicode.htm" target="_blank">Unicode一覧<svg class="l--icon"><use xlink:href="#svg--ext-link"></svg></a></li>
 						</ul>
 					</li>
 					<li><a id="header--nav--config" class="d--no-decoration d--color-white" href="#config">⚙</a></li>
@@ -208,6 +208,11 @@
 								<button class="a--event-speaker d--btn" data-act="copy" data-target="previous" data-type="value">Copy</button>
 							</div>
 						</div>
+					</details>
+					<!--　■■■　MAIN--CONFIG--ALARM　■■■　-->
+					<details open>
+						<summary class="d--h2">Alarm</summary>
+						<textarea id="main--config--alarm" class="a--config l--full-width l--field-sizing--content" data-object="alarm" data-name="alarm" data-type="value" placeholder="hh:mm ToDo&#13;hh:mm　ToDo（時刻の後のスペースは、全角でも可）"></textarea>
 					</details>
 					<!--　■■■　MAIN--CONFIG--WEB-SERVICE　■■■　-->
 					<details>
@@ -397,6 +402,45 @@
 					<div class="l--padding-left--05">
 						<details>
 							<summary class="d--h2">プレースホルダーの説明</summary>
+							<table class="d--table-border-horizontal--1">
+								<p>以下のプレースホルダーが使用できます。</p>
+								<p>例）%M/%D 勤務開始　→　5/1 勤務開始</p>
+								<tr>
+									<th>プレースホルダー</th>
+									<th>説明</th>
+									<th>例</th>
+								</tr>
+								<tr>
+									<td>%YYYY</td>
+									<td>西暦（4桁）</td>
+									<td>2025</td>
+								</tr>
+								<tr>
+									<td>%MM / %M</td>
+									<td>月（2桁 / 1桁）</td>
+									<td>05 / 5</td>
+								</tr>
+								<tr>
+									<td>%DD / %D</td>
+									<td>日（2桁 / 1桁）</td>
+									<td>01 / 1</td>
+								</tr>
+								<tr>
+									<td>%hh / %h</td>
+									<td>時（2桁 / 1桁）</td>
+									<td>09 / 9</td>
+								</tr>
+								<tr>
+									<td>%mm / %m</td>
+									<td>分（2桁 / 1桁）</td>
+									<td>05 / 5</td>
+								</tr>
+								<tr>
+									<td>%A</td>
+									<td>曜日</td>
+									<td>木</td>
+								</tr>
+							</table>
 						</details>
 						<details open>
 							<summary class="d--h2">定型メール</summary>
