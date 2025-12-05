@@ -120,6 +120,7 @@
 			<button class="a--event-speaker" data-act="des-sort">降順ソート</button>
 			<button class="a--event-speaker" data-act="del-head-space">行頭空白削除</button>
 			<button class="a--event-speaker" data-act="del-end-space">行末空白削除</button>
+			<button class="a--event-speaker" data-act="transform-matrix">行列変換</button>
 		</div>
 		<main class="main l--flex-container">
 			<div id="line-number"></div>
@@ -164,6 +165,9 @@
 							break;
 						case 'del-end-space' :
 							delEndSpace();
+							break;
+						case 'transform-matrix' :
+							transformMatrix();
 							break;
 					}
 				countLineStr();
@@ -262,6 +266,14 @@
 				outputLines.push(line.replace(/\s*$/,''));
 			}
 			memoElm.innerText = outputLines.join('\n');
+		}
+		function transformMatrix() {
+			let lines = memoElm.innerText.split(/\n/);
+			let output = '';
+			for ( let line of lines ) {
+				output += '"' + line + '",';
+			}
+			memoElm.innerText = output;
 		}
 	</script>
 </body>
