@@ -115,12 +115,14 @@
 		<div class="menu l--flex-container--column">
 			<button class="a--event-speaker" data-act="fang">Fang</button>
 			<button class="a--event-speaker" data-act="defang">Defang</button>
+			<hr>
 			<button class="a--event-speaker" data-act="del-dup-line">重複行削除</button>
 			<button class="a--event-speaker" data-act="asc-sort">昇順ソート</button>
 			<button class="a--event-speaker" data-act="des-sort">降順ソート</button>
 			<button class="a--event-speaker" data-act="del-head-space">行頭空白削除</button>
 			<button class="a--event-speaker" data-act="del-end-space">行末空白削除</button>
-			<button class="a--event-speaker" data-act="transform-matrix">行列変換</button>
+			<hr>
+			<button class="a--event-speaker" data-act="transform-matrix">行を列に変換</button>
 		</div>
 		<main class="main l--flex-container">
 			<div id="line-number"></div>
@@ -175,7 +177,7 @@
 			});
 		}
 		function countLineStr() {
-			let lineCount = memoElm.innerText.match(/\n/g);
+			let lineCount = memoElm.innerText.match(/\r?\n/g);
 			lineCount = lineCount==null ? 1 : lineCount.length+1;
 			let lineNumber = '';
 			for ( let i=1; i<=lineCount; i++) {
@@ -269,11 +271,11 @@
 		}
 		function transformMatrix() {
 			let lines = memoElm.innerText.split(/\n/);
-			let output = '';
+			let outputLines = [];
 			for ( let line of lines ) {
-				output += '"' + line + '",';
+				outputLines.push('"' + line + '"');
 			}
-			memoElm.innerText = output;
+			memoElm.innerText = outputLines.join(',');;
 		}
 	</script>
 </body>
