@@ -6,6 +6,7 @@
 	<meta name="author" content="Geppaku">
 	<link rel="icon" href="favicon.ico">
 	<link rel="stylesheet" href="link.css">
+	<link rel="stylesheet" href="work/work.css">
 	<script src="link.js"></script>
 	<script src="work/work.js"></script>
 	<title>LINK Tools</title>
@@ -30,7 +31,7 @@
 					<li><a class="d--no-decoration d--color-white" href="#analysis">Analysis</a></li>
 					<li><a class="d--no-decoration d--color-white" href="#work">Work</a></li>
 					<li><a class="d--no-decoration d--color-white">Tools<span class="caret"></span></a>
-						<ul class="l--pull-down d--bgcolor-black">
+						<ul class="l--pull-down d--bgcolor--black">
 							<li><a class="d--no-decoration d--color-white" href="htmlTools/memo.htm" target="_blank">Memo<svg class="l--icon"><use xlink:href="#svg--ext-link"></svg></a></li>
 							<li><a class="d--no-decoration d--color-white" href="htmlTools/copyTool.htm" target="_blank">Copy Tool<svg class="l--icon"><use xlink:href="#svg--ext-link"></svg></a></li>
 							<li><a class="d--no-decoration d--color-white" href="htmlTools/unicode.htm" target="_blank">Unicode一覧<svg class="l--icon"><use xlink:href="#svg--ext-link"></svg></a></li>
@@ -48,7 +49,7 @@
 			<!--　■■■■　MAIN--TOP　■■■■　-->
 			<article id="top" class="l--full-width">
 				<h1 class="d--h1">Top</h1>
-				<div class="l--padding-left--05">
+				<div class="l--padding-left--05rem">
 					<!--　■■■　MAIN--TOP--ABOUT-LINK-TOOLS　■■■　-->
 					<details>
 						<summary class="d--h2">LINK Tools について</summary>
@@ -67,7 +68,7 @@
 			<!--　■■■■　MAIN--ANALYSIS　■■■■　-->
 			<article id="analysis" class="l--tab-content l--full-width">
 				<h1 class="d--h1">Analysis</h1>
-				<div class="l--padding-left--05">
+				<div class="l--padding-left--05rem">
 					<!--　■■■　MAIN--ANALYSIS--IP-ADDRESS　■■■　-->
 					<details open>
 						<summary class="d--h2">IP Address</summary>
@@ -119,12 +120,12 @@
 			<!--　■■■■　MAIN--WORK　■■■■　-->
 			<article id="work" class="l--tab-content l--full-width">
 				<h1 class="d--h1">Work</h1>
-				<div id="work--contents" class="l--padding-left--05"></div>
+				<div id="work--contents" class="l--padding-left--05rem"></div>
 			</article>
 			<!--　■■■■　MAIN--CONFIG　■■■■　-->
 			<article id="config" class="l--tab-content l--full-width">
 				<h1 class="d--h1">Config</h1>
-				<div class="l--padding-left--05">
+				<div class="l--padding-left--05rem">
 					<!--　■■■　MAIN--CONFIG--USER-INFO　■■■　-->
 					<details open>
 						<summary class="d--h2">ユーザー情報</summary>
@@ -209,11 +210,6 @@
 							</div>
 						</div>
 					</details>
-					<!--　■■■　MAIN--CONFIG--ALARM　■■■　-->
-					<details open>
-						<summary class="d--h2">Alarm</summary>
-						<textarea id="main--config--alarm" class="a--config l--full-width l--field-sizing--content" data-object="alarm" data-name="alarm" data-type="value" placeholder="hh:mm ToDo&#13;hh:mm　ToDo（時刻の後のスペースは、全角でも可）"></textarea>
-					</details>
 					<!--　■■■　MAIN--CONFIG--WEB-SERVICE　■■■　-->
 					<details>
 						<summary class="d--h2">Web Service</summary>
@@ -223,7 +219,7 @@
 								<label for="config--webhook">Webhook > URL</label>
 							</div>
 							<div class="config--value">
-								<input type="text" id="config--webhook" class="a--config l--width-long" data-object="osint" data-name="webhook-url" data-type="value" placeholder="https://webhook.site/550e8400-e29b-41d4-a716-446655440000?q=">
+								<input type="text" id="config--webhook" class="a--config l--width-32rem" data-object="osint" data-name="webhook-url" data-type="value" placeholder="https://webhook.site/550e8400-e29b-41d4-a716-446655440000?q=">
 							</div>
 						</div>
 						<!--　■■　MAIN--CONFIG--SHODAN　■■　-->
@@ -232,7 +228,7 @@
 								<label for="config--shodan">Shodan > API Key</label>
 							</div>
 							<div class="config--value">
-								<input type="text" id="config--shodan" class="a--config l--width-long" data-object="osint" data-name="shodan-api-key" data-type="value" placeholder="0123456789abcdefghijkABCDEFGHIJK">
+								<input type="text" id="config--shodan" class="a--config l--width-32rem" data-object="osint" data-name="shodan-api-key" data-type="value" placeholder="0123456789abcdefghijkABCDEFGHIJK">
 							</div>
 						</div>
 					</details>
@@ -243,67 +239,67 @@
 						<details open>
 							<summary class="d--h3">IP Address</summary>
 								<div class="l--flex-container">
-									<div class="l--width-medium d--font-weight--bold">Service</div>
+									<div class="l--width-16rem d--font-weight--bold">Service</div>
 									<div class="d--font-weight--bold">Enable</div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-medium">Search</div>
+									<div class="l--width-16rem">Search</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="ip-search" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-medium">Whois</div>
+									<div class="l--width-16rem">Whois</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="ip-whois" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-medium">JPNIC WHOIS</div>
+									<div class="l--width-16rem">JPNIC WHOIS</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="ip-jpnicwhois" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-medium">Nslookup</div>
+									<div class="l--width-16rem">Nslookup</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="ip-nslookup" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-medium">Virus Total</div>
+									<div class="l--width-16rem">Virus Total</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="ip-virustotal" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-medium">Shodan</div>
+									<div class="l--width-16rem">Shodan</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="ip-shodan" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-medium">urlscan Pro</div>
+									<div class="l--width-16rem">urlscan Pro</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="ip-urlscanpro" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-medium">IPinfo</div>
+									<div class="l--width-16rem">IPinfo</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="ip-ipinfo" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-medium">IPSHU</div>
+									<div class="l--width-16rem">IPSHU</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="ip-ipshu" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-medium">AbuseIPDB</div>
+									<div class="l--width-16rem">AbuseIPDB</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="ip-abuseipdb" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-medium">Hurricane Electric</div>
+									<div class="l--width-16rem">Hurricane Electric</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="ip-he" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-medium">SPUR</div>
+									<div class="l--width-16rem">SPUR</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="ip-spur" data-type="checked" checked></div>
 									<div></div>
 								</div>
@@ -311,27 +307,27 @@
 						<details open>
 							<summary class="d--h3">Domain</summary>
 								<div class="l--flex-container">
-									<div class="l--width-medium d--font-weight--bold">Service</div>
+									<div class="l--width-16rem d--font-weight--bold">Service</div>
 									<div class="d--font-weight--bold">Enable</div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-medium">Search</div>
+									<div class="l--width-16rem">Search</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="domain-search" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-medium">Whois</div>
+									<div class="l--width-16rem">Whois</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="domain-whois" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-medium">Nslookup</div>
+									<div class="l--width-16rem">Nslookup</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="domain-nslookup" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-medium">urlscan Pro</div>
+									<div class="l--width-16rem">urlscan Pro</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="domain-urlscanpro" data-type="checked" checked></div>
 									<div></div>
 								</div>
@@ -339,17 +335,17 @@
 						<details open>
 							<summary class="d--h3">URL</summary>
 								<div class="l--flex-container">
-									<div class="l--width-medium d--font-weight--bold">Service</div>
+									<div class="l--width-16rem d--font-weight--bold">Service</div>
 									<div class="d--font-weight--bold">Enable</div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-medium">Virus Total</div>
+									<div class="l--width-16rem">Virus Total</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="url-virustotal" data-type="checked" checked></div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-medium">Archive</div>
+									<div class="l--width-16rem">Archive</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="url-archive" data-type="checked" checked></div>
 									<div></div>
 								</div>
@@ -357,12 +353,12 @@
 						<details open>
 							<summary class="d--h3">Mail</summary>
 								<div class="l--flex-container">
-									<div class="l--width-medium d--font-weight--bold">Service</div>
+									<div class="l--width-16rem d--font-weight--bold">Service</div>
 									<div class="d--font-weight--bold">Enable</div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-medium">Search</div>
+									<div class="l--width-16rem">Search</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="mail-search" data-type="checked" checked></div>
 									<div></div>
 								</div>
@@ -370,12 +366,12 @@
 						<details open>
 							<summary class="d--h3">HASH</summary>
 								<div class="l--flex-container">
-									<div class="l--width-medium d--font-weight--bold">Service</div>
+									<div class="l--width-16rem d--font-weight--bold">Service</div>
 									<div class="d--font-weight--bold">Enable</div>
 									<div></div>
 								</div>
 								<div class="l--flex-container">
-									<div class="l--width-medium">Virus Total</div>
+									<div class="l--width-16rem">Virus Total</div>
 									<div><input type="checkbox" class="a--config" data-object="display-osint" data-name="hash-virustotal" data-type="checked" checked></div>
 									<div></div>
 								</div>
@@ -399,7 +395,7 @@
 				</div>
 				<article class="sidebar--contents">
 					<h1 class="d--h1">Mail</h1>
-					<div class="l--padding-left--05">
+					<div class="l--padding-left--05rem">
 						<details>
 							<summary class="d--h2">プレースホルダーの説明</summary>
 							<table class="d--table-border-horizontal--1">
@@ -450,40 +446,19 @@
 									<button class="a--event-speaker l--margin-left--1rem d--btn" data-act="create-mail">Create Mail</button>
 								</summary>
 								<div class="l--flex-container">
-									<label class="l--width-4rem">To</label><input type="text" class="l--width-long">
+									<label class="l--width-4rem">To</label><input type="text" class="l--width-32rem">
 								</div>
 								<div class="l--flex-container">
-									<label class="l--width-4rem">Cc</label><input type="text" class="l--width-long">
+									<label class="l--width-4rem">Cc</label><input type="text" class="l--width-32rem">
 								</div>
 								<div class="l--flex-container">
-									<label class="l--width-4rem">Bcc</label><input type="text" class="l--width-long">
+									<label class="l--width-4rem">Bcc</label><input type="text" class="l--width-32rem">
 								</div>
 								<div class="l--flex-container">
-									<label class="l--width-4rem">Subject</label><input type="text" class="l--width-long">
+									<label class="l--width-4rem">Subject</label><input type="text" class="l--width-32rem">
 								</div>
 								<div class="l--flex-container">
-									<label class="l--width-4rem">Body</label><textarea class="l--width-long"></textarea>
-								</div>
-							</details>
-							<details>
-								<summary class="d--h3">
-									<input type="text" class="a--config-mail" placeholder="定型メール名">
-									<button class="a--event-speaker l--margin-left--1rem d--btn" data-act="create-mail">Create Mail</button>
-								</summary>
-								<div class="l--flex-container">
-									<label class="l--width-4rem">To</label><input type="text" class="l--width-long">
-								</div>
-								<div class="l--flex-container">
-									<label class="l--width-4rem">Cc</label><input type="text" class="l--width-long">
-								</div>
-								<div class="l--flex-container">
-									<label class="l--width-4rem">Bcc</label><input type="text" class="l--width-long">
-								</div>
-								<div class="l--flex-container">
-									<label class="l--width-4rem">Subject</label><input type="text" class="l--width-long">
-								</div>
-								<div class="l--flex-container">
-									<label class="l--width-4rem">Body</label><textarea class="l--width-long"></textarea>
+									<label class="l--width-4rem">Body</label><textarea class="l--width-32rem"></textarea>
 								</div>
 							</details>
 							<details>
@@ -492,19 +467,19 @@
 									<button class="a--event-speaker l--margin-left--1rem d--btn" data-act="create-mail">Create Mail</button>
 								</summary>
 								<div class="l--flex-container">
-									<label class="l--width-4rem">To</label><input type="text" class="l--width-long">
+									<label class="l--width-4rem">To</label><input type="text" class="l--width-32rem">
 								</div>
 								<div class="l--flex-container">
-									<label class="l--width-4rem">Cc</label><input type="text" class="l--width-long">
+									<label class="l--width-4rem">Cc</label><input type="text" class="l--width-32rem">
 								</div>
 								<div class="l--flex-container">
-									<label class="l--width-4rem">Bcc</label><input type="text" class="l--width-long">
+									<label class="l--width-4rem">Bcc</label><input type="text" class="l--width-32rem">
 								</div>
 								<div class="l--flex-container">
-									<label class="l--width-4rem">Subject</label><input type="text" class="l--width-long">
+									<label class="l--width-4rem">Subject</label><input type="text" class="l--width-32rem">
 								</div>
 								<div class="l--flex-container">
-									<label class="l--width-4rem">Body</label><textarea class="l--width-long"></textarea>
+									<label class="l--width-4rem">Body</label><textarea class="l--width-32rem"></textarea>
 								</div>
 							</details>
 							<details>
@@ -513,19 +488,40 @@
 									<button class="a--event-speaker l--margin-left--1rem d--btn" data-act="create-mail">Create Mail</button>
 								</summary>
 								<div class="l--flex-container">
-									<label class="l--width-4rem">To</label><input type="text" class="l--width-long">
+									<label class="l--width-4rem">To</label><input type="text" class="l--width-32rem">
 								</div>
 								<div class="l--flex-container">
-									<label class="l--width-4rem">Cc</label><input type="text" class="l--width-long">
+									<label class="l--width-4rem">Cc</label><input type="text" class="l--width-32rem">
 								</div>
 								<div class="l--flex-container">
-									<label class="l--width-4rem">Bcc</label><input type="text" class="l--width-long">
+									<label class="l--width-4rem">Bcc</label><input type="text" class="l--width-32rem">
 								</div>
 								<div class="l--flex-container">
-									<label class="l--width-4rem">Subject</label><input type="text" class="l--width-long">
+									<label class="l--width-4rem">Subject</label><input type="text" class="l--width-32rem">
 								</div>
 								<div class="l--flex-container">
-									<label class="l--width-4rem">Body</label><textarea class="l--width-long"></textarea>
+									<label class="l--width-4rem">Body</label><textarea class="l--width-32rem"></textarea>
+								</div>
+							</details>
+							<details>
+								<summary class="d--h3">
+									<input type="text" class="a--config-mail" placeholder="定型メール名">
+									<button class="a--event-speaker l--margin-left--1rem d--btn" data-act="create-mail">Create Mail</button>
+								</summary>
+								<div class="l--flex-container">
+									<label class="l--width-4rem">To</label><input type="text" class="l--width-32rem">
+								</div>
+								<div class="l--flex-container">
+									<label class="l--width-4rem">Cc</label><input type="text" class="l--width-32rem">
+								</div>
+								<div class="l--flex-container">
+									<label class="l--width-4rem">Bcc</label><input type="text" class="l--width-32rem">
+								</div>
+								<div class="l--flex-container">
+									<label class="l--width-4rem">Subject</label><input type="text" class="l--width-32rem">
+								</div>
+								<div class="l--flex-container">
+									<label class="l--width-4rem">Body</label><textarea class="l--width-32rem"></textarea>
 								</div>
 							</details>
 						</details>
@@ -546,7 +542,7 @@
 				</div>
 				<article class="sidebar--contents">
 					<h1 class="d--h1">TOTP</h1>
-					<div class="l--padding-left--05">
+					<div class="l--padding-left--05rem">
 						<table>
 							<tr>
 								<th>Service Name</th>
@@ -558,61 +554,61 @@
 								<td><input type="text" class="a--config-totp"></td>
 								<td><input type="password"></td>
 								<td><button class="d--btn a--event-speaker" data-act="calc-totp">Calc & Copy</button></td>
-								<td><input type="text" class="l--width-short"></td>
+								<td><input type="text" class="l--width-8rem"></td>
 							</tr>
 							<tr>
 								<td><input type="text" class="a--config-totp"></td>
 								<td><input type="password"></td>
 								<td><button class="d--btn a--event-speaker" data-act="calc-totp">Calc & Copy</button></td>
-								<td><input type="text" class="l--width-short"></td>
+								<td><input type="text" class="l--width-8rem"></td>
 							</tr>
 							<tr>
 								<td><input type="text" class="a--config-totp"></td>
 								<td><input type="password"></td>
 								<td><button class="d--btn a--event-speaker" data-act="calc-totp">Calc & Copy</button></td>
-								<td><input type="text" class="l--width-short"></td>
+								<td><input type="text" class="l--width-8rem"></td>
 							</tr>
 							<tr>
 								<td><input type="text" class="a--config-totp"></td>
 								<td><input type="password"></td>
 								<td><button class="d--btn a--event-speaker" data-act="calc-totp">Calc & Copy</button></td>
-								<td><input type="text" class="l--width-short"></td>
+								<td><input type="text" class="l--width-8rem"></td>
 							</tr>
 							<tr>
 								<td><input type="text" class="a--config-totp"></td>
 								<td><input type="password"></td>
 								<td><button class="d--btn a--event-speaker" data-act="calc-totp">Calc & Copy</button></td>
-								<td><input type="text" class="l--width-short"></td>
+								<td><input type="text" class="l--width-8rem"></td>
 							</tr>
 							<tr>
 								<td><input type="text" class="a--config-totp"></td>
 								<td><input type="password"></td>
 								<td><button class="d--btn a--event-speaker" data-act="calc-totp">Calc & Copy</button></td>
-								<td><input type="text" class="l--width-short"></td>
+								<td><input type="text" class="l--width-8rem"></td>
 							</tr>
 							<tr>
 								<td><input type="text" class="a--config-totp"></td>
 								<td><input type="password"></td>
 								<td><button class="d--btn a--event-speaker" data-act="calc-totp">Calc & Copy</button></td>
-								<td><input type="text" class="l--width-short"></td>
+								<td><input type="text" class="l--width-8rem"></td>
 							</tr>
 							<tr>
 								<td><input type="text" class="a--config-totp"></td>
 								<td><input type="password"></td>
 								<td><button class="d--btn a--event-speaker" data-act="calc-totp">Calc & Copy</button></td>
-								<td><input type="text" class="l--width-short"></td>
+								<td><input type="text" class="l--width-8rem"></td>
 							</tr>
 							<tr>
 								<td><input type="text" class="a--config-totp"></td>
 								<td><input type="password"></td>
 								<td><button class="d--btn a--event-speaker" data-act="calc-totp">Calc & Copy</button></td>
-								<td><input type="text" class="l--width-short"></td>
+								<td><input type="text" class="l--width-8rem"></td>
 							</tr>
 							<tr>
 								<td><input type="text" class="a--config-totp"></td>
 								<td><input type="password"></td>
 								<td><button class="d--btn a--event-speaker" data-act="calc-totp">Calc & Copy</button></td>
-								<td><input type="text" class="l--width-short"></td>
+								<td><input type="text" class="l--width-8rem"></td>
 							</tr>
 						</table>
 						<hr>
@@ -634,7 +630,7 @@
 			</div>
 		</div>
 		<!--　■■■■■　FOOTER　■■■■■　-->
-		<footer class="footer d--bgcolor-white">
+		<footer class="footer d--bgcolor--white">
 			<input type="checkbox" class="l--display-none" id="footer--chkbox--textarea-expand">
 			<!--　■■■■　FOOTER--BTNS　■■■■　-->
 			<div class="footer-btns l--flex-container">
@@ -644,7 +640,7 @@
 						<span id="footer--angle-icon"></span>
 					</label>
 				</button>
-				<div id="footer--textarea--cnt" class="l--margin-left--05 l--margin-right--auto"></div>
+				<div id="footer--textarea--cnt" class="l--margin-left--05rem l--margin-right--auto"></div>
 				<!--　■■■　FOOTER--CMD-BTNS　■■■　-->
 				<button class="d--btn a--event-speaker l--flex-container" data-act="memo-cmd" data-cmd="copy">
 					<svg class="l--btn-icon" xmlns="http://www.w3.org/2000/svg">

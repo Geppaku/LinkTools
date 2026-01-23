@@ -822,42 +822,6 @@ function cntStr(cntElm, outputElm) {
 
 
 //　■■■■■　作成中　■■■■■
-function alarm() {
-	Notification.requestPermission();
-	alarmConfObj = JSON.parse(localStorage.getItem('alarm'));
-	const timeRegex = /^(\d+):(\d+)\s*(.*)/;
-	if ( alarmConfObj!==null ) {
-		let lines = alarmConfObj.alarm.split(/\r?\n/);
-		let alarmObj = {}
-		for ( let i=0; i<lines.length; i++ ) {
-			let alarmSet = lines[i].match(timeRegex);
-			if( alarmSet[1] !== undefined && alarmSet[2] !== undefined ) {
-				let obj = {};
-				obj.hh = alarmSet[1];
-				obj.mm = alarmSet[2];
-				obj.msg = alarmSet[3];
-				alarmObj[i] = obj;
-			}
-		}
-		setInterval(function() { checkAlarm(alarmObj) }, 1000);
-	}
-}
-
-function checkAlarm(alarmObj) {
-	for ( let key in alarmObj ) {
-		if ( hh==alarmObj[key].hh && mm==alarmObj[key].mm && ss=='00' ) {
-			const options = {
-				body: alarmObj[key].msg,
-				icon: 'favicon.ico'
-			};
-			console.log('Alarm: ' + alarmObj[key].msg);
-			const notification = new Notification("LinkTools Alarm", options);
-		}
-	}
-}
-
-
-
 function exportConfig() {
 	Object.keys(localStorage).forEach(function(key) {
 		configObj[key] = localStorage.getItem(key);

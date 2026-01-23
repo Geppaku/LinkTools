@@ -113,16 +113,19 @@
 			</div>
 		</header>
 		<div class="menu l--flex-container--column">
+			<button class="a--event-speaker" data-act="copy">Copy</button>
 			<button class="a--event-speaker" data-act="fang">Fang</button>
 			<button class="a--event-speaker" data-act="defang">Defang</button>
 			<hr>
+			<button class="a--event-speaker" data-act="del-blank-line">空行削除</button>
 			<button class="a--event-speaker" data-act="del-dup-line">重複行削除</button>
 			<button class="a--event-speaker" data-act="asc-sort">昇順ソート</button>
 			<button class="a--event-speaker" data-act="des-sort">降順ソート</button>
 			<button class="a--event-speaker" data-act="del-head-space">行頭空白削除</button>
 			<button class="a--event-speaker" data-act="del-end-space">行末空白削除</button>
 			<hr>
-			<button class="a--event-speaker" data-act="transform-matrix">行を列に変換</button>
+			<button class="a--event-speaker" data-act="extract10">約10行抽出</button>
+			<button class="a--event-speaker" data-act="transform-matrix">行→列(CSV)</button>
 		</div>
 		<main class="main l--flex-container">
 			<div id="line-number"></div>
@@ -147,12 +150,17 @@
 						case 'grep' :
 							grep();
 							break;
+						case 'copy' :
+							copy();
+							break;
 						case 'fang' :
 							fang();
 							break;
 						case 'defang' :
 							defang();
 							break;
+						case 'del-blank-line' :
+							delBlankLine();
 						case 'del-dup-line' :
 							delDupLine();
 							break;
@@ -167,6 +175,9 @@
 							break;
 						case 'del-end-space' :
 							delEndSpace();
+							break;
+						case 'extract10' :
+							extract10();
 							break;
 						case 'transform-matrix' :
 							transformMatrix();
@@ -230,13 +241,20 @@
 				}
 			memoElm.innerHTML = outputStrs.join('<br>');
 			}
-
+		}
+		function copy() {
+			navigator.clipboard.writeText(memoElm.innerText);
 		}
 		function fang() {
 			memoElm.innerText = memoElm.innerText.replace(/h[tx][tx]p(s?)\[?:\]?\/\//g, 'http$1://').replace(/\[\.\]/g,'.').replace(/\[dot\]/g,'.');
 		}
 		function defang() {
 			memoElm.innerText = memoElm.innerText.replace(/http(s?):\/\//g, 'hxxp$1[:]//').replace(/\./g,'[.]');
+		}
+		function delBlankLine() {
+			let lines = memoElm.innerText.split(/\n/);
+			let outputLines = lines.filter(item => item.match(/^[\s]*$/)==null);
+			memoElm.innerText = outputLines.join('\n');
 		}
 		function delDupLine() {
 			let lines = memoElm.innerText.split(/\n/);
@@ -266,6 +284,16 @@
 			let outputLines = [];
 			for ( let line of lines ) {
 				outputLines.push(line.replace(/\s*$/,''));
+			}
+			memoElm.innerText = outputLines.join('\n');
+		}
+		function extract10() {
+			let lines = memoElm.innerText.split(/\n/);
+			let span = Math.ceil(lines.length/10);
+			let outputLines = [];
+			for ( let i=0; i<lines.length; i=i+span ) {
+				console.log()
+				outputLines.push(lines[i]);
 			}
 			memoElm.innerText = outputLines.join('\n');
 		}
