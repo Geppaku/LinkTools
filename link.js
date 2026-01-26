@@ -273,7 +273,7 @@ function appendHtmlList(parentElm, items, osintObj) {
 		hElm.className = 'l--flex-container l--align-items--center';
 		let imgElm = document.createElement('img');
 		imgElm.src = './img/osintIcon/' + osintObj.icon;
-		imgElm.className = 'l--height--1rem l--width--1rem l--padding-right--025';
+		imgElm.className = 'l--height--1rem l--width--1rem l--padding-right--025rem';
 		let hTitleNode = document.createTextNode(osintObj.title);
 		let svgElm = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
 		svgElm.setAttribute('class', 'd--icon-btn l--margin-left--1rem');
