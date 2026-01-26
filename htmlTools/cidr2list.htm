@@ -54,7 +54,8 @@
 	<div class="l--grid-container--body">
 		<header class="header">
 			<input type="text" id="inputTextBox" class="inputTextBox" placeholder="X.X.X.X/X">
-			<button class="" onClick="pageTransition()">Cidr to IP Address List</button>
+			<button class="a--event-speaker" data-act="page-transition">Cidr to IP Address List</button>
+			<button class="a--event-speaker" data-act="copy">Copy IP Address List</button>
 		</header>
 		<main class="main" id="output">
 		</main>
@@ -77,11 +78,26 @@
 					outputList.appendChild(newLi);
 				}
 			}
+			document.querySelectorAll('.a--event-speaker').forEach(function(elm) {
+				elm.addEventListener('click', function() {
+					switch ( elm.dataset.act ) {
+						case 'page-transition':
+							pageTransition();
+						break;
+						case 'copy':
+							copy();
+						break;
+					}
+				});
+			});
 		}
 		function pageTransition() {
 			const url = new URL(window.location.href);
 			var inputValue = document.getElementById('inputTextBox').value;
-			window.location.href = url.origin + url.pathname + '?cidr=' + inputValue;
+			window.location.href = 'cidr2list.htm?cidr=' + inputValue;
+		}
+		function copy() {
+			navigator.clipboard.writeText(document.getElementById('output').innerText);
 		}
 		function getUrlQueries() {
 			var queryStr = window.location.search.slice(1);  // 文頭?を除外
