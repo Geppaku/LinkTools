@@ -206,7 +206,7 @@ function urlAnalysis(url) {
 	urlObj.flag += /https?:\/{0,2}[^\/]*\w{16,}/.test(url) ? '🎲' : '' ;
 	urlObj.flag += /https?:\/{0,2}[^\/]*[bcdfghjklmnpqrstvwxyz0-9]{8,}/.test(url) ? '🎲' : '' ;
 	let parser = new URL(url);
-	urlObj.siteDisplayed += /https?:\/{0,2}[^\/]*safelinks\.protection\.outlook\.com\/(\?.*)?[\?&]url=https?[^&]+/.test(url)
+	urlObj.siteDisplayed += /https?:\/{0,2}[^\/]*safelinks\.protection\.outlook\.com\/[\w\-_\.\/]*(\?.*)?[\?&]url=https?[^&]+/.test(url)
 		? decodeURIComponent(url.match(/[\?&]url=https?[^&]+/gi)[0].match(/https?.+/gi)[0]) : '';
 	urlObj.siteDisplayed += /https?:\/{0,2}[^\/]*www\.google\.com\/url(\?.*)?[\?&]url=https?[^&]+/.test(url)
 		? decodeURIComponent(url.match(/[\?&]url=https?[^&]+/gi)[0].match(/https?.+/gi)[0]) : '';
@@ -483,9 +483,14 @@ function memoChanged() {
 
 //　■■■　Indicator抽出　■■■
 function extractIndicator() {
+	let dtls;
 	//　■■　IPv4アドレス抽出（ipv4sに格納）　■■
 	let dupIpv4s = memoFangValue.match(/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3})/g);
 	ipv4s = new Set(dupIpv4s);
+	dtls = document.getElementsByClassName('a--dtl--ip');
+	for ( let dtl of dtls ) {
+		dtl.open = ipv4s.size;
+	}
 	//　■■　CIDR抽出（cidrsに格納）　■■
 	let dupCidrs = memoFangValue.match(/(\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}\/\d{1,2})/g);
 	cidrs = new Set(dupCidrs);
@@ -495,6 +500,10 @@ function extractIndicator() {
 	//　■■　URL抽出（urlsに格納）　■■
 	let dupUrls = memoFangValue.match(/(https?:\/{0,2}[^\s,]+)/gi);
 	urls = new Set(dupUrls);
+	dtls = document.getElementsByClassName('a--dtl--url');
+	for ( let dtl of dtls ) {
+		dtl.open = urls.size;
+	}
 	//　■■　Domain抽出（domainsに格納）　■■
 	let dupDomains = [];
 	for ( let tld of tlds ) {
@@ -512,9 +521,17 @@ function extractIndicator() {
 	}
 	let regDomain = /[^a-z0-9\.\-]/gi;
 	domains = undefinedDomains.filter(value => value !== undefined).map(value => value.replace(regDomain,''));
+	dtls = document.getElementsByClassName('a--dtl--domain');
+	for ( let dtl of dtls ) {
+		dtl.open = domains.length;
+	}
 	//　■■　メールアドレス抽出（mailsに格納）　■■
 	let dupMails = memoFangValue.match(/[a-z0-9_\.\-\+]+@[a-z0-9\.\-]+\.[a-z]+/gi);
 	mails = new Set(dupMails);
+	dtls = document.getElementsByClassName('a--dtl--mail');
+	for ( let dtl of dtls ) {
+		dtl.open = mails.size;
+	}
 	//　■■　HASH値抽出　■■
 	let regHash = /[^a-f0-9]/gi;
 	//　■　MD5のHASH値抽出（md5sに格納）　■
@@ -535,6 +552,10 @@ function extractIndicator() {
 		dupSha256s = dupSha256s.map(value => value.replace(regHash,''));
 	}
 	sha256s = new Set(dupSha256s);
+	dtls = document.getElementsByClassName('a--dtl--hash');
+	for ( let dtl of dtls ) {
+		dtl.open = md5s.size + sha1s.size + sha256s.size;
+	}
 	//　■■　不可視文字抽出（invisibleCharactersに格納）　■■
 	let regInvisibleCharacters = /[͏؜឴឵᠋᠌᠍᠎     ​‌‍‎‏‪‫‬‭‮  ⁠⁡⁢⁣⁤⁥⁦⁧⁨⁩⁪⁫⁬⁭⁮⁯⠀󠀁󠀠󠀡󠀢󠀣󠀤󠀥󠀦󠀧󠀨󠀩󠀪󠀫󠀬󠀭󠀮󠀯󠀰󠀱󠀲󠀳󠀴󠀵󠀶󠀷󠀸󠀹󠀺󠀻󠀼󠀽󠀾󠀿󠁀󠁁󠁂󠁃󠁄󠁅󠁆󠁇󠁈󠁉󠁊󠁋󠁌󠁍󠁎󠁏󠁐󠁑󠁒󠁓󠁔󠁕󠁖󠁗󠁘󠁙󠁚󠁛󠁜󠁝󠁞󠁟󠁠󠁡󠁢󠁣󠁤󠁥󠁦󠁧󠁨󠁩󠁪󠁫󠁬󠁭󠁮󠁯󠁰󠁱󠁲󠁳󠁴󠁵󠁶󠁷󠁸󠁹󠁺󠁻󠁼󠁽󠁾󠁿󠄀󠄁󠄂󠄃󠄄󠄅󠄆󠄇󠄈󠄉󠄊󠄋󠄌󠄍󠄎󠄏󠄐󠄑󠄒󠄓󠄔󠄕󠄖󠄗󠄘󠄙󠄚󠄛󠄜󠄝󠄞󠄟󠄠󠄡󠄢󠄣󠄤󠄥󠄦󠄧󠄨󠄩󠄪󠄫󠄬󠄭󠄮󠄯󠄰󠄱󠄲󠄳󠄴󠄵󠄶󠄷󠄸󠄹󠄺󠄻󠄼󠄽󠄾󠄿󠅀󠅁󠅂󠅃󠅄󠅅󠅆󠅇󠅈󠅉󠅊󠅋󠅌󠅍󠅎󠅏󠅐󠅑󠅒󠅓󠅔󠅕󠅖󠅗󠅘󠅙󠅚󠅛󠅜󠅝󠅞󠅟󠅠󠅡󠅢󠅣󠅤󠅥󠅦󠅧󠅨󠅩󠅪󠅫󠅬󠅭󠅮󠅯󠅰󠅱󠅲󠅳󠅴󠅵󠅶󠅷󠅸󠅹󠅺󠅻󠅼󠅽󠅾󠅿󠆀󠆁󠆂󠆃󠆄󠆅󠆆󠆇󠆈󠆉󠆊󠆋󠆌󠆍󠆎󠆏󠆐󠆑󠆒󠆓󠆔󠆕󠆖󠆗󠆘󠆙󠆚󠆛󠆜󠆝󠆞󠆟󠆠󠆡󠆢󠆣󠆤󠆥󠆦󠆧󠆨󠆩󠆪󠆫󠆬󠆭󠆮󠆯󠆰󠆱󠆲󠆳󠆴󠆵󠆶󠆷󠆸󠆹󠆺󠆻󠆼󠆽󠆾󠆿󠇀󠇁󠇂󠇃󠇄󠇅󠇆󠇇󠇈󠇉󠇊󠇋󠇌󠇍󠇎󠇏󠇐󠇑󠇒󠇓󠇔󠇕󠇖󠇗󠇘󠇙󠇚󠇛󠇜󠇝󠇞󠇟󠇠󠇡󠇢󠇣󠇤󠇥󠇦󠇧󠇨󠇩󠇪󠇫󠇬󠇭󠇮︀︁︂︃︄︅︆︇︈︉︊︋︌︍︎️﻿￹￺￻￼]+/gi;
 	let dupInvisibleCharacters = memoValue.match(/.{0,32}[͏؜឴឵᠋᠌᠍᠎     ​‌‍‎‏‪‫‬‭‮  ⁠⁡⁢⁣⁤⁥⁦⁧⁨⁩⁪⁫⁬⁭⁮⁯⠀󠀁󠀠󠀡󠀢󠀣󠀤󠀥󠀦󠀧󠀨󠀩󠀪󠀫󠀬󠀭󠀮󠀯󠀰󠀱󠀲󠀳󠀴󠀵󠀶󠀷󠀸󠀹󠀺󠀻󠀼󠀽󠀾󠀿󠁀󠁁󠁂󠁃󠁄󠁅󠁆󠁇󠁈󠁉󠁊󠁋󠁌󠁍󠁎󠁏󠁐󠁑󠁒󠁓󠁔󠁕󠁖󠁗󠁘󠁙󠁚󠁛󠁜󠁝󠁞󠁟󠁠󠁡󠁢󠁣󠁤󠁥󠁦󠁧󠁨󠁩󠁪󠁫󠁬󠁭󠁮󠁯󠁰󠁱󠁲󠁳󠁴󠁵󠁶󠁷󠁸󠁹󠁺󠁻󠁼󠁽󠁾󠁿󠄀󠄁󠄂󠄃󠄄󠄅󠄆󠄇󠄈󠄉󠄊󠄋󠄌󠄍󠄎󠄏󠄐󠄑󠄒󠄓󠄔󠄕󠄖󠄗󠄘󠄙󠄚󠄛󠄜󠄝󠄞󠄟󠄠󠄡󠄢󠄣󠄤󠄥󠄦󠄧󠄨󠄩󠄪󠄫󠄬󠄭󠄮󠄯󠄰󠄱󠄲󠄳󠄴󠄵󠄶󠄷󠄸󠄹󠄺󠄻󠄼󠄽󠄾󠄿󠅀󠅁󠅂󠅃󠅄󠅅󠅆󠅇󠅈󠅉󠅊󠅋󠅌󠅍󠅎󠅏󠅐󠅑󠅒󠅓󠅔󠅕󠅖󠅗󠅘󠅙󠅚󠅛󠅜󠅝󠅞󠅟󠅠󠅡󠅢󠅣󠅤󠅥󠅦󠅧󠅨󠅩󠅪󠅫󠅬󠅭󠅮󠅯󠅰󠅱󠅲󠅳󠅴󠅵󠅶󠅷󠅸󠅹󠅺󠅻󠅼󠅽󠅾󠅿󠆀󠆁󠆂󠆃󠆄󠆅󠆆󠆇󠆈󠆉󠆊󠆋󠆌󠆍󠆎󠆏󠆐󠆑󠆒󠆓󠆔󠆕󠆖󠆗󠆘󠆙󠆚󠆛󠆜󠆝󠆞󠆟󠆠󠆡󠆢󠆣󠆤󠆥󠆦󠆧󠆨󠆩󠆪󠆫󠆬󠆭󠆮󠆯󠆰󠆱󠆲󠆳󠆴󠆵󠆶󠆷󠆸󠆹󠆺󠆻󠆼󠆽󠆾󠆿󠇀󠇁󠇂󠇃󠇄󠇅󠇆󠇇󠇈󠇉󠇊󠇋󠇌󠇍󠇎󠇏󠇐󠇑󠇒󠇓󠇔󠇕󠇖󠇗󠇘󠇙󠇚󠇛󠇜󠇝󠇞󠇟󠇠󠇡󠇢󠇣󠇤󠇥󠇦󠇧󠇨󠇩󠇪󠇫󠇬󠇭󠇮︀︁︂︃︄︅︆︇︈︉︊︋︌︍︎️﻿￹￺￻￼]+.{0,32}/gi);
@@ -542,6 +563,10 @@ function extractIndicator() {
 		dupInvisibleCharacters = dupInvisibleCharacters.map(value => value.replace(regInvisibleCharacters,'👁'));
 	}
 	invisibleCharacters = new Set(dupInvisibleCharacters);
+	dtls = document.getElementsByClassName('a--dtl--unicode');
+	for ( let dtl of dtls ) {
+		dtl.open = invisibleCharacters.size;
+	}
 }
 
 //　■■■　ANALYSIS　■■■

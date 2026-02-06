@@ -64,23 +64,25 @@
 		}
 		.menu {
 			grid-area: menu;
+			left: 0;
+			position: sticky;
 		}
 		.main {
 			grid-area: main;
-			height: 99%;
-			overflow: auto;
 			border: 1px solid;
+			overflow: auto;
 		}
-		#line-number {
-			padding: 0.25rem 0.25rem 0.25rem 0.5rem;
-			text-align: right;
-			color :grey;
-			border-right: 1px solid grey;
-		}
-		#memo {
-			width: 100%;
-			padding: 0.25rem 0.5rem;
-			overflow: scroll;
+		#main {
+			#line-number {
+				padding: 0.25rem 0.25rem 0.25rem 0.5rem;
+				text-align: right;
+				color :grey;
+				border-right: 1px solid grey;
+			}
+			#memo {
+				width: 100%;
+				padding: 0.25rem 0.5rem;
+			}
 		}
 	</style>
 </head>
@@ -127,7 +129,7 @@
 			<button class="a--event-speaker" data-act="extract10">約10行抽出</button>
 			<button class="a--event-speaker" data-act="transform-matrix">行→列(CSV)</button>
 		</div>
-		<main class="main l--flex-container">
+		<main id="main" class="main l--flex-container">
 			<div id="line-number"></div>
 			<div id="memo" contenteditable></div>
 		</main>
