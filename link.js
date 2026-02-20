@@ -803,10 +803,13 @@ function memoCmd(elm) {
 		break;
 		case 'webhook' :
 			if ( window.confirm('機密情報は含まれていませんか？') ) {
-				const xhr = new XMLHttpRequest();
-				let webhookUrl = document.getElementById('config--webhook');
-				xhr.open("GET",webhookUrl + encodeURIComponent(memoValue));
-				xhr.send();
+				let webhookUrl = document.getElementById('config--webhook').value;
+				let lines = memoValue.split('\n');
+				let querys = [];
+				for ( let i=0; i<lines.length; i++ ) {
+					querys.push('q' + i + '=' + encodeURIComponent(lines[i]));
+				}
+				window.open(webhookUrl + '?&q=' + encodeURIComponent(memoValue) + '&' + querys.join('&'));
 			}
 		break;
 		case 'restore' :

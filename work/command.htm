@@ -242,11 +242,11 @@
 			});
 			function searchSplunk(elm) {
 				splunkUrl = '';
-				let spl = elm.parentElement.nextElementSibling.childre[0].textContent.replace(/\t/g,'').trim();
+				let spl = elm.parentElement.nextElementSibling.children[0].textContent.replace(/\t/g,'').trim();
 				window.open(splunkUrl + encodeURIComponent(spl));
 			}
 			function copy(elm) {
-				navigator.clipboard.writeText(elm.parentElement.nextElementSibling.childre[0].textContent.replace(/\t/g,'').trim());
+				navigator.clipboard.writeText(elm.parentElement.nextElementSibling.children[0].textContent.replace(/\t/g,'').trim());
 			}
 		</script>
 	</body>
