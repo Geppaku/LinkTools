@@ -26,48 +26,92 @@
 		pre {
 			display: inline;
 		}
-		.l--flex-container {
-			display: flex;
-			flex-flow: column;
-		}
 		#schedule {
 			height: 8rem;
+		}
+		.l--padding-lr--05rem {
+			padding: 0 0.5rem 0 0.5rem;
+		}
+		.l--flex-container {
+			display: flex;
+		}
+		.l--flex-wrap {
+			flex-wrap: wrap;
+		}
+		.l--flex-flow--column {
+			flex-flow: column;
+		}
+		.l--justify-content--around {
+			justify-content: space-around;
+		}
+		.d--font-size--2rem {
+			font-size: 2rem;
 		}
 	</style>
 </head>
 
 <body>
-	<div class="l--flex-container">
+	<div class="l--flex-container l--flex-flow--column">
+		<div class="l--flex-container l--flex-wrap l--justify-content--around">
+			<div class="l--flex-container l--flex-wrap">
+				<div class="l--padding-lr--05rem">次の予定</div>
+				<div id="next-schedule" class="l--padding-lr--05rem d--font-size--2rem"></div>
+			</div>
+			<div class="l--flex-container l--flex-wrap">
+				<div class="l--padding-lr--05rem">残り時間</div>
+				<div id="remained-time" class="l--padding-lr--05rem d--font-size--2rem"></div>
+			</div>
+		</div>
 		<textarea id="schedule"></textarea>
-		<button class="a--event-speaker">Set</button>
-		<div id="timer"></div>
 	</div>
 	<!--　■■■■■　JavaScript　■■■■■　-->
 	<script type="text/javascript">
-		window.onload = function() {
-			document.querySelectorAll('.a--event-speaker').forEach(function(elm) {
-				elm.addEventListener('click', function() {
-					timer();
-				});
-			});
+		const JpDows = ["日", "月", "火", "水", "木", "金", "土"];
+		const enDows = ["Sun.", "Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat."];
+		let now, Y, M, D, A, h, m, s;
+		let schedules = [];
+		function getDateTime() {
+			now = new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000));
+			Y = now.getFullYear();
+			M = now.getMonth() + 1;
+			D = now.getDate();
+			A = JpDows[now.getDay()];
+			h = now.getHours();
+			m = now.getMinutes();
+			s = now.getSeconds();
 		}
-		function timer(){
-			clock();
-			let schedules = document.getElementById('schedule').value.split('\n').sort().filter((elem) => /^\d{2}:?\d{2}(\s.)*/.test(elem));
+		function scheduleChanged() {
+			schedules = document.getElementById('schedule').value.split('\n').sort().filter((elem) => /^\d{2}:?\d{2}(\s.)*/.test(elem));
+			alarm();
+		}
+		function alarm() {
+			let i=0;
+			getDateTime();
 			for ( let schedule of schedules ) {
-				let time = schedule.match(/^\d{2}:?\d{2}/)[0];
+				let scheduleTime = schedule.match(/^\d{2}:?\d{2}/)[0];
+				let scheduleTimeH = scheduleTime.match(/^\d{2}/)[0];
+				let scheduleTimeM = scheduleTime.match(/\d{2}$/)[0];
 				let event = schedule.match(/^\d{2}:?\d{2}\s*(.*)$/)[1];
-				console.log(time);
+				let schduleDateTime = new Date( Y, M-1, D, scheduleTimeH, scheduleTimeM );
+				if ( i == 0 ) {
+					if ( now < schduleDateTime ) {
+						let remainedTime = (schduleDateTime - now) / 1000;
+						let remainedTimeHh = ('0' + Math.floor(remainedTime % 86400 / 3600)).slice(-2);
+						let remainedTimeMm = ('0' + Math.floor(remainedTime % 3600 / 60)).slice(-2);
+						let remainedTimeSs = ('0' + Math.floor(remainedTime % 60)).slice(-2);
+						document.getElementById('remained-time').innerText = remainedTimeHh + 'h' + remainedTimeMm + 'm' + remainedTimeSs + 's';
+						document.getElementById('next-schedule').innerText = event;
+						i++;
+					} else {
+						document.getElementById('next-schedule').innerText = '-';
+					}
+				}
 			}
 		}
-		function clock() {
-			const now = new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000));
-			const Y = now.getFullYear();
-			const M = now.getMonth() + 1;
-			const D = now.getDate();
-			const h = now.getHours();
-			const m = now.getMinutes();
-			const s = now.getSeconds();
+		window.onload = function() {
+			getDateTime();
+			document.getElementById('schedule').addEventListener('input', scheduleChanged);
+			setInterval(() => { alarm()	}, 100);
 		}
 	</script>
 </body>

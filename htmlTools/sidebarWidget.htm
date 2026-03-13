@@ -29,16 +29,6 @@
 				flex-grow: 1;
 			}
 		}
-		main {
-			display: flex;
-			flex-flow: column;
-		}
-		.l--full-width {
-			width: 100%;
-		}
-		.l--text-align--center {
-			text-align: center;
-		}
 		#analog-clock {
 			position: relative;
 			top: 0;
@@ -84,6 +74,33 @@
 			top: 15%;
 			left: 49.4%;
 		}
+		.l--full-width {
+			width: 100%;
+		}
+		.l--margin-tb--auto {
+			margin: auto 0;
+		}
+		.l--padding-lr--05rem {
+			padding: 0 0.5rem;
+		}
+		.l--text-align--center {
+			text-align: center;
+		}
+		.l--display--flex {
+			display: flex;
+		}
+		.l--flex-flow--column {
+			flex-flow: column;
+		}
+		.l--flex-wrap {
+			flex-wrap: wrap;
+		}
+		.l--justify-content--center {
+			justify-content: center;
+		}
+		.d--font-size--2rem {
+			font-size: 2rem;
+		}
 	</style>
 </head>
 
@@ -95,10 +112,16 @@
 				<path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466"/>
 			</svg>
 		</button>
+		<button class="a--event-speaker" data-act="light-dark">
+			<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-lightbulb" viewBox="0 0 16 16">
+				<path d="M2 6a6 6 0 1 1 10.174 4.31c-.203.196-.359.4-.453.619l-.762 1.769A.5.5 0 0 1 10.5 13a.5.5 0 0 1 0 1 .5.5 0 0 1 0 1l-.224.447a1 1 0 0 1-.894.553H6.618a1 1 0 0 1-.894-.553L5.5 15a.5.5 0 0 1 0-1 .5.5 0 0 1 0-1 .5.5 0 0 1-.46-.302l-.761-1.77a2 2 0 0 0-.453-.618A5.98 5.98 0 0 1 2 6m6-5a5 5 0 0 0-3.479 8.592c.263.254.514.564.676.941L5.83 12h4.342l.632-1.467c.162-.377.413-.687.676-.941A5 5 0 0 0 8 1"/>
+			</svg>
+		</button>
 	</header>
-	<main>
+	<main class="l--display--flex l--flex-flow--column">
 		<article>
-			<div id="ww_2969793598be7" v='1.3' loc='id' a='{"t":"horizontal","lang":"ja","sl_lpl":1,"ids":[],"font":"Arial","sl_ics":"one","sl_sot":"celsius","cl_bkg":"#616161","cl_font":"#FFFFFF","cl_cloud":"#FFFFFF","cl_persp":"#81D4FA","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722","el_cwt":3,"el_phw":3}'>More forecasts: <a href="https://oneweather.org/ja/tokyo/10_days/" id="ww_2969793598be7_u" target="_blank">東京 10日間天気</a></div><script async src="https://app3.weatherwidget.org/js/?id=ww_2969793598be7"></script>
+			<div id="ww_2969793598be7" v='1.3' loc='id' a='{"t":"horizontal","lang":"ja","sl_lpl":1,"ids":[],"font":"Arial","sl_ics":"one","sl_sot":"celsius","cl_bkg":"#616161","cl_font":"#FFFFFF","cl_cloud":"#FFFFFF","cl_persp":"#81D4FA","cl_sun":"#FFC107","cl_moon":"#FFC107","cl_thund":"#FF5722","el_cwt":3,"el_phw":3}'>More forecasts: <a href="https://oneweather.org/ja/tokyo/10_days/" id="ww_2969793598be7_u" target="_blank">東京 10日間天気</a></div>
+			<script async src="https://app3.weatherwidget.org/js/?id=ww_2969793598be7"></script>
 		</article>
 		<article id="analog-clock">
 			<div id="analog-clock--dial">
@@ -107,28 +130,49 @@
 				<div id="analog-clock--second"></div>
 			</div>
 		</article>
-		<article>
-			<p id="digital-clock--date" class="l--text-align--center"></p>
-			<p id="digital-clock--time" class="l--text-align--center"></p>
+		<article id="digital-clock" class="l--display--flex l--flex-wrap l--justify-content--center l--">
+			<p id="digital-clock--date" class="l--padding-lr--05rem l--margin-tb--auto"></p>
+			<p id="digital-clock--time" class="l--padding-lr--05rem d--font-size--2rem"></p>
 		</article>
+		<article id="alarm" class="l--display--flex l--flex-flow--column">
+			<div class="l--display--flex l--flex-wrap l--justify-content--center">
+				<div class="l--display--flex l--flex-wrap">
+					<div class="l--padding-lr--05rem">次の予定</div>
+					<div id="next-schedule" class="l--padding-lr--05rem d--font-size--2rem"></div>
+				</div>
+				<div class="l--display--flex l--flex-wrap">
+					<div class="l--padding-lr--05rem">残り時間</div>
+					<div id="remained-time" class="l--padding-lr--05rem">
+						<span id="remained-time--h" class="l--padding-lr--025rem d--font-size--2rem"></span><span>h</span>
+						<span id="remained-time--m" class="l--padding-lr--025rem d--font-size--2rem"></span><span>m</span>
+						<span id="remained-time--s" class="l--padding-lr--025rem d--font-size--2rem"></span><span>s</span>
+					</div>
+				</div>
+			</div>
+			<textarea id="schedule"></textarea>
+		</article>
+<!--
 		<article>
 			<iframe class="l--full-width" src="https://calendar.google.com/calendar/embed?wkst=2&ctz=Asia%2FTokyo&showPrint=0&showTitle=0&showDate=0&showTz=0&showTabs=0&src=ai5tb3JpeWF5dUBnbWFpbC5jb20&src=djdhdGtkc2FydHZ1dDRpdDlpOG1qaDVlanNAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&src=MmU3NmU4MDc2ZWE0OTBmMjE4NzkxMTMwYzM3YmVlZWViMGEyYTNkN2JjNTg3MGQ4M2IyMGQxNGYxMjIwYjU1ZEBncm91cC5jYWxlbmRhci5nb29nbGUuY29t&src=YWxncTRkZG5vanZvY3NvZmg5NmloZGUzaThAZ3JvdXAuY2FsZW5kYXIuZ29vZ2xlLmNvbQ&src=bW9yaXlhLnl1a2loaXJvQGdtYWlsLmNvbQ&src=c2hvZG9rYWk1NEBnbWFpbC5jb20&src=amEuamFwYW5lc2UjaG9saWRheUBncm91cC52LmNhbGVuZGFyLmdvb2dsZS5jb20&color=%23d50000&color=%234285f4&color=%23d50000&color=%234285f4&color=%237986cb&color=%23616161&color=%23d81b60" style="border:solid 1px #777" height="600" frameborder="0" scrolling="no"></iframe>
 		</article>
 	</main>
+-->
 	<!--　■■■■■　JavaScript　■■■■■　-->
 	<script type="text/javascript">
 		//　■■■　曜日表記　■■■
 		const JpDows = ["日", "月", "火", "水", "木", "金", "土"];
 		const enDows = ["Sun.", "Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat."];
-		function tick() {
-			const now = new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000));
-			const Y = now.getFullYear();
-			const M = now.getMonth() + 1;
-			const D = now.getDate();
-			const A = JpDows[now.getDay()];
-			const h = now.getHours();
-			const m = now.getMinutes();
-			const s = now.getSeconds();
+		let now, Y, M, D, A, h, m, s;
+		let schedules = [];
+		function getDateTime() {
+			now = new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000));
+			Y = now.getFullYear();
+			M = now.getMonth() + 1;
+			D = now.getDate();
+			A = JpDows[now.getDay()];
+			h = now.getHours();
+			m = now.getMinutes();
+			s = now.getSeconds();
 			const hourDeg = h * 30 + m * 0.5 + s * 0.00833333333;
 			const minuteDeg = m * 6 + s * 0.1;
 			const secondDeg = s * 6;
@@ -138,16 +182,53 @@
 			document.getElementById("digital-clock--date").innerText = Y + '-' + ('0'+M).slice(-2) + '-' + ('0'+D).slice(-2) + ' (' + A + ')';
 			document.getElementById("digital-clock--time").innerText = ('0'+h).slice(-2) + ':' + ('0'+m).slice(-2) + ':' + ('0'+s).slice(-2);
 		}
-		
 		function initClock() {
-			tick();
+			getDateTime();
 			document.getElementById("analog-clock--hour").style.background = '#333333';
 			document.getElementById("analog-clock--minute").style.background = '#333333';
 			document.getElementById("analog-clock--second").style.background = '#777777';
-			setInterval(() => { tick() }, 100);
+			setInterval(() => { getDateTime() }, 100);
+		}
+		function scheduleChanged() {
+			schedules = document.getElementById('schedule').value.split('\n').sort().filter((elem) => /^\d{2}:?\d{2}(\s.)*/.test(elem));
+			alarm();
+		}
+		function alarm() {
+			let i=0;
+			for ( let schedule of schedules ) {
+				let scheduleTime = schedule.match(/^\d{2}:?\d{2}/)[0];
+				let scheduleTimeH = scheduleTime.match(/^\d{2}/)[0];
+				let scheduleTimeM = scheduleTime.match(/\d{2}$/)[0];
+				let event = schedule.match(/^\d{2}:?\d{2}\s*(.*)$/)[1];
+				let scheduleDateTime = new Date( Y, M-1, D, scheduleTimeH, scheduleTimeM );
+				if ( i == 0 ) {
+					now.setMilliseconds(0);
+					if ( now == scheduleDateTime ) {
+						console.log('matched!');
+//						const notification = new Notification(event);
+					} else if ( now < scheduleDateTime ) {
+						let remainedTime = (scheduleDateTime - now) / 1000;
+						let remainedTimeHh = ('0' + Math.floor(remainedTime % 86400 / 3600)).slice(-2);
+						let remainedTimeMm = ('0' + Math.floor(remainedTime % 3600 / 60)).slice(-2);
+						let remainedTimeSs = ('0' + Math.floor(remainedTime % 60)).slice(-2);
+						document.getElementById('next-schedule').innerText = event;
+						document.getElementById('remained-time--h').innerText = remainedTimeHh;
+						document.getElementById('remained-time--m').innerText = remainedTimeMm;
+						document.getElementById('remained-time--s').innerText = remainedTimeSs;
+						i++;
+					} else {
+						document.getElementById('next-schedule').innerText = '-';
+						document.getElementById('remained-time').innerText = '-';
+					}
+				}
+			}
 		}
 		window.addEventListener('DOMContentLoaded', function() {
 			initClock();
+			scheduleChanged();
+			Notification.requestPermission();
+			document.getElementById('schedule').addEventListener('input', scheduleChanged);
+			setInterval(() => { alarm()	}, 100);
 			document.querySelectorAll('.a--event-speaker').forEach(function(elm) {
 				elm.addEventListener('click', function() {
 					switch ( elm.dataset.act ) {
