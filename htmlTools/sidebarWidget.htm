@@ -101,6 +101,9 @@
 		.d--font-size--08rem {
 			font-size: 0.8rem;
 		}
+		.d--font-size--1rem {
+			font-size: 1rem;
+		}
 		.d--font-size--2rem {
 			font-size: 2rem;
 		}
@@ -148,10 +151,10 @@
 				</div>
 				<div class="l--display--flex l--flex-wrap">
 					<div class="l--padding-lr--05rem">残り時間</div>
-					<div id="remained-time" class="l--padding-lr--05rem">
-						<span id="remained-time--h" class="l--padding-lr--025rem d--font-size--2rem"></span><span>h</span>
-						<span id="remained-time--m" class="l--padding-lr--025rem d--font-size--2rem"></span><span>m</span>
-						<span id="remained-time--s" class="l--padding-lr--025rem d--font-size--2rem"></span><span>s</span>
+					<div id="remained-time" class="l--padding-lr--05rem d--font-size--2rem">
+						<span id="remained-time--h" class="l--padding-lr--025rem"></span><span class="d--font-size--1rem">h</span>
+						<span id="remained-time--m" class="l--padding-lr--025rem"></span><span class="d--font-size--1rem">m</span>
+						<span id="remained-time--s" class="l--padding-lr--025rem"></span><span class="d--font-size--1rem">s</span>
 					</div>
 				</div>
 			</div>
@@ -170,6 +173,8 @@
 		const enDows = ["Sun.", "Mon.", "Tue.", "Wed.", "Thu.", "Fri.", "Sat."];
 		let now, Y, era, M, D, A, h, m, s;
 		let schedules = [];
+		let lastAlarmMm = -1;
+		let notificationFlag = false;
 		function getDateTime() {
 			now = new Date(Date.now() + ((new Date().getTimezoneOffset() + (9 * 60)) * 60 * 1000));
 			Y = now.getFullYear();
@@ -195,26 +200,25 @@
 			document.getElementById("analog-clock--hour").style.background = '#333333';
 			document.getElementById("analog-clock--minute").style.background = '#333333';
 			document.getElementById("analog-clock--second").style.background = '#777777';
-			setInterval(() => { getDateTime() }, 100);
+			setInterval(() => {
+				getDateTime();
+				alarm();
+			}, 100);
 		}
 		function scheduleChanged() {
 			schedules = document.getElementById('schedule').value.split('\n').sort().filter((elem) => /^\d{2}:?\d{2}(\s.)*/.test(elem));
-			alarm();
 		}
 		function alarm() {
-			let i=0;
+			let nextEventFlag = true;
 			for ( let schedule of schedules ) {
 				let scheduleTime = schedule.match(/^\d{2}:?\d{2}/)[0];
 				let scheduleTimeH = scheduleTime.match(/^\d{2}/)[0];
 				let scheduleTimeM = scheduleTime.match(/\d{2}$/)[0];
 				let event = schedule.match(/^\d{2}:?\d{2}\s*(.*)$/)[1];
 				let scheduleDateTime = new Date( Y, M-1, D, scheduleTimeH, scheduleTimeM );
-				if ( i == 0 ) {
+				if ( nextEventFlag ) {
 					now.setMilliseconds(0);
-					if ( now == scheduleDateTime ) {
-						console.log('matched!');
-//						const notification = new Notification(event);
-					} else if ( now < scheduleDateTime ) {
+					if ( now <= scheduleDateTime ) {
 						let remainedTime = (scheduleDateTime - now) / 1000;
 						let remainedTimeHh = ('0' + Math.floor(remainedTime % 86400 / 3600)).slice(-2);
 						let remainedTimeMm = ('0' + Math.floor(remainedTime % 3600 / 60)).slice(-2);
@@ -223,10 +227,35 @@
 						document.getElementById('remained-time--h').innerText = remainedTimeHh;
 						document.getElementById('remained-time--m').innerText = remainedTimeMm;
 						document.getElementById('remained-time--s').innerText = remainedTimeSs;
-						i++;
+						if ( remainedTimeHh !== null ) {
+							document.title = remainedTimeHh + 'h | ' + event;
+							if ( remainedTimeHh == '00' ) {
+								document.title = remainedTimeMm + 'm | ' + event;
+								if ( remainedTimeMm == '00' ) {
+									document.title = remainedTimeSs + 's | ' + event;
+								}
+							}
+						}
+						if ( m != lastAlarmMm ) {
+							notificationFlag = false;
+						}
+						if ( remainedTime < 1 && !notificationFlag ) {
+							lastAlarmMm = m;
+							notificationFlag = true;
+							new Notification(
+								event,
+								{
+									body: scheduleDateTime
+								}
+							);
+						}
+						nextEventFlag = false;
 					} else {
 						document.getElementById('next-schedule').innerText = '-';
-						document.getElementById('remained-time').innerText = '-';
+						document.getElementById('remained-time--h').innerText = '-';
+						document.getElementById('remained-time--m').innerText = '-';
+						document.getElementById('remained-time--s').innerText = '-';
+						document.title = 'Widget';
 					}
 				}
 			}
@@ -236,7 +265,6 @@
 			scheduleChanged();
 			Notification.requestPermission();
 			document.getElementById('schedule').addEventListener('input', scheduleChanged);
-			setInterval(() => { alarm()	}, 100);
 			document.querySelectorAll('.a--event-speaker').forEach(function(elm) {
 				elm.addEventListener('click', function() {
 					switch ( elm.dataset.act ) {
