@@ -38,6 +38,7 @@ const hashOsints = [
 ];
 const cveOsints = [
 	{ title: 'CVE', name: 'cve-cveorg', url1: 'https://www.cve.org/CVERecord?id=', url2: '', encode: '', icon: 'cveorg.png' },
+	{ title: 'NVD', name: 'cve-nvd', url1: 'https://nvd.nist.gov/vuln/detail/', url2: '', encode: '', icon: 'nvd.png' },
 ];
 
 //　■■■■　TLD　■■■■
