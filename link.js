@@ -37,6 +37,7 @@ const hashOsints = [
 	{ title: 'Virus Total', name: 'hash-virustotal', url1: 'https://www.virustotal.com/gui/search/', url2: '', encode: '', icon: 'virustotal.svg' },
 ];
 const cveOsints = [
+	{ title: 'Search', name: 'domain-search', url1: 'https://www.google.com/search?q="', url2: '"', encode: '', icon: 'google.ico' },
 	{ title: 'CVE', name: 'cve-cveorg', url1: 'https://www.cve.org/CVERecord?id=', url2: '', encode: '', icon: 'cveorg.png' },
 	{ title: 'NVD', name: 'cve-nvd', url1: 'https://nvd.nist.gov/vuln/detail/', url2: '', encode: '', icon: 'nvd.png' },
 ];
@@ -210,7 +211,7 @@ function urlAnalysis(url) {
 	urlObj.flag += /https?:\/{0,2}[^\/]*[\-\.]?ipfs[\-\.]?[^\/]+/.test(url) ? '🌐' : '' ;
 	urlObj.flag += /https?:\/{0,2}[^\/]*\w{16,}/.test(url) ? '🎲' : '' ;
 	urlObj.flag += /https?:\/{0,2}[^\/]*[bcdfghjklmnpqrstvwxyz0-9]{8,}/.test(url) ? '🎲' : '' ;
-	let parser = new URL(url);
+//	let parser = new URL(url);　エラー出る
 	urlObj.siteDisplayed += /https?:\/{0,2}[^\/]*safelinks\.protection\.outlook\.com\/[\w\-_\.\/]*(\?.*)?[\?&]url=https?[^&]+/.test(url)
 		? decodeURIComponent(url.match(/[\?&]url=https?[^&]+/gi)[0].match(/https?.+/gi)[0]) : '';
 	urlObj.siteDisplayed += /https?:\/{0,2}[^\/]*www\.google\.com\/url(\?.*)?[\?&]url=https?[^&]+/.test(url)
@@ -678,6 +679,12 @@ function analysis() {
 	}
 	//　■■　ANALYSIS--CVE　■■
 	let elmMAC = document.getElementById('main--analysis--cve');
+	//　■　ANALYSIS--CVE--ID　■
+	appendHtmlUl(elmMAC, 'main--analysis--cve--id', 'CVE-ID');
+	let elmMACI = document.getElementById('main--analysis--cve--id');
+	for ( let cve of cves ){
+		appendHtmlLi(elmMACI, '', cve);
+	}
 	//　■　ANALYSIS--CVE--OSINT　■
 	for ( let cveOsint of cveOsints ) {
 		appendHtmlList(elmMAC, cves, cveOsint);
