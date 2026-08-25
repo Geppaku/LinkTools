@@ -38,8 +38,10 @@ const hashOsints = [
 ];
 const cveOsints = [
 	{ title: 'Search', name: 'domain-search', url1: 'https://www.google.com/search?q="', url2: '"', encode: '', icon: 'google.ico' },
-	{ title: 'CVE', name: 'cve-cveorg', url1: 'https://www.cve.org/CVERecord?id=', url2: '', encode: '', icon: 'cveorg.png' },
+	{ title: 'CVE.org', name: 'cve-cveorg', url1: 'https://www.cve.org/CVERecord?id=', url2: '', encode: '', icon: 'cveorg.png' },
 	{ title: 'NVD', name: 'cve-nvd', url1: 'https://nvd.nist.gov/vuln/detail/', url2: '', encode: '', icon: 'nvd.png' },
+	{ title: 'VULDB(ja)', name: 'cve-vuldb', url1: 'https://vuldb.com/ja/cve/', url2: '', encode: '', icon: 'vuldb.ico' },
+	{ title: 'KEV', name: 'cve-vuldb', url1: 'https://www.cisa.gov/known-exploited-vulnerabilities-catalog?search=', url2: '&field_date_added_wrapper=all&field_cve=&sort_by=field_date_added&items_per_page=20&url=', encode: '', icon: 'kev.png' },
 ];
 
 //　■■■■　TLD　■■■■
