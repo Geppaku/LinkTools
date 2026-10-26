@@ -340,6 +340,12 @@ nav > ul > li {
 	}
 }
 
+body:has(#analysis:target) nav a[href="#analysis"],
+body:has(#work:target) nav a[href="#work"],
+body:has(#config:target) nav a[href="#config"] {
+	color :#cc0000;
+}
+
 .link {
 	grid-area: link;
 }

@@ -296,9 +296,6 @@ function appendHtmlList(parentElm, items, osintObj) {
 		let ulElm = document.createElement('ul');
 		divElm.appendChild(ulElm);
 		for ( let item of items ) {
-			if ( item.length > 64) {
-				item = item.substr(0,32) + ' ... ' + item.substr(-16);
-			}
 			let liElm = document.createElement('li');
 			ulElm.appendChild(liElm);
 			switch (osintObj.encode) {
@@ -811,7 +808,7 @@ function copyTableColumn(elm) {
 function openTableColumnUri(elm,target) {
 	let trs = elm.parentElement.parentElement.parentElement.children;
 	let colNum = elm.dataset.target;
-	if ( window.confirm('危険なURIは含まれていませんか？') ) {
+	if ( window.confirm('すべてのURLを開きます。') ) {
 		for ( let i=1; i<trs.length; i++ ) {
 			window.open(trs[i].children[colNum].innerText, '_blank');
 		}
